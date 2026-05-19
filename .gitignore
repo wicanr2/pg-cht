@@ -1,0 +1,36 @@
+# 大檔 / binary,不入 git
+*.AppImage
+*.AppDir/
+*.xwd
+*.cab
+
+# Wine prefix(每個 user 環境不一樣)
+.wine-pgcht/
+wine-prefix/
+
+# 字體 binary(不 redist Microsoft / Adobe 字體)
+*.ttf
+*.ttc
+*.otf
+*.fon
+
+# 構建中間產物
+appimagetool
+appimage-build/
+/tmp/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Panzer General (繁中化)
+Name[zh_TW]=裝甲元帥(繁中化)
+Comment=Panzer General Win95 traditional Chinese edition, bundled wine
+Comment[zh_TW]=裝甲元帥 Win95 繁中化版,內附 wine 環境
+Exec=AppRun
+Icon=panzer-general
+Type=Application
+Categories=Game;StrategyGame;
+Terminal=false

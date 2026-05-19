@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+# Panzer General (繁中化) AppImage launcher
+# - 自帶 wine (32-bit) + 已配置好的 WINEPREFIX + 遊戲檔
+# - 第一次執行時把 prefix copy 到 ~/.local/share/PanzerGeneral/wine (使遊戲存檔 / 設定可持久)
+
+set -eu
+
+HERE="$(dirname "$(readlink -f "$0")")"
+
+# ---- 環境變數:讓 wine 從 AppDir 內找 binary / libs / shares
+export PATH="$HERE/usr/bin:$PATH"
+export WINESERVER="$HERE/usr/bin/wineserver"
+export WINELOADER="$HERE/usr/bin/wine"
+
+# 讓 ld 從 AppDir 找 .so(優先)
+export LD_LIBRARY_PATH="$HERE/usr/lib/x86_64-linux-gnu:$HERE/usr/lib/i386-linux-gnu:$HERE/usr/lib:${LD_LIBRARY_PATH:-}"
+
+# 讓 wine 從 AppDir 找 fake DLL / fonts / inf
+export WINEDLLPATH="$HERE/usr/lib/x86_64-linux-gnu/wine:$HERE/usr/lib/i386-linux-gnu/wine"
+export WINEDLLOVERRIDES="mscoree,mshtml="
+export WINEDEBUG="${WINEDEBUG:--all}"
+export WINEARCH=win32
+export LANG="${LANG:-zh_TW.UTF-8}"
+
+# ---- 第一次執行:解 prefix 到 user data dir
+USER_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/PanzerGeneral"
+USER_PREFIX="$USER_DATA_HOME/wine"
+USER_GAME="$USER_DATA_HOME/game"
+
+mkdir -p "$USER_DATA_HOME"
+
+if [ ! -f "$USER_PREFIX/system.reg" ]; then
+    echo "[PanzerGeneral] 第一次啟動,正在解壓 WINEPREFIX 到 $USER_PREFIX (約需 30 秒)..."
+    cp -a "$HERE/opt/wine-prefix" "$USER_PREFIX"
+    echo "[PanzerGeneral] 完成"
+fi
+
+# 遊戲檔 read-only 從 AppDir 跑沒問題,但若要支援存檔需要 copy
+# Panzer General 把存檔寫在遊戲目錄內 → 必須 copy 到 user dir
+if [ ! -f "$USER_GAME/PG-cht.exe" ]; then
+    echo "[PanzerGeneral] 正在解壓遊戲檔到 $USER_GAME..."
+    cp -a "$HERE/opt/game" "$USER_GAME"
+fi
+
+export WINEPREFIX="$USER_PREFIX"
+
+# ---- 啟動
+cd "$USER_GAME"
+exec "$WINELOADER" ./PG-cht.exe "$@"
