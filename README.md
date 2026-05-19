@@ -13,7 +13,9 @@
 | Wine 環境跑通 PG-cht.exe | ✅ Ubuntu 24.04 + wine 9.0 + 32-bit prefix |
 | 全部中文正確顯示 | ✅ menu/對話框/按鈕/標題,字體 Source Han Sans Heavy(weight 900,粗體) |
 | Self-contained AppImage | ✅ 366 MB,Ubuntu 22.04+ 同等 GLIBC 環境免裝 wine 即跑 |
-| 完整技術文件 + 6 張關鍵截圖 + 8 支腳本 | ✅ 見以下目錄 |
+| 完整技術文件 + 構建腳本 + 領域知識 skill | ✅ 見以下目錄 |
+
+> 截圖檔(原 6 張 PNG)已從 repo 中移除以縮小體積,僅留說明文字於 `docs/01-symptom-screenshots.md`。
 
 ---
 
@@ -24,8 +26,8 @@ pg-cht/
 ├── README.md                       # 你正在看的這份
 ├── WINE-FONT-SETUP.md              # 詳細技術文件(三層字體問題 + 解法)
 ├── docs/
-│   ├── 01-symptom-screenshots.md   # 6 張截圖故事(□□ → 正常 → 粗體 → AppImage)
-│   └── screenshots/                # PNG 截圖
+│   ├── 01-symptom-screenshots.md   # 6 張截圖的時序敘事(□□ → 正常 → 粗體 → AppImage)
+│   └── screenshots/                # 空目錄(PNG 已從 repo 移除)
 ├── tools/                          # 字體與 prefix 配置腳本
 │   ├── setup-wine.sh               # 一鍵裝 wine + 建 prefix + DPI=136
 │   ├── write-menufont.py           # 寫 binary LOGFONTW 改 menu/caption 字體
@@ -34,15 +36,18 @@ pg-cht/
 │   ├── replace-tahoma.py           # 把產出的字體覆蓋進 prefix,設 fontRev=32767.99
 │   ├── rename-fonts.py             # 改字體 face name(mingliu/pmingliu/simsun 等別名)
 │   └── fontforge.Dockerfile        # docker fontforge 環境(複雜字體操作用)
-└── appimage/                       # AppImage 構建材料
-    ├── README.md                   # AppImage 構建與設計筆記
-    ├── AppRun                      # 啟動腳本
-    ├── panzer-general.desktop      # XDG entry
-    ├── panzer-general.png          # icon
-    ├── wine-portable.sh            # 取代 /usr/bin/wine(原版 hardcode 路徑)
-    ├── wineserver-portable.sh      # 取代 /usr/bin/wineserver
-    ├── wineserver-dispatcher.sh    # 取代 /usr/lib/wine/wineserver
-    └── build.sh                    # 一鍵打包 .AppImage
+├── appimage/                       # AppImage 構建材料
+│   ├── README.md                   # AppImage 構建與設計筆記
+│   ├── AppRun                      # 啟動腳本
+│   ├── panzer-general.desktop      # XDG entry
+│   ├── panzer-general.png          # icon
+│   ├── wine-portable.sh            # 取代 /usr/bin/wine(原版 hardcode 路徑)
+│   ├── wineserver-portable.sh      # 取代 /usr/bin/wineserver
+│   ├── wineserver-dispatcher.sh    # 取代 /usr/lib/wine/wineserver
+│   └── build.sh                    # 一鍵打包 .AppImage
+└── skills/
+    └── panzer-general-cht/
+        └── SKILL.md                # PG/AG 中文化領域知識(供 Claude Code 接續)
 ```
 
 ---
