@@ -15,7 +15,19 @@
 | Self-contained AppImage | ✅ 366 MB,Ubuntu 22.04+ 同等 GLIBC 環境免裝 wine 即跑 |
 | 完整技術文件 + 構建腳本 + 領域知識 skill | ✅ 見以下目錄 |
 
-> 截圖檔(原 6 張 PNG)已從 repo 中移除以縮小體積,僅留說明文字於 `docs/01-symptom-screenshots.md`。
+> 原時序 6 張對照截圖已從 repo 中移除以縮小體積,僅留說明文字於 `docs/01-symptom-screenshots.md`;另補 3 張最終成果實機畫面於下方。
+
+---
+
+## 成果截圖(AppImage 實機)
+
+完整修復後從 AppImage 啟動的 PG-cht.exe,中文(menu / 對話框 / 按鈕 / 戰役名)全部正常顯示為粗體。
+
+| 畫面 | 內容 |
+|---|---|
+| ![戰役選擇對話框](docs/screenshots/00_screenshot.png) | **1939 戰役選擇對話框** — 視窗標題 `裝甲元帥(中文版)`、menu `(F)檔案 (E)編輯`、左側 1941 系列戰役按鈕、中央劇本說明 + 歐洲地圖背景,皆中文粗體。 |
+| ![完整劇本列表](docs/screenshots/01_screenshot.png) | **完整劇本列表 grid** — 38 個戰役按鈕(波蘭 / 華沙 / 挪威 / 低地國 / 法國 / 海獅 / 北非 / 阿拉曼 / 高加索 / …),配合中央劇本說明對話框,證實所有戰役名稱字串都正確覆蓋。 |
+| ![戰場六角格畫面](docs/screenshots/02_screenshot.png) | **進入戰場後的六角格戰術畫面** — menu `(F)檔案 (E)編輯 (G)遊戲 (V)演算`、部隊單位、地圖渲染,確認遊戲主迴圈中文亦無 □□。 |
 
 ---
 
@@ -26,8 +38,8 @@ pg-cht/
 ├── README.md                       # 你正在看的這份
 ├── WINE-FONT-SETUP.md              # 詳細技術文件(三層字體問題 + 解法)
 ├── docs/
-│   ├── 01-symptom-screenshots.md   # 6 張截圖的時序敘事(□□ → 正常 → 粗體 → AppImage)
-│   └── screenshots/                # 空目錄(PNG 已從 repo 移除)
+│   ├── 01-symptom-screenshots.md   # 原 6 張時序截圖的敘事(□□ → 正常 → 粗體 → AppImage)+ 3 張最終成果
+│   └── screenshots/                # 3 張最終成果 PNG(00/01/02);原時序 6 張未保留
 ├── tools/                          # 字體與 prefix 配置腳本
 │   ├── setup-wine.sh               # 一鍵裝 wine + 建 prefix + DPI=136
 │   ├── write-menufont.py           # 寫 binary LOGFONTW 改 menu/caption 字體

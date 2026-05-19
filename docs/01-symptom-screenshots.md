@@ -2,7 +2,8 @@
 
 按時序看 6 張截圖,對應 [`WINE-FONT-SETUP.md`](../WINE-FONT-SETUP.md) 的三層問題與解法。
 
-> ⚠️ 原始 PNG 已從 repo 移除以縮小體積,以下 `![..](screenshots/..)` 路徑會顯示為破圖。文字敘事保留,作為實作過程的時序記錄。
+> ⚠️ 原始 6 張時序對照 PNG 已從 repo 移除以縮小體積,以下 `![..](screenshots/01-..png)` 路徑會顯示為破圖。文字敘事保留,作為實作過程的時序記錄。
+> ✅ 文末另補 3 張 **最終成果實機畫面**(`screenshots/00_screenshot.png` / `01_screenshot.png` / `02_screenshot.png`),作為 AppImage 版實際運行的視覺佐證。
 
 ---
 
@@ -81,3 +82,33 @@
 - 截圖即從 AppImage 內運行的 PG-cht.exe,粗體中文與第 05 張一樣
 
 整套移植與打包流程到此完整收尾。詳細技術背景見 [`WINE-FONT-SETUP.md`](../WINE-FONT-SETUP.md)。
+
+---
+
+## 補充:最終成果實機畫面(AppImage)
+
+以下 3 張為 AppImage 打包完成後,在乾淨環境啟動 PG-cht.exe 拍下的實機截圖,對應第 05、06 階段的最終狀態(Source Han Sans Heavy 粗體 + 全中文 menu / 對話框 / 按鈕 / 戰役名 / 戰場介面)。
+
+### A. 戰役選擇對話框(`00_screenshot.png`)
+
+![成果 A:1939 戰役選擇對話框](screenshots/00_screenshot.png)
+
+- 視窗標題:`裝甲元帥(中文版)`
+- menu bar:`(F)檔案 (E)編輯` 中文粗體
+- 中央彈出 1939 戰役說明對話框(歐洲地圖背景),左側列出 1941 系列戰役按鈕
+- 對應修復點:**內文 codepage(TextOutA)** + **menu LOGFONTW** + **Tahoma 覆蓋** 三層同時生效
+
+### B. 完整劇本列表 grid(`01_screenshot.png`)
+
+![成果 B:38 個戰役名稱完整列表](screenshots/01_screenshot.png)
+
+- 顯示完整劇本選擇 grid:波蘭 / 華沙 / 挪威 / 低地國 / 法國 / 海獅 / 北非 / 阿拉曼 / 高加索 / … 共 38 個戰役按鈕,配合中央劇本說明對話框
+- 證實 PG 內部所有戰役名稱字串(`.exe` 與資源檔)都被正確以 Big5 / CP950 解碼,且 cmap 內有對應的 CJK glyph(`fontTools.merge` 與 Source Han Sans Heavy face name=Tahoma 雙保險生效)
+
+### C. 戰場六角格戰術畫面(`02_screenshot.png`)
+
+![成果 C:進入戰場後的六角格畫面](screenshots/02_screenshot.png)
+
+- 進入單一戰役後的主遊戲畫面:六角格地圖、雙方部隊單位、地形渲染
+- menu bar:`(F)檔案 (E)編輯 (G)遊戲 (V)演算` 中文粗體
+- 證實遊戲主迴圈(非僅 menu / dialog,連 in-game UI 文字)亦無 □□,移植完成度涵蓋整個 gameplay 路徑
