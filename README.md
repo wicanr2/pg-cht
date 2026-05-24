@@ -1,8 +1,11 @@
-# Panzer General (繁中化) — Linux Wine 移植 & AppImage 打包
+# Panzer General (繁中化) — Linux Wine + Windows portable 兩路打包
 
-把 SSI 1994 Win95 老遊戲 *Panzer General*(繁中化 patch 版,`PG-cht.exe`)在 Ubuntu 24.04 Wine 9 環境跑通,並打包成 self-contained AppImage 可獨立分發。
+把 SSI 1994 Win95 老遊戲 *Panzer General*(繁中化 patch 版,`PG-cht.exe`)在現代環境(Ubuntu 24.04 Wine 9 / Windows 10/11)跑通,並分別打包成兩種 self-contained 單檔分發格式:
 
-> 本 repo 不含 **遊戲本體**(版權所有)、**已配置 WINEPREFIX**(857 MB)、**最終 AppImage**(366 MB),只放可重做的 **腳本、構建材料、技術文件、截圖**。
+- **Linux AppImage** (366 MB) — Ubuntu 22.04+ 雙擊即跑,免裝 wine
+- **Windows 7-Zip SFX** (~12 MB) — Windows 10/11 雙擊即跑,免裝 .NET / 任何 runtime
+
+> 本 repo 不含 **遊戲本體**(版權所有)、**已配置 WINEPREFIX**(857 MB)、**最終 AppImage**(366 MB)、**最終 SFX .exe**,只放可重做的 **腳本、構建材料、技術文件、截圖**。
 
 ---
 
@@ -12,7 +15,8 @@
 |---|---|
 | Wine 環境跑通 PG-cht.exe | ✅ Ubuntu 24.04 + wine 9.0 + 32-bit prefix |
 | 全部中文正確顯示 | ✅ menu/對話框/按鈕/標題,字體 Source Han Sans Heavy(weight 900,粗體) |
-| Self-contained AppImage | ✅ 366 MB,Ubuntu 22.04+ 同等 GLIBC 環境免裝 wine 即跑 |
+| Self-contained Linux AppImage | ✅ 366 MB,Ubuntu 22.04+ 同等 GLIBC 環境免裝 wine 即跑 |
+| Self-contained Windows SFX | ✅ ~12 MB,Win10/11 雙擊即跑,無 WinG 對話框、不寫 registry shim |
 | 完整技術文件 + 構建腳本 + 領域知識 skill | ✅ 見以下目錄 |
 
 > 原時序 6 張對照截圖已從 repo 中移除以縮小體積,僅留說明文字於 `docs/01-symptom-screenshots.md`;另補 3 張最終成果實機畫面於下方。
@@ -48,7 +52,7 @@ pg-cht/
 │   ├── replace-tahoma.py           # 把產出的字體覆蓋進 prefix,設 fontRev=32767.99
 │   ├── rename-fonts.py             # 改字體 face name(mingliu/pmingliu/simsun 等別名)
 │   └── fontforge.Dockerfile        # docker fontforge 環境(複雜字體操作用)
-├── appimage/                       # AppImage 構建材料
+├── appimage/                       # Linux AppImage 構建材料
 │   ├── README.md                   # AppImage 構建與設計筆記
 │   ├── AppRun                      # 啟動腳本
 │   ├── panzer-general.desktop      # XDG entry
@@ -57,16 +61,24 @@ pg-cht/
 │   ├── wineserver-portable.sh      # 取代 /usr/bin/wineserver
 │   ├── wineserver-dispatcher.sh    # 取代 /usr/lib/wine/wineserver
 │   └── build.sh                    # 一鍵打包 .AppImage
+├── windows-sfx/                    # Windows 7-Zip SFX 構建材料
+│   ├── README.md                   # SFX 設計筆記 + WING32 patch 原理
+│   ├── patch_wing32.py             # 對 WING32.DLL 套 2-byte patch(suppress dialog)
+│   ├── PG-cht.cmd                  # 自含啟動器(__COMPAT_LAYER=256COLOR env var)
+│   ├── stamp_icon.ps1              # Win32 UpdateResource P/Invoke icon stamper
+│   ├── build_sfx.ps1               # 一鍵打包 .exe(stage→.7z→config→stamp→concat)
+│   └── Remove-256Color-Shim.reg    # 清掉舊 HKCU AppCompat shim
 └── skills/
-    └── panzer-general-cht/
-        └── SKILL.md                # PG/AG 中文化領域知識(供 Claude Code 接續)
+    ├── panzer-general-cht/SKILL.md       # PG/AG 中文化領域知識
+    ├── panzer-general-wine/SKILL.md      # wine 啟動環境(256 色 bypass via pgs.dll)
+    └── wing-portable-sfx/SKILL.md        # Windows 原生 + SFX 打包(WING32 patch + __COMPAT_LAYER)
 ```
 
 ---
 
 ## 快速使用
 
-### 方式 A:跑現成 AppImage(若你已有 `PanzerGeneral-x86_64.AppImage`)
+### 方式 A1:跑現成 AppImage (Linux,若你已有 `PanzerGeneral-x86_64.AppImage`)
 
 ```bash
 chmod +x PanzerGeneral-x86_64.AppImage
@@ -74,6 +86,12 @@ chmod +x PanzerGeneral-x86_64.AppImage
 ```
 
 第一次啟動約 30 秒(解 prefix + 遊戲到 `~/.local/share/PanzerGeneral/`),後續秒開。
+
+### 方式 A2:跑現成 SFX (Windows,若你已有 `PanzerGeneralCHT-1.2-portable.exe`)
+
+雙擊 `.exe` → 跳出對話框「即將解壓並啟動 Panzer General」→ 選解壓位置 → 解壓完自動啟動。
+
+第一次解壓 ~12 MB → ~42 MB 大概 3-5 秒,主視窗「裝甲元帥遊戲選項」7 秒內出現。下次只要從解壓資料夾跑 `PG-cht.cmd` 即可。
 
 ### 方式 B:從零重做整個環境
 
@@ -102,6 +120,25 @@ OUTPUT=PanzerGeneral-x86_64.AppImage \
     ./appimage/build.sh
 ```
 
+### 方式 C:Windows 原生 + 自製 SFX (Win10 / 11)
+
+```powershell
+# 1. 對遊戲目錄裡的 WING32.DLL 套 2-byte patch (suppress "WinG Installation Error")
+python windows-sfx\patch_wing32.py <游戲資料夾>\WING32.DLL
+
+# 2. 確認啟動器在遊戲資料夾裡 (預設應該有)
+copy windows-sfx\PG-cht.cmd <游戲資料夾>\
+
+# 3. 雙擊 <游戲資料夾>\PG-cht.cmd 驗證能跑 (主視窗 7 秒內到「裝甲元帥遊戲選項」)
+
+# 4. (可選) 打包成單檔 SFX .exe
+powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
+  -Source <游戲資料夾> `
+  -Output PanzerGeneralCHT-1.2-portable.exe
+```
+
+只依賴 Windows 內附的 7-Zip (`C:\Program Files\7-Zip\`) + PowerShell 5.1 + Win32 API。不需要 NSIS / Inno Setup / rcedit / Resource Hacker。
+
 ---
 
 ## 三層字體問題(摘要,完整見 [`WINE-FONT-SETUP.md`](WINE-FONT-SETUP.md))
@@ -118,21 +155,53 @@ OUTPUT=PanzerGeneral-x86_64.AppImage \
 
 ---
 
+## Windows 端的三個踩坑(摘要,完整見 [`windows-sfx/README.md`](windows-sfx/README.md))
+
+| 問題 | 根因 | 解法 |
+|---|---|---|
+| 每次啟動跳「WinG Installation Error」對話框 | Win10/11 SysWOW64 中的 `WING32.DLL` (Microsoft 12800-byte build) 內建路徑檢查預期住在 `C:\Windows\System`,在 SysWOW64 永遠認定「裝錯位置」 | 對 `WING32.DLL` 套 file offset `0xA55` 的 2-byte patch:`75 11` (jnz dialog) → `90 90` (nop nop),永遠走 success path。**禁區**:不能直接 NOP `0xA9B` 的 `call MessageBoxA` (會 `0xC0000142` DllMain init failed,MessageBoxA 內部 pump messages 釋放 loader lock,跳過會卡死) |
+| 畫面整片花/黑 | 32 bpp 桌面但 WinG 預期 8-bit palette | 啟動器設 `__COMPAT_LAYER=256COLOR` env var (單行程作用域,等效 Properties → "Reduced color mode" 但不寫 registry → 可攜) |
+| 7-Zip SFX 打包出來 12 MB 變 196 KB | Win32 `UpdateResource()` 把 PE image size 當 EOF,**會截掉 appended overlay** | Icon 必須先 stamp 在 `7z.sfx` stub 副本上,**再**和 config + payload 三段 concat |
+
+額外 BOM 矩陣 (同一份工作流產生三種檔案,對「BOM 是否該存在」答案各異):
+
+| 檔案 | Reader | BOM? |
+|---|---|---|
+| `.ps1` | PowerShell 5.1 (Windows PowerShell) | **要**。沒 BOM 預設用 ANSI codepage 讀,中文字面值會 garbled |
+| SFX `config.txt` | `7z.sfx` stub | **要 BOM + CRLF**,不然 config 被略過 |
+| `SKILL.md` | Claude 的 skill loader | **絕對不要 BOM**。YAML frontmatter 解析器需要 `---` 在 byte 0 |
+
+---
+
 ## 環境
 
+**Linux 端 (AppImage 構建):**
 - Ubuntu 24.04 LTS、x86_64
 - Wine 9.0(`wine` + `wine32:i386` + `wine64` + `libwine:i386`)
 - 字體:`fonts-moe-standard-song`、`fonts-noto-cjk`、winetricks `tahoma` + `cjkfonts`
 - 工具:`python3-fonttools`、docker(fontforge)、`appimagetool`(從 GitHub releases)
 
+**Windows 端 (SFX 構建):**
+- Windows 10 / 11、x64
+- 7-Zip 18+(`C:\Program Files\7-Zip\7z.exe` + `7z.sfx`)
+- Windows PowerShell 5.1 (內附) 或 PowerShell 7+
+- Python 3.x(跑 `patch_wing32.py`,沒 third-party 相依)
+- 不需要 NSIS / Inno Setup / rcedit / Resource Hacker
+
 ---
 
 ## 已知限制
 
+**Linux/AppImage:**
 - AppImage 鎖定 GLIBC 2.39+(Ubuntu 24.04 編譯的 wine),舊 distro 可能跑不起來
 - 最終粗體版西文也用 Source Han Sans Heavy 黑體(非 Microsoft Tahoma 細緻字形)。要回細體版可重跑 `tools/merge-tahoma.py`
 - 工作目錄含中文時 wine 會因 `LC_CTYPE` 解碼失敗;AppRun 已把遊戲解到純 ASCII 路徑避開
 - 不打包 Mono / Gecko(`WINEDLLOVERRIDES=mscoree,mshtml=` 跳過)
+
+**Windows/SFX:**
+- WING32.DLL patch 只驗證過 Microsoft 12800-byte build (SHA256 `bb1f552e25...`)。其他來源的 WING32.DLL 可能 offset 不同,`patch_wing32.py` 有 SHA256 sanity 會擋下
+- SFX 是 installer-style 不是 temp-style — 存檔保留在使用者選的解壓資料夾,不會自動清。要 temp 行為改用 `7zSD.sfx` (modSFX) 但存檔會丟
+- 沒包 code signing,Windows SmartScreen 第一次跑可能跳「未知發行者」警告 (按「其他資訊 → 仍要執行」)
 
 ---
 

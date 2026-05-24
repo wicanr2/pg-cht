@@ -1,0 +1,14 @@
+Windows Registry Editor Version 5.00
+
+; Removes the per-user "~ 256COLOR" AppCompat layer that was previously
+; applied manually to PG-cht.exe. The bundled PG-cht.cmd launcher applies
+; the same shim via the __COMPAT_LAYER env var, so this registry entry is
+; no longer needed once you start the game through PG-cht.cmd.
+;
+; Double-click this file (or run: reg import Remove-256Color-Shim.reg) to
+; delete the value. If you ever move the game folder, the registry entry
+; was tied to its old path and would not apply anyway -- the launcher is
+; what makes the install portable.
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers]
+"D:\\03_game_tmp\\PG-cht-1.2_繁中化_20260517\\PG-cht.exe"=-
