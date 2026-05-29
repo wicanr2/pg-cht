@@ -126,3 +126,12 @@ token 文法(control byte `c`):
 
 ## 11. 適用範圍
 此 ART.DAT(Indx/CPal/RLEi + 逐列 rowlen-prefix RLE)格式為 SSI/Mindscape 1990s 同引擎共用,Panzer General / Allied General 等皆適用(換遊戲要重新確認 chunk 偏移與 W/H,RLE 文法相同)。
+
+## 12. 在開頭畫面 (SPLASH.DAT) 加鋼鐵漸層中文標題 (2026-05-30)
+`ART\SPLASH.DAT` **非 Indx 格式**(檔頭 `Vers Vers…`,無中央索引),但主圖是單一 RLEi、**內部 RLE 格式與 ART.DAT 完全相同**,可用同一套 `decode_rle_v2`/`patch_inplace_v2`:自建 entry `e_rlei=[b"sjbh",b"RLEi",0x1a38,<BE32 size@0x1a3c>,0]`、`e_cpal=[<palname>,b"CPal",0x0e,<size@0x12>,0]`(palname 在 RLEi off+12,本片為 `7e715c68`)。`chunk_end=off+size`(=0x4cfa6,在 file 結尾前;尾端 ~50B 是別的結構勿碰)。re-encode 整張 640×480 + 補零到邊界即可就地回填(我方 v2 encoder 比原檔省,slack ~37KB)。
+**加「盟軍元帥」對齊英文 GENERAL 風格**(自然、不突兀):
+- 量原英文 `GENERAL` bbox:銀色高亮像素(`max(rgb)>110 且 max-min<55 且 lum>120`)在 y160-256 的範圍 → 取寬度與水平中心。
+- 中文字寬縮到 ≈ GENERAL 寬、置中其下方(本片 size≈54、y270-317)。
+- **垂直鋼鐵漸層**:由上到下 RGB stops 例:`(255,255,255)→(232,232,236)→(176,176,186)→(150,150,160)→(214,214,222 反光帶)→(120,120,130)→(96,96,104)`;逐列依 t=(y-ty0)/h 取色 → 每色找調色盤**最近 idx**(歐氏距離)上到字遮罩像素。
+- **深色描邊**:遮罩 `MaxFilter(5)` 膨脹後、非字身處填暗 idx(≈最近 (20,20,24)),字身再蓋漸層 → 立體感。字型用微軟正黑體粗體。
+- 工具:`tools/art-dat/example_splash_title.py`;成品預覽 `screenshots/splash_zh.png`。

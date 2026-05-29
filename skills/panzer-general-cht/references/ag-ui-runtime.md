@@ -99,3 +99,15 @@ AG 長簡報 = **RT_STRING(資源 type 6)** bundle,每 bundle 16 字串,UTF-16LE
 
 ## 5. 兵種類別名修正
 `水平轟炸機`(Level Bomber)@file `0x1c319c`(10 byte)→ `戰略轟炸機`(同長覆寫)。旁邊 `戰術轟炸機`@`0x1c3188` 正確不動。
+
+## 6. ★破解者隱藏簽名(reversed + XOR 0xFF)— grep 找不到的原因★
+Lite 重打包者把自己的 email `raywolf@chuvashia.ru` 藏進 EXE,顯示在**狀態列中央 line-1**(hover **未命名格子**的「地名」欄;hover「無法移動的位置」顯示的也是同一欄)。
+**為何任何文字搜尋都找不到**(明文/反向/UTF-16/單 byte XOR·ADD·SUB/mov 子序列 全 0):blob 以 **反向儲存 + 逐 byte XOR 0xFF** 雙重編碼。
+- 解碼器 @VA `0x43dd7c`(file `0x3d17c`):`esi=0x43dd7a`,往回讀 28 bytes,各 `xor 0xFF`,寫入 buffer `0x5ebcf4`(file `0x1bcef4`);buffer 當 status-bar line-1 的 printf format。
+- blob:file `0x3d15f–0x3d17a`(28B)。解碼 `out[i] = file[0x3d17a−i] ^ 0xFF` = `raywolf@chuvashia.ru\0[%d]\0`。
+- **定位法**:先找狀態列座標 format(line-2 `"%s (%d,%d)"` @VA `0x5ebd18`/file `0x1bcf18`),其 caller 即狀態列 renderer;line-1 的「無城名」ELSE 分支(VA `0x4525ea`)call 解碼器後把 buffer 當 format。
+- **修法**(備份 `.premail`):重編 blob 使其解出 Big5「原來是個胖仔」+null:`file[0x3d17a−i] = (big5+0x00…)[i] ^ 0xFF`。OLD 起 `00 c3 ff a2 9b da…`;NEW(file 序)= `ff×16 b5 5a bb 52 2c 52 b0 53 2c 57 13 52`。不動解碼器/buffer;無 `%d` 疑慮(字串止於 null)。
+
+`kilroy was here.`(16-byte **明文**,兩份 @file `0x1bceac`/`0x1bcec0`,其一經 strcmp @VA `0x452364`)→ 改 Big5「盟軍元帥中文版」(14B + NUL pad 至 16,備份 `.prekilroy`)。另有短字串 `kilroy`@`0x1bce30`(緊鄰 `exNilPtr`,6B 放不下中文,保留)。
+
+★**通用教訓**:cracker 簽名常以 reversed / XOR / 多 byte 編碼藏匿以躲過 grep+replace。明文找不到時,測「**反向 + 單 byte XOR**」組合;或直接反組譯顯示處(由座標/狀態列 format string 的 caller 回溯到組字/解碼點),從 buffer 反推編碼。

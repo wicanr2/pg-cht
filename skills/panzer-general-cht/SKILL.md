@@ -267,4 +267,7 @@ AG 翻譯 workspace 暫存檔(可重用為下次 AG 工作的起點):
 4. **兵種類別名**:水平轟炸機→戰略轟炸機(`0x1c319c`,同長)。
 5. **★戰鬥介面陣營配色 bug★**:美/英戰場誤用俄配色。根因 = classify(@`0x956BB`,即舊標「Table A 未用」之 getter)把北非/西線盟軍戰役名命中分類表 → bucket0/1 → 存 theme0=ru。**修法 = 對調 switch 兩個 store 立即值**(file `0x9599d`:0→2;`0x959ac`:2→0),使 bucket0/1(盟軍)→al、bucket2(俄/其餘)→ru;德軍走獨立 flag 不受影響。**教訓**:theme0/1/2=ru/ge/al 須以實機截圖確認(prior 假設錯;我一度誤還原正確修正,靠截圖才定案)。覆蓋限制:盟軍配色只認分類表內 22 個戰役名,表外盟軍關卡會落回俄配色 → 需把名字加進表。
 
+6. **★破解者隱藏簽名★**:Lite 重打包者把 email `raywolf@chuvashia.ru` 用 **反向+XOR 0xFF** 編碼藏起來(故 grep/單向 XOR 全找不到),執行時解到狀態列地名欄顯示。解碼器 @VA `0x43dd7c`、blob @file `0x3d15f-0x3d17a`、buffer `0x5ebcf4`。重編 blob → 顯示「原來是個胖仔」(備份 `.premail`)。另把明文 `kilroy was here.`(file `0x1bceac`/`0x1bcec0`)改「盟軍元帥中文版」(備份 `.prekilroy`)。教訓:cracker 簽名常 reversed/XOR 藏匿,明文找不到要測「反向+XOR」或反組譯顯示處。詳見 `references/ag-ui-runtime.md` §6。
+7. **開頭畫面加中文標題**:`ART\SPLASH.DAT` 的 `ALLIED GENERAL` 標誌下加「盟軍元帥」(鋼鐵漸層 + 描邊,對齊 GENERAL 寬度)。技法見 `art-dat-bitmap-cht` §12。
+
 **小字粗體按鈕(取消/確定 等)的點陣去字技巧** 見獨立 skill `art-dat-bitmap-cht`(密度法保留內框 + 微軟正黑體粗體)。
