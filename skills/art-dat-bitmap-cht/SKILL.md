@@ -76,6 +76,13 @@ token 文法(control byte `c`):
 - 金條垂直結構範例(EXP 條):y100 頂亮(139)、y101 高光(71)、y102-112 土黃本體(138)+文字(180)、y113 底陰影(110)。只去本體列的文字,別碰亮邊/陰影。
 - 綠色面板(idx 38)是平色,可直接平塗 idx 38。
 
+## 6b. 同畫面有多個陣營主題變體 → 自動極性 + 整列填底
+同一對話框常有盟/德/俄三版(如 SETTINGS = `abjd`盟綠底亮字 / `g[jd`德金底深字 / `rkjd`俄灰底),layout 相同但**配色不同**。一套寫死的偵測會壞掉。robust 做法:
+- **綠/面板標籤:自動極性** — bg=區域眾數;同時找「比底亮 >45」與「比底暗 >45」兩群,**取像素多的那群**當文字(盟軍亮字 vs 德軍深字自動適應)。
+- **金/灰標題條:整列填底去字** — 文字列 = 該列與底色對比像素 ≥4 的列;把**整列填回該列眾數底色**(不論字深淺,連灰底灰字也清掉);再蓋中文。比「只recolor暗像素」穩(灰字 lum>90 抓不到)。
+- 標題條的去字範圍要夠寬涵蓋整個英文(俄版 SETTINGS 比盟版寬,窄範圍會殘留 SE…GS)。
+- 工具實作見 `tools/art-dat/example_settings_dialog.py`(detext_band + label 自動極性)。
+
 ## 7. 對位 = ground-truth 量測(別用肉眼猜!)
 肉眼讀 2x 縮圖的座標**極易錯**(我連錯數次:把 x84 的 Supply 猜成 x155)。正解:
 - **投影法**:在生成區掃「文字色 vs 底色」的列/欄密度,取密集帶 → 原文精確 bbox。
@@ -99,8 +106,10 @@ token 文法(control byte `c`):
 - `pYon` 334×450 = **PREFERENCES 偏好設定**(標題/經驗×2/聲望×2/補給/天氣/顯示部隊強度/顯示隱藏單位/顯示對手移動,全中文 + de-text 保底)。
 - `andp/anSn`=北非、`awhp/awWn`=西歐、`arxp/argn`=俄羅斯(各普通+高亮兩態,148×37,標楷體)。
 - `sR`c`(0x73526063) 139×18 = SCENARIO SELECTION → 戰術選擇。
+- **SETTINGS 設定畫面 231×298 三版**:`abjd`(0x61626a64 盟)、`g[jd`(0x675b6a64 德)、`rkjd`(0x726b6a64 俄)。設定/音量/靜音/記錄遊戲歷程/顯示六角格邊界/戰鬥動畫/隱藏桌面(自動極性 + 整列去字)。
+- ORG TABLE 記事本 = `alzs/gezs/ruzs`(272×430,易與 SETTINGS 混淆,別搞錯)。
 - 640×480 那 42 張是過場場景照,非 UI。
-- 未做:CAMPAIGN SELECTION 標題(疑合成背景)、CANCEL/OK 等共用按鈕 chunk、NATION/PRIMARY/PURCHASE 等(皆 bitmap)。
+- 未做:CAMPAIGN SELECTION 標題(疑合成背景)、CANCEL/OK/NEIN/JAWOHL 等共用按鈕 chunk、NATION/PRIMARY/PURCHASE 等(皆 bitmap)。
 
 ## 11. 適用範圍
 此 ART.DAT(Indx/CPal/RLEi + 逐列 rowlen-prefix RLE)格式為 SSI/Mindscape 1990s 同引擎共用,Panzer General / Allied General 等皆適用(換遊戲要重新確認 chunk 偏移與 W/H,RLE 文法相同)。
