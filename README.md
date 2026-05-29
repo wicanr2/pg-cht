@@ -5,6 +5,8 @@
 - **Linux AppImage** (366 MB) — Ubuntu 22.04+ 雙擊即跑,免裝 wine
 - **Windows 7-Zip SFX** (~12 MB) — Windows 10/11 雙擊即跑,免裝 .NET / 任何 runtime
 
+> 同引擎的 **《盟軍元帥》(Allied General)** 繁中化(含烤在點陣圖裡的 UI、開頭畫面標題、執行期狀態列)另見下方 [盟軍元帥 (Allied General) 中文化](#盟軍元帥-allied-general-中文化) 專節。
+
 > 本 repo 不含 **遊戲本體**(版權所有)、**已配置 WINEPREFIX**(857 MB)、**最終 AppImage**(366 MB)、**最終 SFX .exe**,只放可重做的 **腳本、構建材料、技術文件、截圖**。
 
 ---
@@ -32,6 +34,39 @@
 | ![戰役選擇對話框](docs/screenshots/00_screenshot.png) | **1939 戰役選擇對話框** — 視窗標題 `裝甲元帥(中文版)`、menu `(F)檔案 (E)編輯`、左側 1941 系列戰役按鈕、中央劇本說明 + 歐洲地圖背景,皆中文粗體。 |
 | ![完整劇本列表](docs/screenshots/01_screenshot.png) | **完整劇本列表 grid** — 38 個戰役按鈕(波蘭 / 華沙 / 挪威 / 低地國 / 法國 / 海獅 / 北非 / 阿拉曼 / 高加索 / …),配合中央劇本說明對話框,證實所有戰役名稱字串都正確覆蓋。 |
 | ![戰場六角格畫面](docs/screenshots/02_screenshot.png) | **進入戰場後的六角格戰術畫面** — menu `(F)檔案 (E)編輯 (G)遊戲 (V)演算`、部隊單位、地圖渲染,確認遊戲主迴圈中文亦無 □□。 |
+
+---
+
+## 盟軍元帥 (Allied General) 中文化
+
+*Allied General*(SSI 1995,與 Panzer General **同引擎**)的繁體中文化。針對社群「Lite v1.1」重打包版(`AG.EXE` 2,167,611 bytes),完成 EXE 字串、資料檔、**烤在點陣圖裡的 UI**、開頭畫面標題全面中文化,並修掉重打包者藏的簽名。
+
+### 中文化後的開頭畫面
+
+在原版 `ALLIED GENERAL` 標誌下,新增**鋼鐵漸層書法風**的「盟軍元帥」(字寬對齊英文、置中其下、套垂直銀灰漸層 + 深色描邊,直接重繪進 `ART\SPLASH.DAT` 的點陣圖):
+
+![盟軍元帥 中文化開頭畫面](docs/screenshots/ag_splash_zh.png)
+
+### 完成項目
+
+| 類別 | 內容 |
+|---|---|
+| EXE UI 字串 | menu / 對話框 / 按鈕 / 狀態列(Big5 就地翻譯 + RT_MENU/RT_DIALOG/RT_STRING) |
+| 任務簡報 | RT_STRING 全中文,並修正兩個致命踩雷:**尾端空格 padding 造成換行大空洞**、**空字串(wLen=0)導致組字器回顯重複** |
+| 回合/開戰畫面 | 天氣(晴朗/陰天/下雨/下雪)、地面(乾/泥濘/結冰)、陣營(盟軍/軸心)、月份(一~十二月) |
+| 裝備名稱 | `PANZEQUP.EQP` 全中文 + 縮短(國名 1 字、刪重複英文機名;如 `美國 野馬 P51B Mustg` → `美野馬 P51B`) |
+| 城市/地形/戰術標籤 | `MAPNAMES.STR`(1553/1570)、`TACMAP.TGF`(與 PG 共用) |
+| **點陣圖 UI(烤在圖上)** | PREFERENCES / SETTINGS(盟德俄三版)/ 戰役按鈕(北非·西歐·俄羅斯,標楷體)/ 取消·確定(微軟正黑體粗體,密度法保留內框) — 全靠逆向 `ART.DAT` 的 RLEi 編解碼重繪 |
+| 開頭畫面 | 加「盟軍元帥」鋼鐵漸層標題(見上) |
+| **修正介面 bug** | 戰鬥介面陣營配色顛倒(美/英戰場誤用俄配色)→ 對調 scenario-classify 的 store 值 |
+| **移除重打包者簽名** | 藏在狀態列(**反向 + XOR 0xFF** 編碼)的 email `raywolf@chuvashia.ru` → 改顯示玩家代號;明文 `kilroy was here.` → `盟軍元帥中文版` |
+
+### 技術文件(可重做)
+
+- **點陣圖 UI 中文化**(ART.DAT 索引 / CPal 調色盤 / RLEi 逐列 RLE 編解碼 / 去字保底 / 鋼鐵漸層標題):[`skills/art-dat-bitmap-cht/SKILL.md`](skills/art-dat-bitmap-cht/SKILL.md) + `tools/art-dat/`
+- **EXE / 資料檔 中文化 + 執行期 UI + 破解者簽名逆向**:[`skills/panzer-general-cht/SKILL.md`](skills/panzer-general-cht/SKILL.md)、[`references/ag-ui-runtime.md`](skills/panzer-general-cht/references/ag-ui-runtime.md)
+
+> 與 PG 相同,本 repo **不含遊戲本體**(版權所有),僅放可重做的腳本 / 技術文件 / 截圖。
 
 ---
 
