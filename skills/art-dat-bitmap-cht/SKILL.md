@@ -83,6 +83,16 @@ token 文法(control byte `c`):
 - 標題條的去字範圍要夠寬涵蓋整個英文(俄版 SETTINGS 比盟版寬,窄範圍會殘留 SE…GS)。
 - 工具實作見 `tools/art-dat/example_settings_dialog.py`(detext_band + label 自動極性)。
 
+## 6c. 小對話按鈕(取消/確定 等)→ 密度法去字 + 保留內框 + 小字粗體
+共用對話按鈕(OK/CANCEL/BELAY/UPGRADE/PURCHASE/NEXT/PREVIOUS,各 3 陣營×2 狀態,~90×23)有**金邊 + 內框矩形(如 OK 鈕黑框、`[ ]`)+ 漸層底**。`paintlib.paint` 的**整塊矩形平塗**會把內框與漸層蓋成一片土黃(使用者抱怨「左右蓋到框、上下土黃太多」)。robust 做法:
+- **來源取自 `ART.DAT.bak`**(乾淨英文),de-text 後 patch 回現行檔(offsets 相同)。**切勿**在已中文化的現行圖上反覆重跑(會累積殘影)。
+- **只處理 `x∈[INSET, W−INSET]`(INSET≈8)** → 自動排除金邊與**內框直線**(它們在邊緣,落在 INSET 外)。
+- **逐列暗度分類**:`density(y)=該列在 x 範圍內遠離底色的像素比例`。只在 **density 10%~55% 的列(文字列)** 去字;**density >55% 的列 = 邊框/內框橫線 → 整列跳過保留**;<10% 視為空白列略過。→ 內框完整保留。
+- 去字 = 把文字列內「遠離底色」像素改回**該列底色眾數**(保留漸層),非整塊單色。
+- **字色自動偵測**(文字列遠離底色像素的眾數)當蓋字色 → 德軍紅字 / 奶油深字 / 俄灰底淺字各自正確。
+- **小字用微軟正黑體粗體 `msjhbd.ttc`**(本身粗體、小字清晰);**標楷體 kaiu + stroke 在小字會糊成黑團**(踩過雷)。**固定字級**(如 13)求一致,別用動態縮放(各鈕偵測帶高不同會大小不一)。置中於按鈕中心 / 文字帶中心。
+- 工具範例見 `tools/art-dat/example_dialog_buttons.py`。已完成 12 CANCEL→取消 + 15 OK→確定(代碼見 §10)。
+
 ## 7. 對位 = ground-truth 量測(別用肉眼猜!)
 肉眼讀 2x 縮圖的座標**極易錯**(我連錯數次:把 x84 的 Supply 猜成 x155)。正解:
 - **投影法**:在生成區掃「文字色 vs 底色」的列/欄密度,取密集帶 → 原文精確 bbox。
@@ -101,6 +111,7 @@ token 文法(control byte `c`):
 - `paintlib.py`:`Screen` class(autobox 偵測 + paint + commit + preview)。
 - `example_pyon_preferences.py`:PREFERENCES 偏好設定(de-text 保底 + ground-truth 對位 + 小字)。
 - `example_campaign_buttons.py`:戰場按鈕 北非/西歐/俄羅斯(標楷體 + 強制深字 idx69)。
+- `example_dialog_buttons.py`:共用對話按鈕 取消/確定(§6c 密度法保留內框 + 微軟正黑體粗體;來源取自 .bak)。
 
 ## 10. 已完成座標(AG 盟軍元帥)
 - `pYon` 334×450 = **PREFERENCES 偏好設定**(標題/經驗×2/聲望×2/補給/天氣/顯示部隊強度/顯示隱藏單位/顯示對手移動,全中文 + de-text 保底)。
@@ -109,7 +120,9 @@ token 文法(control byte `c`):
 - **SETTINGS 設定畫面 231×298 三版**:`abjd`(0x61626a64 盟)、`g[jd`(0x675b6a64 德)、`rkjd`(0x726b6a64 俄)。設定/音量/靜音/記錄遊戲歷程/顯示六角格邊界/戰鬥動畫/隱藏桌面(自動極性 + 整列去字)。
 - ORG TABLE 記事本 = `alzs/gezs/ruzs`(272×430,易與 SETTINGS 混淆,別搞錯)。
 - 640×480 那 42 張是過場場景照,非 UI。
-- 未做:CAMPAIGN SELECTION 標題(疑合成背景)、CANCEL/OK/NEIN/JAWOHL 等共用按鈕 chunk、NATION/PRIMARY/PURCHASE 等(皆 bitmap)。
+- **戰場按鈕 6 顆(`anSn/andp/awWn/awhp/argn/arxp`)改用密度法 de-text**(從 .bak 取原圖,只填文字帶,保留奶油漸層 + 俄版紅塊 + 虛線內框 + 金邊),標楷體。
+- **共用對話按鈕 取消/確定(§6c 完成,2026-05-30)**:CANCEL→取消 = `cNQn cNbp agJ1 agJ2 adf1 adf2 aLQn aLbp gEQn gEbp rUQn rUbp`;OK→確定 = `dUfn daip gLcn gLtp g\`Sn g\`dp g]Xn g]ip okdn okup r_Vn r\`Sn r\`dp r]Xn r]ip`(微軟正黑體粗體 size 13,密度法保留內框)。
+- 未做:CAMPAIGN SELECTION 標題(疑合成背景)、NEIN/JAWOHL 等其他共用按鈕、NATION/PRIMARY/PURCHASE 等(皆 bitmap)。
 
 ## 11. 適用範圍
 此 ART.DAT(Indx/CPal/RLEi + 逐列 rowlen-prefix RLE)格式為 SSI/Mindscape 1990s 同引擎共用,Panzer General / Allied General 等皆適用(換遊戲要重新確認 chunk 偏移與 W/H,RLE 文法相同)。

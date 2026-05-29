@@ -128,6 +128,7 @@ AG Lite v1.1 已含部分中文化(PANZEQUP 95% 中文),本次補完 UI 與資�
 | 修改 BDB/PANZEQUP/MAPNAMES/TACMAP/SCENARIO.TDB 等資料檔 | `references/file-formats.md` |
 | 找符合風格的翻譯詞彙(國名/兵種/動作) | `references/translation-conventions.md` |
 | **AG 戰役選單中文化(指標重導向待做)** | `references/ag-scenario-menu.md` |
+| **AG 回合/簡報畫面字串、任務簡報 RT_STRING 踩雷、PANZEQUP 格式、★戰鬥介面陣營配色 bug★** | `references/ag-ui-runtime.md` |
 | **ART.DAT 點陣圖中文化(UI 烤在圖上的英文:NATION/PURCHASE/PREFERENCES…;封存格式+RLE 編解碼+重繪流程)** | 獨立 skill `art-dat-bitmap-cht`(SKILL.md + `tools/art-dat/`) |
 | 套用 patch 的 PowerShell 樣板程式 | `scripts/`、`tools/art-dat/` |
 
@@ -213,7 +214,7 @@ AG 翻譯 workspace 暫存檔(可重用為下次 AG 工作的起點):
 
 | 表 | 位置 | 用途 | .text getter | 索引範圍 |
 |---|---|---|---|---|
-| Table A | `0x1C2800-0x1C29E8` (39 entries) | **未用(顯示+lookup 都不是)** | `0x956BB` ref @ `0x956E3` | 0-7(只用前 8) |
+| Table A | `0x1C2800-0x1C29E8` (39 entries) | ~~未用~~ **更正:戰鬥介面陣營配色 classify**(見 `references/ag-ui-runtime.md` §1) | `0x956BB`(classify,讀前 8=北非 bucket0,另 14 @`0x1c2908`=西線 bucket1) | 0-7 / 0-13 |
 | Table B | `0x1C2A2C-0x1C2BB4` (39 entries) | **menu 顯示 AND lookup 來源** | `0x941E5` ref @ `0x94211` | 0-38(全部) |
 | Table C | `0x1C2C54-0x1C2C77` (3 entries) | 戰役起點(N.Africa/W.Europe/E.Front) | unknown ref @ `0x94812` | 0-2 |
 
@@ -255,3 +256,15 @@ AG 翻譯 workspace 暫存檔(可重用為下次 AG 工作的起點):
 ## SCN 檔內 scenario 名
 
 每個 GAME###.SCN 內含小寫 scenario name(例如 `'sidi barrani'` at 0x1EB,對應 SCENARIO.TDB 的 SCNFILE 短名)。這是 scenario internal key,可能參與 lookup。本次未動。
+
+## AG 執行期 UI 補完 (2026-05-30) — 詳見 `references/ag-ui-runtime.md`
+
+本回合補完「進遊戲才看得到」的幾塊 UI,全部已 commit + 有備份(`.preturn`/`.prebrief`/`.prebrief2`/`.preshort`/`.pretheme`):
+
+1. **回合/開戰畫面值字串**(Big5 原地):天氣 晴朗/陰天/下雨/下雪、地面 乾/泥濘/結冰、陣營 盟軍/軸心(`0x1c3a5c`-`0x1c3aec`)、月份一~十二月(`0x1c781c` stride 0x14)。★踩雷:`0x1c3a34`-`0x1c3ad0` 的**小寫**字串是地形貼圖檔名,絕不翻。
+2. **任務簡報 RT_STRING**(type 6,UTF-16,wLen 前綴,76 bundle):★兩個致命踩雷★ — (A) 用尾端空格補滿 wLen → 自動換行大空洞;(B) 把空行用的 `' '` 剪成空字串(wLen=0)→ 組字器**回顯上一句造成重複**。正解:尾端空格數**對齊英文原版** `.bak`(句子=0、空行=1)。就地重打包不動 PE 資源目錄(只縮、補零、Size 不變)。孤立 CR 是原版格式不要清。
+3. **PANZEQUP.EQP 格式 + 裝備名縮短**:記錄 50B、名稱欄 20B(含國名前綴)。國名縮 1 字(美國→美…)+ 刪重複英文機名尾碼(P51B Mustg→P51B),保留羅馬數字/型號代碼。
+4. **兵種類別名**:水平轟炸機→戰略轟炸機(`0x1c319c`,同長)。
+5. **★戰鬥介面陣營配色 bug★**:美/英戰場誤用俄配色。根因 = classify(@`0x956BB`,即舊標「Table A 未用」之 getter)把北非/西線盟軍戰役名命中分類表 → bucket0/1 → 存 theme0=ru。**修法 = 對調 switch 兩個 store 立即值**(file `0x9599d`:0→2;`0x959ac`:2→0),使 bucket0/1(盟軍)→al、bucket2(俄/其餘)→ru;德軍走獨立 flag 不受影響。**教訓**:theme0/1/2=ru/ge/al 須以實機截圖確認(prior 假設錯;我一度誤還原正確修正,靠截圖才定案)。覆蓋限制:盟軍配色只認分類表內 22 個戰役名,表外盟軍關卡會落回俄配色 → 需把名字加進表。
+
+**小字粗體按鈕(取消/確定 等)的點陣去字技巧** 見獨立 skill `art-dat-bitmap-cht`(密度法保留內框 + 微軟正黑體粗體)。
