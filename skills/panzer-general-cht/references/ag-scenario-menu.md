@@ -257,3 +257,13 @@ E9 00 00 00 00               ; jmp +0
 4. **PG 式 default 英文 + 顯示用 caller 改中文**:比 default 中文 + lookup 改英文更安全(lookup callers 通常多於 display,改少數安全)
 5. **每次只改最小集合,逐個 caller 試**:bisection 時保守地一次只 redirect 1-2 個 callers,測試後再擴充
 
+## 任務簡報(briefing)真實位置(2026-05-29 補充)
+
+- 0x1BD0E8 起 39 段「短描述」 = scenario menu 上顯示的一句話(已中文化)
+- **長 briefing(scenario 進入時顯示的整段內容)在 `.rsrc` section,UTF-16LE 編碼**,從 `0x1D5E38` 起,39 段(順序與 0x1BD0E8 同序)
+- 例:Anzio briefing `The Allies face stiff resistance from German troops in Italy...` 在 `0x1D6E0E`
+- 我們之前 byte search 用 ASCII pattern `73 74 69 66 66` ('stiff') 都 0 hit,因為 UTF-16LE 是 `73 00 74 00 69 00 66 00 66 00`,要用 wide pattern 才搜得到
+- SCN 檔(SCENARIO\GAME###.SCN)**不含** briefing — 只含 scenario 內部資料 + tacmap/stm/mapconv 路徑 + 短名 key,**0 條長 ASCII**
+- 翻譯時用 UTF-16LE Big5 codepoint(注意:不是 raw Big5 byte,要用 Unicode codepoint),例:「灣」 = U+6E7E → bytes `7E 6E`(LE)。每中文字 2 bytes,1:1 替換 2 個 ASCII 字。
+- 計算 slot:每 briefing 是 wide string + NUL wide(`00 00`),中文版要 ≤ 原英文 wide chars 數(因為都 2 bytes/字)
+

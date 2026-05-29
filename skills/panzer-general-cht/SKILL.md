@@ -14,7 +14,29 @@ description: 接續或擴充 SSI Panzer General / Allied General Win95 系列繁
 | Panzer General Win95 | `D:\03_game_tmp\PGWin95_reduced_v1.2\PG_v1.2\` | `PG-cht.exe` (1,984,512 bytes) |
 | Allied General Lite v1.1 | `D:\03_game_tmp\AlliedGeneralLite_v1.1\AlliedGeneral_v1.1\` | `AG.EXE` (2,167,611 bytes) |
 
-兩款遊戲同引擎,DATA 結構大半相同(`MAPNAMES.STR`、`TACMAP.TGF` 兩遊戲位元組完全相同 — 可直接共用譯文);`PANZEQUP.EQP` 內容不同;`AG.EXE` 沒有 `DATA2\BDB*.BRF`(AG 無獨立簡報檔,戰役描述存於 EXE 內)。
+兩款遊戲同引擎,DATA 結構大半相同(`MAPNAMES.STR`、`TACMAP.TGF` 兩遊戲位元組完全相同 — 可直接共用譯文);`PANZEQUP.EQP` 內容不同;`AG.EXE` 沒有 `DATA2\BDB*.BRF`(AG 無獨立簡報檔,戰役描述存於 EXE 內 0x1BD0E8 起 + 長 briefing 在 .rsrc UTF-16LE)。
+
+## AG.EXE 版本指紋(本 skill 所對應的具體 EXE 識別)
+
+本 skill 的所有 hex offsets 都針對下述 EXE。換版本(同 SSI 出 NWC 出其他 v1.0 patch / Lite v1.2 / GOG re-release 等)時要重做 caller bisection。
+
+| 識別欄位 | 值 |
+|---|---|
+| 檔案大小 | 2,167,611 bytes |
+| MD5 (AG.EXE.bak) | `45C7E04FBDF71113FD8E8B2B746980B9`(原 SSI 英文 — 對照基準) |
+| PE COFF timestamp | `0x3134E395` = 1996-02-29 07:21:57 UTC |
+| Linker version | Microsoft Visual C++ 2.55(VC++ 4.0 SP2 era) |
+| VS_VERSION_INFO resource | **無**(SSI 沒寫 PE 標準 version 資源,.NET `Get-Item .VersionInfo` 全空) |
+| README.TXT 第一行 | `Allied General V1.0 Read Me File 12/3/95 (c) 1995, Strategic Simulations, Inc. A Mindscape Company` |
+| Lite 重新打包標記 | 目錄名 `AlliedGeneralLite_v1.1`(community / fan re-pack,EXE 本體與 SSI 原版相同) |
+| .text section | file `0x400-0x19C800` (RVA 0x1000) |
+| .rdata | file `0x19C800-0x1B9200` |
+| .data | file `0x1B9200-0x1D1400` (VA = fo + 0x42EE00) |
+| .idata | file `0x1D1400-0x1D2800` |
+| **.rsrc** | file `0x1D2800-0x1F9C00` (160 KB,**含 39 段長 briefing UTF-16LE**) |
+| .reloc | file `0x1F9C00-0x210200` |
+
+**驗證對應同 EXE**:`Get-FileHash -Algorithm MD5 AG.EXE` 比對。若 hash 不同但 size 與 PE timestamp 都一致 → 多半就是同版有後續 patch,部分 offset 可能仍對得上;若 size 不同 → 視為不同版本,本 skill offsets 不適用。
 
 ## 專案概況
 
