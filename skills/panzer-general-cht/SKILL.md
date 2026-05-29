@@ -128,7 +128,8 @@ AG Lite v1.1 已含部分中文化(PANZEQUP 95% 中文),本次補完 UI 與資�
 | 修改 BDB/PANZEQUP/MAPNAMES/TACMAP/SCENARIO.TDB 等資料檔 | `references/file-formats.md` |
 | 找符合風格的翻譯詞彙(國名/兵種/動作) | `references/translation-conventions.md` |
 | **AG 戰役選單中文化(指標重導向待做)** | `references/ag-scenario-menu.md` |
-| 套用 patch 的 PowerShell 樣板程式 | `scripts/` |
+| **ART.DAT 點陣圖中文化(UI 烤在圖上的英文:NATION/PURCHASE/PREFERENCES…;封存格式+RLE 編解碼+重繪流程)** | `references/art-dat-bitmap.md` |
+| 套用 patch 的 PowerShell 樣板程式 | `scripts/`、`tools/art-dat/` |
 
 ## 操作流程
 
