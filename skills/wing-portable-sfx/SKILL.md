@@ -1,6 +1,6 @@
 ---
 name: wing-portable-sfx
-description: 接續 1994-1996 年 WinG-based Win9x 遊戲在現代 Windows 10/11 上的相容性處理 + 包成單檔 portable .exe 的工作。當使用者提到 WinG / WING32.DLL、「WinG Installation Error」對話框、Panzer General / SimCity 2000 / Civilization II / Master of Magic II / Lode Runner 等 1990s WinG 遊戲在 Win10/11 跑不動或畫面花掉、要切換 256 色相容模式、想擺脫 HKCU AppCompat registry shim、把舊遊戲整包成單一可雙擊 portable .exe (放隨身碟)、7-Zip SFX (7z.sfx) 自製、icon stamping、UTF-8 BOM 編碼問題時都觸發。也涵蓋同類 Win9x 16-bit thunk-failed PE binary patch、只用系統內建工具 (7z + PowerShell P/Invoke) 不裝任何第三方 tool 製作 self-extractor 的技術。
+description: 接續 1994-1996 年 WinG-based Win9x 遊戲在現代 Windows 10/11 上的相容性處理 + 包成單檔 portable .exe 的工作。當使用者提到 WinG / WING32.DLL、「WinG Installation Error」對話框、Panzer General / SimCity 2000 / Civilization II / Master of Magic II / Lode Runner 等 1990s WinG 遊戲在 Win10/11 跑不動或畫面花掉、字型在高 DPI 螢幕變粗/糊(同 EXE 換資料夾粗細不一)、要切換 256 色相容模式、想加 GDIDPISCALING/DPIUNAWARE 旗標、想擺脫 HKCU AppCompat registry shim、把舊遊戲整包成單一可雙擊 portable .exe (放隨身碟)、7-Zip SFX (7z.sfx) 自製、icon stamping、UTF-8 BOM 編碼問題時都觸發。也涵蓋同類 Win9x 16-bit thunk-failed PE binary patch、只用系統內建工具 (7z + PowerShell P/Invoke) 不裝任何第三方 tool 製作 self-extractor 的技術。
 ---
 
 # WinG-based Win9x Game Portable Packaging
@@ -52,12 +52,20 @@ description: 接續 1994-1996 年 WinG-based Win9x 遊戲在現代 Windows 10/11
 @echo off
 setlocal
 cd /d "%~dp0"
-set "__COMPAT_LAYER=256COLOR"
+set "__COMPAT_LAYER=GDIDPISCALING DPIUNAWARE 256COLOR"
 PG-cht.exe %*
 endlocal
 ```
 
-`__COMPAT_LAYER=256COLOR` env var 等效於 Properties → Compatibility → "Reduced color mode" → 8-bit (256),但**單行程作用域、不寫 registry**。
+`__COMPAT_LAYER` env var 等效於 Properties → Compatibility 勾選的相容旗標,可**空白分隔多個 layer**,但**單行程作用域、不寫 registry**。
+- `256COLOR` = "Reduced color mode" 8-bit(WinG palette 必備)。
+- `GDIDPISCALING DPIUNAWARE` = "高 DPI 設定 → 覆寫縮放:系統" + DPI-unaware。
+
+**★高 DPI 螢幕字型變粗/糊的坑(2026-05-30, Allied General 踩到)**:
+只給 `256COLOR`、缺 DPI 兩個旗標時,在高 DPI 桌面上 Windows 會對遊戲 GDI 文字做 DPI 虛擬化放大 → 筆畫糊成**粗體**(戰場/選單文字尤其明顯)。加上 `GDIDPISCALING DPIUNAWARE` 走乾淨 bitmap 路徑保留原始細筆畫 → crisp。
+- 症狀極具迷惑性:同一份 EXE + 同一份資料檔,A 資料夾粗、B 資料夾細 → **元兇不是檔案,是兩個 EXE 路徑各自的 `HKCU\...\AppCompatFlags\Layers` 旗標不同**(用內建相容性對話框「切 256 色」只會寫進 `256COLOR`,不帶 DPI)。先查 registry Layers 再懷疑字型/資產。
+- **實測確認 `__COMPAT_LAYER` env var 認 DPI 旗標**(`GDIDPISCALING`/`DPIUNAWARE`,非只認 `256COLOR`)→ 用 .cmd 啟動器即可純可攜帶齊三旗標,毋須 registry。
+- 若改走 registry(非可攜)：完整值是 `~ GDIDPISCALING DPIUNAWARE 256COLOR`;`reg add "HKCU\Software\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers" /v "<full path>\X.EXE" /t REG_SZ /d "~ GDIDPISCALING DPIUNAWARE 256COLOR" /f`。
 
 **為什麼用 .cmd 不寫 HKCU registry**:
 - registry shim 綁絕對路徑 — 遊戲搬位置就失效
@@ -173,6 +181,7 @@ $bom  = [byte[]](0xEF,0xBB,0xBF)
 | 0xC0000142 立刻死 | WING32.DLL patch 失敗 / 沒套到 | 確認 SHA256 = `edd26762e7...` |
 | 「WinG Installation Error」對話框跳出來 | bundled WING32.DLL 是原版未 patch | 重跑 patch script |
 | 主視窗開了但畫面花 | `__COMPAT_LAYER=256COLOR` 沒套到 | 確認用 .cmd 啟動而非直接點 .exe;確認 cmd 沒寫成 `start ""` 變 async 後 env var 已釋出 |
+| 字型變粗/糊(高 DPI 機),同 EXE 換資料夾粗細不一 | 缺 `GDIDPISCALING DPIUNAWARE`,只有 `256COLOR` | env var 補成 `GDIDPISCALING DPIUNAWARE 256COLOR`;或查 `HKCU\...\AppCompatFlags\Layers` 該 exe 路徑旗標 |
 | SFX 解壓後 RunProgram 沒跑 | config.txt 不是 UTF-8 BOM + CRLF | 用 hex viewer 看開頭三 byte 應是 EF BB BF |
 | SFX 大小變 196 KB | icon stamp 用在合併後的 exe | 重跑 — stamp 在 stub 副本,再 concat |
 | Build script 漏包中文檔名檔案 | .ps1 沒 BOM,子 PowerShell 用 cp950 讀 | 補 BOM 重存 |
