@@ -104,9 +104,10 @@ AG 長簡報 = **RT_STRING(資源 type 6)** bundle,每 bundle 16 字串,UTF-16LE
 Lite 重打包者把自己的 email `raywolf@chuvashia.ru` 藏進 EXE,顯示在**狀態列中央 line-1**(hover **未命名格子**的「地名」欄;hover「無法移動的位置」顯示的也是同一欄)。
 **為何任何文字搜尋都找不到**(明文/反向/UTF-16/單 byte XOR·ADD·SUB/mov 子序列 全 0):blob 以 **反向儲存 + 逐 byte XOR 0xFF** 雙重編碼。
 - 解碼器 @VA `0x43dd7c`(file `0x3d17c`):`esi=0x43dd7a`,往回讀 28 bytes,各 `xor 0xFF`,寫入 buffer `0x5ebcf4`(file `0x1bcef4`);buffer 當 status-bar line-1 的 printf format。
-- blob:file `0x3d15f–0x3d17a`(28B)。解碼 `out[i] = file[0x3d17a−i] ^ 0xFF` = `raywolf@chuvashia.ru\0[%d]\0`。
+- blob:解碼器讀 28B(`out[i] = file[0x3d17a−i] ^ 0xFF`)= `raywolf@chuvashia.ru\0[%d]\0`,但 email 只用到 `out[0..19]`(20 字)+ `out[20]`=null。
 - **定位法**:先找狀態列座標 format(line-2 `"%s (%d,%d)"` @VA `0x5ebd18`/file `0x1bcf18`),其 caller 即狀態列 renderer;line-1 的「無城名」ELSE 分支(VA `0x4525ea`)call 解碼器後把 buffer 當 format。
-- **修法**(備份 `.premail`):重編 blob 使其解出 Big5「原來是個胖仔」+null:`file[0x3d17a−i] = (big5+0x00…)[i] ^ 0xFF`。OLD 起 `00 c3 ff a2 9b da…`;NEW(file 序)= `ff×16 b5 5a bb 52 2c 52 b0 53 2c 57 13 52`。不動解碼器/buffer;無 `%d` 疑慮(字串止於 null)。
+- ★★**致命踩雷:blob 尾端 2 byte 與「程式碼」重疊**★★。28B blob 範圍 file `0x3d15f–0x3d17a`,但 `0x3d15f`(=`00`)與 `0x3d160`(=`c3`)其實是**可執行指令**:`call 0x43dda3`(@`0x3d15b`,`e8 43 00 00 00`,`0x3d15f` 是運算元高位)+ `ret`(`0x3d160`)。解碼器把它們當 buffer 尾端沒用到的 `out[26]/out[27]` 讀。**進入戰場時會執行到這段 call+ret**。若整段 28B 全覆寫(尤其把 `0x3d15f/0x3d160` 改掉)→ call 運算元/ret 毀掉 → **一進戰場就崩潰閃退**(我犯過:NEW 用 `ff×16 …` 把前 16 byte 全填 0xff,結果遊戲選單可開、一進關卡就跳出)。純資料只在 `0x3d161` 起。
+- **正解修法**(備份 `.premail` / 修正版備份 `.premail2`):**只改字串需要的 13 byte**(`0x3d16e`=null、`0x3d16f–0x3d17a`=Big5×12),**保留 `0x3d15f–0x3d16d` 原樣**(含那 2 個 code byte)。安全 28B 區(file 序)= `00 c3 ff a2 9b da a4 ff 8a 8d d1 9e 96 97 8c` + `ff` + `b5 5a bb 52 2c 52 b0 53 2c 57 13 52`。解出 `原來是個胖仔\0`(止於 `out[12]` null),`out[13..27]` 維持原 email 尾段(在 null 後、不顯示)。驗證:反組譯 `0x3d15b` 仍是 `call 0x43dda3` + `ret`;Big5 無 `0x00`/`0x25` 不會提前截斷或誤判 `%`。
 
 `kilroy was here.`(16-byte **明文**,兩份 @file `0x1bceac`/`0x1bcec0`,其一經 strcmp @VA `0x452364`)→ 改 Big5「盟軍元帥中文版」(14B + NUL pad 至 16,備份 `.prekilroy`)。另有短字串 `kilroy`@`0x1bce30`(緊鄰 `exNilPtr`,6B 放不下中文,保留)。
 
