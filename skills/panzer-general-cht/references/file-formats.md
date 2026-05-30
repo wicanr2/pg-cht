@@ -100,6 +100,12 @@ offset  size  description
 
 **已翻譯**:163 / 438 條
 
+**★icon/圖號欄位 = stats[22](記錄內 offset 42 = name20+22),file offset = `2 + entry*50 + 42`★(2026-05-30 反推確認)**:
+- 外型相近的單位**共用同號**(PzIVG 與 PzIVF2 同號、JagdPz IV/48 與 /70 同號 → 可用「同號=同 sprite」驗證此欄就是 icon)。
+- **PG 與 AG 共用同一套 sprite bank**:438 筆裡 437 筆此 byte 與 PG-cht 逐 byte 相同 → 改 AG icon 時可拿 **PG 同 index 那格的值當正解**。
+- 範例修正:AG「四號自走砲」(entry 66,即 PG StuG IV) icon = `0x4D`(錯,指到別的圖,玩家看到錯外型)→ 改 `0x2D`(PG 同格 StuG IV 的正確 sprite)。全 438 筆中**只有這一筆**此欄與 PG 不同 → 異常即 bug。
+- 其餘有差的 stats byte(stats[1/2/5/12/21])是 AG 自己的數值平衡,**不要動**。
+
 **翻譯策略**:
 - **保留**:歷史型號代碼(BF109e/PzIVH/T-34/85/Sherman 變體 等)— 玩家熟悉度高
 - **翻譯**:通用詞、著名命名單位、ship types、國別前綴 + 兵種詞

@@ -122,7 +122,11 @@ token 文法(control byte `c`):
 - 640×480 那 42 張是過場場景照,非 UI。
 - **戰場按鈕 6 顆(`anSn/andp/awWn/awhp/argn/arxp`)改用密度法 de-text**(從 .bak 取原圖,只填文字帶,保留奶油漸層 + 俄版紅塊 + 虛線內框 + 金邊),標楷體。
 - **共用對話按鈕 取消/確定(§6c 完成,2026-05-30)**:CANCEL→取消 = `cNQn cNbp agJ1 agJ2 adf1 adf2 aLQn aLbp gEQn gEbp rUQn rUbp`;OK→確定 = `dUfn daip gLcn gLtp g\`Sn g\`dp g]Xn g]ip okdn okup r_Vn r\`Sn r\`dp r]Xn r]ip`(微軟正黑體粗體 size 13,密度法保留內框)。
-- 未做:CAMPAIGN SELECTION 標題(疑合成背景)、NEIN/JAWOHL 等其他共用按鈕、NATION/PRIMARY/PURCHASE 等(皆 bitmap)。
+- **全量補完共用按鈕(67 chunk,2026-05-30)**:PURCHASE→購買、EXIT→離開、NEXT→下頁、PREVIOUS→上頁、UPGRADE→升級、BELAY→撤回、APPROVED→核准、DENIED→否決(判定條 `ge_p`/`al_p`/`geWn`/`ruWn`/`ru_p`/`alWn`,紅綠高對比用 §6b 整列填底去字)。診斷法:`tools/art-dat/diag_buttons.py`/`diag2.py`(比對英文原版 vs 目標找「未改=仍英文」chunk + render 縮圖總表逐一判讀)。`kcoy`(0x6b636f79) 是有人畫的 Claude 圖示彩蛋,**勿動**。
+- **★戰損統計對話框 `aRon`(0x61526f6e,448×441)= 整張背景圖,連表格線/單位剪影/18 兵種名全烤在裡面★(2026-05-30)**:左右上角 LOSSES→戰損(標楷體);表內 18 兵種名(步兵/戰車/偵察/砲兵/反戰車/防空砲/對空防禦/防禦工事/戰鬥機 | 戰術轟炸機/水平轟炸機/潛艇/驅逐艦/主力艦/陸運/空運/海運/航空母艦)用投影法量格線(豎 x=26/109/164/218/316、9 橫列 ROWH≈32.2)逐 cell 去字 + 微軟正黑體粗體 size13、左對齊原英文起點(左欄 x33/右欄 x226)、長 5 字名縮排塞欄寬不溢格線。德/俄變體 `gRon`/`gSjR` 上角是銀色把手裝飾、**無 LOSSES**。
+  - **★關鍵教訓:這些兵種名是烤在 bitmap、不是 EXE 字串★**。EXE 內 set2(@`0x1C7F83`,步兵/戰車…)那組同名中文字串是**別的畫面**用的,改字串對戰損表完全無效;一定要改 `aRon` 點陣圖。判斷法:翻字串後重開遊戲若該處仍英文 → 就是 bitmap。
+  - 去字踩雷:dense 文字列的 per-row mode 會翻成 ink 色 → 殘留虛線;改用 cell-global 羊皮紙底 + 只取淺色 grain pool 填回才乾淨。
+- 未做:CAMPAIGN SELECTION 標題(疑合成背景)、NEIN/JAWOHL 等其他共用按鈕。戰損表底部 **OK 鈕**:窮舉所有按鈕尺寸 chunk 找不到對應英文 bitmap(OK 型金鈕不是已「確定」就是空白框,aRon 底部也無烤入)→ 疑遊戲即時繪字或重用已中文化的確定鈕,待實機重開確認。
 
 ## 11. 適用範圍
 此 ART.DAT(Indx/CPal/RLEi + 逐列 rowlen-prefix RLE)格式為 SSI/Mindscape 1990s 同引擎共用,Panzer General / Allied General 等皆適用(換遊戲要重新確認 chunk 偏移與 W/H,RLE 文法相同)。

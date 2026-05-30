@@ -112,3 +112,17 @@ Lite 重打包者把自己的 email `raywolf@chuvashia.ru` 藏進 EXE,顯示在*
 `kilroy was here.`(16-byte **明文**,兩份 @file `0x1bceac`/`0x1bcec0`,其一經 strcmp @VA `0x452364`)→ 改 Big5「盟軍元帥中文版」(14B + NUL pad 至 16,備份 `.prekilroy`)。另有短字串 `kilroy`@`0x1bce30`(緊鄰 `exNilPtr`,6B 放不下中文,保留)。
 
 ★**通用教訓**:cracker 簽名常以 reversed / XOR / 多 byte 編碼藏匿以躲過 grep+replace。明文找不到時,測「**反向 + 單 byte XOR**」組合;或直接反組譯顯示處(由座標/狀態列 format string 的 caller 回溯到組字/解碼點),從 buffer 反推編碼。
+
+---
+
+## 7. 狀態列 inline 標籤 + 「戰損表兵種名是 bitmap」(2026-05-30)
+
+狀態列單位資訊三個連續 inline 標籤,皆**指標載入**(VA=file+`0x42EE00`):
+- `Ammo:%d`@`0x1BCF5C`(已→彈)、` Fuel:%d`@`0x1BCF64`(slot 12B,到下個 `%s`)、`Ent:%d`@`0x1BCF74`(slot 僅 8B)。
+- **Fuel→油量**:就地(slot 夠)。
+- **Ent→戰壕值**(`戰壕值:%d` 10B,slot 8B 裝不下)→ **指標重導向**:標籤指標 operand 在 .text file `0x52CD5`(值=VA `0x5EBD74`),改指向 .data 空區寫 `戰壕值:%d\0`;原 `入:%d` 保留不引用。
+  - **★找安全空區的雷★**:別用大段零塊(常是被 .text 指標索引的 buffer/陣列,runtime 會覆寫 → 標籤變亂碼;我第一次選到 370B 零塊正是這種)。正解:收集全 EXE 指向 .data(VA `0x5E8000-0x600200`)的 dword 目標,找零區且 **±128 內無任何指標目標**的孤立 padding(如死字串 `Fuel:` 後的尾段 file `0x1BB975`)。
+
+**★戰損(LOSSES)表的 18 兵種名 = 烤在 ART.DAT 點陣圖,不是 EXE 字串★**:
+- EXE 有**兩套**同名兵種字串:set1@`0x1C30E8`(單位資訊面板)、set2@`0x1C7F83`。兩套都已中文,但**戰損表不讀它們** —— 兵種名烤在 `aRon`(0x61526f6e)對話框背景圖(做法見 skill `art-dat-bitmap-cht` §10)。
+- 判斷準則:翻 EXE 字串後重開遊戲若該處仍英文 → 是 bitmap,改 ART.DAT 才有效。`Destroyer`@`0x1C8080`→`驅逐艦`(set2 最後一個漏譯字串,但戰損表顯示用的仍是 bitmap 版)。
