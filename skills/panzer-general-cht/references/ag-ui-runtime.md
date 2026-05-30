@@ -126,3 +126,11 @@ Lite 重打包者把自己的 email `raywolf@chuvashia.ru` 藏進 EXE,顯示在*
 **★戰損(LOSSES)表的 18 兵種名 = 烤在 ART.DAT 點陣圖,不是 EXE 字串★**:
 - EXE 有**兩套**同名兵種字串:set1@`0x1C30E8`(單位資訊面板)、set2@`0x1C7F83`。兩套都已中文,但**戰損表不讀它們** —— 兵種名烤在 `aRon`(0x61526f6e)對話框背景圖(做法見 skill `art-dat-bitmap-cht` §10)。
 - 判斷準則:翻 EXE 字串後重開遊戲若該處仍英文 → 是 bitmap,改 ART.DAT 才有效。`Destroyer`@`0x1C8080`→`驅逐艦`(set2 最後一個漏譯字串,但戰損表顯示用的仍是 bitmap 版)。
+
+## 8. ★「OK」鈕 = GDI 字串(非 bitmap),指標重導向→確定(2026-05-30)★
+對話框底部 OK 鈕在 ART.DAT 窮舉找不到 → 其實是 EXE 內 **12 個 `OK` 字串**(`4F 4B 00`,各 slot 僅 4B 裝不下「確定」5B)。各被**單一指標**引用(11 個 `push offset`(0x68)在 .text、1 個 .data 指標表項)。**修法 = 指標重導向**:寫一個共用 `確定\0` 到孤立 .data 空區(±128 無指標目標),把 12 個 ref 的 4-byte operand 全改指向它 → 全遊戲 OK 變確定。原 12 個 OK 字串保留不引用。備份 `.preok`。許多 OK 與 `Cancel` 字串相鄰(同對話框),Cancel 仍英文待譯。
+
+## 9. 天氣/地面字串有「多組副本」(2026-05-30)
+EXE 內有 **6+ 組** capitalized 天氣/地面顯示字串(`Clear/Overcast/Raining/Snowing`+`Dry/Muddy/Frozen`,另有 `Fair/Cloudy/Rain/Snow` 變體)。前次只翻 0x1C3A5C 那組(回合開始大畫面)。**狀態列「目前/預報」(`%s (%s)`@`0x1C18C4`,透過物件 `mov ecx,0x59f4e8;call` 取字,靜態難定位是哪組)** 用的是另一組 → 重開仍英文。
+- 解法:把 **.data 區(<0x1D1400)全部大寫天氣/地面組就地翻**(各 `%s` 顯示用、中文較短一定塞得下、低風險):set@`0x1BAB74`(Fair..)/`0x1BCCC0`/`0x1BCD60`(Clear+ground,狀態列最可能)/`0x1CB248`/`0x1CB2E4`/`0x1C62EC`,共 27 字串。譯:晴朗/陰天/下雨/下雪、Fair→晴朗、Cloudy→多雲、乾/泥濘/結冰。備份 `.preweather`。**`0x1D54CA`(Fair/Cloudy/Rain/Snow)在 .rsrc 段,本次略過**。★小寫 `dry/mud/sno`@`0x1c3a34` 仍是貼圖檔名絕不翻。
+- **購買部隊金牌面板**(UNIT SLOTS FREE/CORE/AUXILIARY/YOUR PRESTIGE/TOTAL COST)EXE 字串表查無 → 是 bitmap(`ajSn` 全螢幕背景圖,見 `art-dat-bitmap-cht` §10)。

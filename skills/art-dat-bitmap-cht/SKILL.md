@@ -102,6 +102,7 @@ token 文法(control byte `c`):
 
 ## 8. 字型
 - **小標籤(<14px slot)**:微軟正黑體粗體 `msjhbd.ttc`,遮罩門檻 mask=80-82(小字清晰)。MingLiU <12px 無內嵌點陣會碎。
+- **★小字清晰度:抗鋸齒(AA)遠勝 bi-level★(2026-05-30)**:小型 CJK 標籤(戰損兵種名/購買面板)用硬門檻 bi-level(只 ink/bg 兩值)在 ~10-13px 會糊。正解:把 glyph 灰階**覆蓋率 cov(0-255)映到「底色↔ink 漸層」**,每階找最近調色盤 idx → 平滑清晰。實作:`ramp=[nearest(blend(bg_rgb,ink_rgb,c/255)) for c in range(256)]`;paint 時 `if cov>=24: rows[y][x]=ramp[cov]`。ink 取**原英文字最深的色**(更黑更清楚);短名(2 字)空間夠可放大字級(15px)。代價:漸層像素降低 RLE 壓縮率,re-encode 後務必 `assert stream≤space`(實測戰損/購買都仍塞得下)。工具範例 `_ag_analyze/cn_classnames2.py`(`ramp_for`/`nearest`)。
 - **按鈕/標題要雍容華貴的書法感**:標楷體 `kaiu.ttf`(DFKai-SB,毛筆楷書),size 16-20,mask 128。可選筆畫膨脹(PIL MaxFilter)做「渾厚」。
 - 真**草書**(于右任風)需第三方標準草書 TTF,Windows 無內建。
 - 字級對齊原英文字高;置中可用 `cxover`/`yoff` 微調(標題置中於對話框中心 W/2,標頭下移約 +2px 置中於金條)。
@@ -126,7 +127,9 @@ token 文法(control byte `c`):
 - **★戰損統計對話框 `aRon`(0x61526f6e,448×441)= 整張背景圖,連表格線/單位剪影/18 兵種名全烤在裡面★(2026-05-30)**:左右上角 LOSSES→戰損(標楷體);表內 18 兵種名(步兵/戰車/偵察/砲兵/反戰車/防空砲/對空防禦/防禦工事/戰鬥機 | 戰術轟炸機/水平轟炸機/潛艇/驅逐艦/主力艦/陸運/空運/海運/航空母艦)用投影法量格線(豎 x=26/109/164/218/316、9 橫列 ROWH≈32.2)逐 cell 去字 + 微軟正黑體粗體 size13、左對齊原英文起點(左欄 x33/右欄 x226)、長 5 字名縮排塞欄寬不溢格線。德/俄變體 `gRon`/`gSjR` 上角是銀色把手裝飾、**無 LOSSES**。
   - **★關鍵教訓:這些兵種名是烤在 bitmap、不是 EXE 字串★**。EXE 內 set2(@`0x1C7F83`,步兵/戰車…)那組同名中文字串是**別的畫面**用的,改字串對戰損表完全無效;一定要改 `aRon` 點陣圖。判斷法:翻字串後重開遊戲若該處仍英文 → 就是 bitmap。
   - 去字踩雷:dense 文字列的 per-row mode 會翻成 ink 色 → 殘留虛線;改用 cell-global 羊皮紙底 + 只取淺色 grain pool 填回才乾淨。
-- 未做:CAMPAIGN SELECTION 標題(疑合成背景)、NEIN/JAWOHL 等其他共用按鈕。戰損表底部 **OK 鈕**:窮舉所有按鈕尺寸 chunk 找不到對應英文 bitmap(OK 型金鈕不是已「確定」就是空白框,aRon 底部也無烤入)→ 疑遊戲即時繪字或重用已中文化的確定鈕,待實機重開確認。
+- **購買部隊畫面 `ajSn`(0x616a536e,636×456)= 整張全螢幕背景圖(2026-05-30)**:右側金牌資訊面板 5 標籤全烤在裡面 — UNIT SLOTS FREE→剩餘編制、CORE→核心、AUXILIARY→輔助、YOUR PRESTIGE→您的聲望、TOTAL COST→總花費(runtime 疊數字 0/2,核心/輔助需維持原 CORE/AUXILIARY 欄位 x 對齊)。微軟正黑體粗體 + AA(§8),gold idx138↔ink idx69 自動偵測深字,上兩列受 11px 行距限用 9-10px、下兩列空間大用 13px,去字用 gold grain pool 回填保留金漸層。stream 221144≤space 292422。**同屬 bitmap 非字串**(EXE 只有 runtime 用的 Core/Auxiliary/Prestige 小寫字)。
+- 未做:CAMPAIGN SELECTION 標題(疑合成背景)、NEIN/JAWOHL 等其他共用按鈕。
+- **★「OK」鈕不是 bitmap → 是 GDI 字串★**:戰損等對話框底部 OK 窮舉 ART.DAT 找不到對應英文 bitmap → 實為 EXE 內 12 個 `OK` GDI 字串(4-byte slot),已指標重導向→確定(詳見 skill `panzer-general-cht` ag-ui-runtime.md §7)。**教訓:點陣圖找不到的 UI 英文,回頭查 EXE 字串(GDI 即時繪字)**。
 
 ## 11. 適用範圍
 此 ART.DAT(Indx/CPal/RLEi + 逐列 rowlen-prefix RLE)格式為 SSI/Mindscape 1990s 同引擎共用,Panzer General / Allied General 等皆適用(換遊戲要重新確認 chunk 偏移與 W/H,RLE 文法相同)。
