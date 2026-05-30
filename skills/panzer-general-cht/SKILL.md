@@ -251,7 +251,8 @@ AG 翻譯 workspace 暫存檔(可重用為下次 AG 工作的起點):
 - 原 AG.EXE 用 `Arial` (26 處,slot 8 bytes)
 - 原 PG.exe 也用 Arial,**Chun-Yu Wang 譯時改為 Tahoma**(7 處,其中 6 處誤拼為 Tohama)
 - Big5 中文在 Tahoma 顯示為新細明體(系統替代),比直接用 細明體 更大更清楚
-- AG 本次跟隨 PG 改法:`Arial` → `Tahoma` 26 處(slot 8 fit:6+NUL=7 bytes ✓)
+- AG 曾跟隨 PG 改法:`Arial` → `Tahoma` 26 處(slot 8 fit:6+NUL=7 bytes ✓)
+- **(2026-05-30 已還原)** 使用者反映 Tahoma 版字形與原始 Lite 觀感不同 → **還原回 `Arial`**(`b"Tahoma"`→`b"Arial\0"` 同 6 bytes,26 處,備份 `.preArial`)。**結論:Windows 原生跑時保留原始 `Arial` 即可**(Tahoma 改法是 wine 端為 Big5 fallback 用的,Windows 端非必要)。要切換就改這 26 處 face name。
 
 ## SCN 檔內 scenario 名
 
@@ -266,6 +267,8 @@ AG 翻譯 workspace 暫存檔(可重用為下次 AG 工作的起點):
 3. **PANZEQUP.EQP 格式 + 裝備名縮短**:記錄 50B、名稱欄 20B(含國名前綴)。國名縮 1 字(美國→美…)+ 刪重複英文機名尾碼(P51B Mustg→P51B),保留羅馬數字/型號代碼。
 4. **兵種類別名**:水平轟炸機→戰略轟炸機(`0x1c319c`,同長)。
 5. **★戰鬥介面陣營配色 bug★**:美/英戰場誤用俄配色。根因 = classify(@`0x956BB`,即舊標「Table A 未用」之 getter)把北非/西線盟軍戰役名命中分類表 → bucket0/1 → 存 theme0=ru。**修法 = 對調 switch 兩個 store 立即值**(file `0x9599d`:0→2;`0x959ac`:2→0),使 bucket0/1(盟軍)→al、bucket2(俄/其餘)→ru;德軍走獨立 flag 不受影響。**教訓**:theme0/1/2=ru/ge/al 須以實機截圖確認(prior 假設錯;我一度誤還原正確修正,靠截圖才定案)。覆蓋限制:盟軍配色只認分類表內 22 個戰役名,表外盟軍關卡會落回俄配色 → 需把名字加進表。
+6. **破解者簽名移除**(email `raywolf@chuvashia.ru` reversed+XOR0xFF、`kilroy was here.` 明文)→ 改中文。詳見 `references/ag-ui-runtime.md` §6。★★**事件:一進戰場閃退**★★ — email blob(file `0x3d15f–0x3d17a`)尾端 2 byte 與 `call 0x43dda3`+`ret` **重疊**;我一度整段 28B 覆寫(NEW `ff×16…`)毀了 call/ret → 選單可開、**一進關卡崩潰**。正解只改字串 13B、保留 code byte(見 §6)。
+7. **256 色問題 → 自製 `shim.dll`**(無編譯器,Python 手工組 PE):AG.EXE 同 PG 檢查 `GetDeviceCaps(BITSPIXEL)==8`,否則跳「需 256 色」對話框。shim 轉發 29 個 GDI32 函式給真 gdi32、只攔 `GetDeviceCaps` 的 BITSPIXEL→回 8;把 AG.EXE import name `GDI32.dll`(file `0x1d2402`)→`shim.dll`(備份 `.pregdi`),shim.dll 放遊戲同目錄。32-bit DLL 無法在 64-bit Python 載入測試(err 193)→ 用 `SysWOW64\WindowsPowerShell` 32-bit 測。手法等同 pg-cht wine 的 `pgs.dll`(見 `panzer-general-wine`),差別:本次目標是 Windows 原生且手工組 PE。
 
 6. **★破解者隱藏簽名★**:Lite 重打包者把 email `raywolf@chuvashia.ru` 用 **反向+XOR 0xFF** 編碼藏起來(故 grep/單向 XOR 全找不到),執行時解到狀態列地名欄顯示。解碼器 @VA `0x43dd7c`、blob @file `0x3d15f-0x3d17a`、buffer `0x5ebcf4`。重編 blob → 顯示「原來是個胖仔」(備份 `.premail`)。另把明文 `kilroy was here.`(file `0x1bceac`/`0x1bcec0`)改「盟軍元帥中文版」(備份 `.prekilroy`)。教訓:cracker 簽名常 reversed/XOR 藏匿,明文找不到要測「反向+XOR」或反組譯顯示處。詳見 `references/ag-ui-runtime.md` §6。
 7. **開頭畫面加中文標題**:`ART\SPLASH.DAT` 的 `ALLIED GENERAL` 標誌下加「盟軍元帥」(鋼鐵漸層 + 描邊,對齊 GENERAL 寬度)。技法見 `art-dat-bitmap-cht` §12。
