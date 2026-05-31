@@ -80,14 +80,54 @@
 | 回合/開戰畫面 | 天氣(晴朗/陰天/下雨/下雪)、地面(乾/泥濘/結冰)、陣營(盟軍/軸心)、月份(一~十二月) |
 | 裝備名稱 | `PANZEQUP.EQP` 全中文 + 縮短(國名 1 字、刪重複英文機名;如 `美國 野馬 P51B Mustg` → `美野馬 P51B`) |
 | 城市/地形/戰術標籤 | `MAPNAMES.STR`(1553/1570)、`TACMAP.TGF`(與 PG 共用) |
-| **點陣圖 UI(烤在圖上)** | PREFERENCES / SETTINGS(盟德俄三版)/ 戰役按鈕(北非·西歐·俄羅斯,標楷體)/ 取消·確定(微軟正黑體粗體,密度法保留內框) — 全靠逆向 `ART.DAT` 的 RLEi 編解碼重繪 |
+| **點陣圖 UI(烤在圖上)** | PREFERENCES / SETTINGS(盟德俄三版)/ 戰役按鈕 / 共用按鈕(取消·確定·購買·離開·下頁·上頁·升級·撤回·核准·否決)/ **購買部隊金牌面板(盟德俄 3 變體)** / **戰損統計表(盟德俄 3 變體 + 18 兵種名)** — 全靠逆向 `ART.DAT` 的 RLEi 編解碼重繪;小字改用**抗鋸齒**渲染求清晰 |
+| 狀態列/對話框按鈕(GDI 字串) | 油料·彈藥·戰壕值·主動…、OK→確定(指標重導向)、Cancel→取消 / Yes→是 / No→否(就地翻) |
 | 開頭畫面 | 加「盟軍元帥」鋼鐵漸層標題(見上) |
-| **修正介面 bug** | 戰鬥介面陣營配色顛倒(美/英戰場誤用俄配色)→ 對調 scenario-classify 的 store 值 |
+| **修正陣營主題(theme)bug** | 戰鬥介面 + 購買畫面 + 戰損表共用 theme 全域,蘇/德場景顯示錯主題。**真根因 = classify 比對的戰役名表被前一次翻譯就地改成中文,但場景 lookup 名仍英文 → 永不命中 → 全部落同一主題**;另有更早一次「配色 fix」把 switch 改反方向(因 classify 已壞而休眠未爆)。修法 = classify 表重指英文副本(顯示維持中文)+ switch 改回原始。實機定案 theme0=盟/1=德/2=俄 |
+| **修正點陣圖洩漏 bug** | 狀態列「戰壕值/確定」指標重導向時,空區選到單位資料標籤表(0x20-stride)的 slot 內 padding,off-by-one 蓋掉前一字串 NUL → 單位面板顯示「油料:戰壕值:%d」亂入。改放真正不被索引的描述區 padding |
 | **移除重打包者簽名** | 藏在狀態列(**反向 + XOR 0xFF** 編碼)的 email `raywolf@chuvashia.ru` → 改顯示玩家代號;明文 `kilroy was here.` → `盟軍元帥中文版` |
+
+### 點陣圖 UI 中文化 — 設計概念與前後對照
+
+這是整個專案技術含量最高的部分。**這些英文不在 EXE 字串表裡** —— 它們是「**烤**」在 `ART/ART.DAT`(~25 MB 自訂封存檔)內的**調色盤 RLE 點陣圖**。你 grep 不到、改 EXE 也沒用,只能把那一張張小圖**解碼出來、抹掉英文、重畫中文、再編碼塞回去**。
+
+#### 共用對話按鈕(取消 / 確定 / 購買 / 核准 / 否決 …)
+
+![按鈕 中文化前後](docs/screenshots/ag_buttons_before_after.png)
+
+每顆按鈕是獨立的 RLEi chunk,連金邊、漸層底、內框、紅/綠高對比都要原樣保留 —— **去字只抹文字筆畫、不能平塗單色**,否則質感全毀。
+
+#### 戰損統計表(整張對話框背景圖,連 18 兵種名都烤在裡面)
+
+![戰損表 中文化前後](docs/screenshots/ag_losses_before_after.png)
+
+`LOSSES → 戰損`、`Infantry/Tank/… → 步兵/戰車/…` 全部烤在**同一張 448×441 背景圖**裡(連表格線、單位剪影、羊皮紙紋理都是)。而且**盟 / 德 / 俄各有一套變體**(`aRon`/`gRon`/`rRon`),由陣營主題自動選擇 —— 三套都要逐一重畫。
+
+#### 購買部隊金牌資訊面板
+
+![購買面板 中文化前後](docs/screenshots/ag_purchase_before_after.png)
+
+`UNIT SLOTS FREE → 剩餘編制`、`YOUR PRESTIGE → 您的聲望` … 同樣烤在整張購買畫面背景圖,亦有盟 / 德 / 俄三變體(`ajSn`/`gcSn`/`rpSn`)。
+
+#### 設計概念(重繪工作流)
+
+1. **格式逆向不靠猜** —— ART.DAT = `Indx` 索引 + `CPal` 調色盤 + `RLEi` 影像。RLEi 是**逐列 RLE**(每列 `BE16 rowlen` 前綴 + run/literal/skip token)。整套文法是**反組譯遊戲自己的解碼程式**(`AG.EXE` VA `0x54CF05` 一帶,capstone)逐指令確認的 —— 寬鬆解碼器能 round-trip 自己的輸出,但遊戲解碼器更嚴,差一個 control byte 整片花屏。
+2. **去字保底(保留陰影漸層)** —— 金條/面板底是帶陰影的漸層,逐列把「文字暗像素」改回**該列底色眾數**,保留頂亮邊 / 本體 / 底陰影,不平塗單色。
+3. **對位用 ground-truth 投影,不用肉眼猜** —— 在生成區掃「文字色 vs 底色」的列/欄密度得到原文精確 bbox;中文畫在與英文**完全相同的位置/字高**,避開遊戲疊上的 sprite。
+4. **小字清晰度靠抗鋸齒(AA)** —— 小型 CJK 用 bi-level 硬門檻會糊;把字型 glyph 的**灰階覆蓋率映到「底色↔墨色漸層」**,每階取最近調色盤色,小到 9-10px 也清楚。
+5. **就地回填、archive 大小不變** —— 中文比英文短,重編碼的 stream 一定塞得進原 chunk;補零只到 `off+size` 邊界(超過會蓋掉下一個 chunk 的 header → `exMedia` 崩潰)。
+
+> **關鍵心法**:遊戲裡找不到對應的 UI 英文,先判斷它是「**EXE 字串(GDI 即時繪字)**」還是「**烤在 ART.DAT 的點陣圖**」—— 翻了 EXE 字串重開仍英文,就是後者。兩者工具鏈完全不同。
+
+#### 陣營主題(theme)系統 — 一個 bug 帶出的連鎖
+
+戰鬥介面、購買畫面、戰損表**共用同一個 theme 全域**(`[0x5f1b34]`,實機定案 `theme0=盟 / 1=德 / 2=俄`),由 `classify`(把當前戰役名對「北非 8 + 西歐 14」兩張表做 `strcmp`)決定。**最隱蔽的 bug**:更早一次翻譯把 classify 比對用的戰役名表**就地翻成中文**,但程式比對時拿的是**英文 lookup 名** → 中文表 vs 英文名**永遠不命中** → 所有場景擠進同一個主題。修法 = 把 classify 表**另存英文副本並重指**(畫面顯示走另一條中文重導向,兩者拆開)。
+
+> **教訓**:`strcmp`/lookup 用的字串表**絕不可原地翻譯**(同 `SCENARIO.TDB` 鐵則)。要顯示中文就用指標重導向另存中文副本,讓 lookup 表保留英文。
 
 ### 技術文件(可重做)
 
-- **點陣圖 UI 中文化**(ART.DAT 索引 / CPal 調色盤 / RLEi 逐列 RLE 編解碼 / 去字保底 / 鋼鐵漸層標題):[`skills/art-dat-bitmap-cht/SKILL.md`](skills/art-dat-bitmap-cht/SKILL.md) + `tools/art-dat/`
+- **點陣圖 UI 中文化**(ART.DAT 索引 / CPal 調色盤 / RLEi 逐列 RLE 編解碼 / 去字保底 / 抗鋸齒小字 / 鋼鐵漸層標題):[`skills/art-dat-bitmap-cht/SKILL.md`](skills/art-dat-bitmap-cht/SKILL.md) + `tools/art-dat/`
 - **EXE / 資料檔 中文化 + 執行期 UI + 破解者簽名逆向**:[`skills/panzer-general-cht/SKILL.md`](skills/panzer-general-cht/SKILL.md)、[`references/ag-ui-runtime.md`](skills/panzer-general-cht/references/ag-ui-runtime.md)
 
 > 與 PG 相同,本 repo **不含遊戲本體**(版權所有),僅放可重做的腳本 / 技術文件 / 截圖。
