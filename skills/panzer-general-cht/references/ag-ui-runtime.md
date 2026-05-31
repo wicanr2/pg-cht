@@ -121,7 +121,8 @@ Lite 重打包者把自己的 email `raywolf@chuvashia.ru` 藏進 EXE,顯示在*
 - 判斷準則:翻 EXE 字串後重開遊戲若該處仍英文 → 是 bitmap,改 ART.DAT 才有效。`Destroyer`@`0x1C8080`→`驅逐艦`(set2 最後一個漏譯字串,但戰損表顯示用的仍是 bitmap 版)。
 
 ## 8. ★「OK」鈕 = GDI 字串(非 bitmap),指標重導向→確定(2026-05-30)★
-對話框底部 OK 鈕在 ART.DAT 窮舉找不到 → 其實是 EXE 內 **12 個 `OK` 字串**(`4F 4B 00`,各 slot 僅 4B 裝不下「確定」5B)。各被**單一指標**引用(11 個 `push offset`(0x68)在 .text、1 個 .data 指標表項)。**修法 = 指標重導向**:寫一個共用 `確定\0` 到孤立 .data 空區(±128 無指標目標),把 12 個 ref 的 4-byte operand 全改指向它 → 全遊戲 OK 變確定。原 12 個 OK 字串保留不引用。備份 `.preok`。許多 OK 與 `Cancel` 字串相鄰(同對話框),Cancel 仍英文待譯。
+對話框底部 OK 鈕在 ART.DAT 窮舉找不到 → 其實是 EXE 內 **12 個 `OK` 字串**(`4F 4B 00`,各 slot 僅 4B 裝不下「確定」5B)。各被**單一指標**引用(11 個 `push offset`(0x68)在 .text、1 個 .data 指標表項)。**修法 = 指標重導向**:寫一個共用 `確定\0` 到孤立 .data 空區(±128 無指標目標),把 12 個 ref 的 4-byte operand 全改指向它 → 全遊戲 OK 變確定。原 12 個 OK 字串保留不引用。備份 `.preok`。許多 OK 與 `Cancel`/`Yes`/`No` 字串相鄰(同對話框)。
+**Cancel/Yes/No(2026-05-31 完成,就地翻,中文≤英文 byte 不必 redirect)**:`Cancel`(6B slot)→取消、`Yes`(3B)→是、`No`(2B,同長)→否。各有數十份(Cancel×43/Yes×17/No×17),全就地覆寫(保留 NUL)。★只翻**精確匹配**(前一 byte=NUL 且 d[j+len]=NUL),否則會誤傷 `None`/`Norway`/`Normal`/`Nov`。備份 `.preyesno`。OK 因 slot 僅 4B 裝不下「確定」才走 redirect(見上),Cancel/Yes/No 夠長故就地。
 
 ## 9. 天氣/地面字串有「多組副本」(2026-05-30)
 EXE 內有 **6+ 組** capitalized 天氣/地面顯示字串(`Clear/Overcast/Raining/Snowing`+`Dry/Muddy/Frozen`,另有 `Fair/Cloudy/Rain/Snow` 變體)。前次只翻 0x1C3A5C 那組(回合開始大畫面)。**狀態列「目前/預報」(`%s (%s)`@`0x1C18C4`,透過物件 `mov ecx,0x59f4e8;call` 取字,靜態難定位是哪組)** 用的是另一組 → 重開仍英文。
