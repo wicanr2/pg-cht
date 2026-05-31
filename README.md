@@ -357,6 +357,14 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 - 工作目錄含中文時 wine 會因 `LC_CTYPE` 解碼失敗;AppRun 已把遊戲解到純 ASCII 路徑避開
 - 不打包 Mono / Gecko(`WINEDLLOVERRIDES=mscoree,mshtml=` 跳過)
 
+**⚠️ WSL / new-WoW64-only wine 跑不起來(PG 與 AG 同崩,2026-05-31 實測):**
+- 在 **WSL (Ubuntu 22.04/24.04)** 用 `winehq-stable` 跑 `PG-cht.exe` 或姊妹作 `AG.EXE`,thread-start 立刻 crash。`WINEDEBUG=+seh` 看到:
+  - AG → `EXCEPTION_ACCESS_VIOLATION addr=0x005CB003`、PG → `addr=0x005C8010`
+  - 共同指紋:崩潰 VA = `ImageBase + .rdata/DebugDir 起點`(**不是** entry point);`edx` = 該 exe 的 entry VA(已算好卻沒進去);`eax=ebx=0x7ffd1000`(TEB);fault 寫 NULL。
+- **根因**:WSL 的 `winehq-stable` 是 **new-WoW64-only build**——`/opt/wine-stable/bin/wine` 是 64-bit ELF、**沒有 `wine-preloader`**,所有 32-bit exe 都走 wow64 thunk,沒有真 32-bit 執行路徑(`WINEARCH=win32` 也躲不掉)。這個 wow64 thread-start 對 1994–96 老 PE(有 `IMAGE_DEBUG_DIRECTORY`/FPO、`.bss` filesize=0)會把控制權送到 `.rdata` 開頭當 code 跑 → 撞 write-to-NULL。
+- **反證(與遊戲/patch 無關)**:PG 套完整 nil-deref patch 後在 WSL **仍崩同一位址**;AG 的 Lite 版與完整版 AG.EXE **byte-identical**,WSL 同崩、但 Lite 的 AppImage 在實機真 32-bit wine 能跑。
+- **解法**:用**真 32-bit wine**(要有 `wine-preloader`)——即本 repo AppImage 構建用的 Ubuntu 24.04 + Wine 9.0(`wine32:i386`)。判斷一台 wine 是否安全:`file "$(command -v wine)"` 要是 32-bit / 或同目錄有 `wine-preloader`;純 64-bit ELF 且無 preloader = wow64-only = 本雷,別在這台浪費時間。
+
 **Windows/SFX:**
 - WING32.DLL patch 只驗證過 Microsoft 12800-byte build (SHA256 `bb1f552e25...`)。其他來源的 WING32.DLL 可能 offset 不同,`patch_wing32.py` 有 SHA256 sanity 會擋下
 - SFX 是 installer-style 不是 temp-style — 存檔保留在使用者選的解壓資料夾,不會自動清。要 temp 行為改用 `7zSD.sfx` (modSFX) 但存檔會丟
