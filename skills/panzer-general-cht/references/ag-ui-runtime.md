@@ -13,37 +13,30 @@
 
 ---
 
-## 1. ★戰鬥介面陣營配色選擇 — 修正 SKILL.md 舊結論★
+## 1. ★戰鬥介面 + 購買畫面 陣營主題(theme)選擇 — 2026-05-31 徹底釐清(推翻前兩版結論)★
 
-舊 SKILL/ag-scenario-menu 把 **Table A getter @file `0x956BB`** 標為「未用(顯示+lookup 都不是)」。
-**錯**:它就是**戰鬥介面配色(r/g/a 三套主題)的選擇器** classify。
+介面點陣圖三套前綴:`a*`=盟(美/英)、`g*`=德、`r*`=俄。例 購買畫面 `ajSn`(盟綠)/`gcSn`(德)/`rpSn`(俄灰),戰鬥介面 info/map 條同理。SETTINGS 對話框亦同(盟綠/德金/俄灰)。
 
-介面點陣圖以前綴命名三套:`r*`=俄(ru)、`g*`/`ge*`=德、`a*`/`al*`=盟(美/英),
-記憶體固定順序 ru,ge,al(例 `rinfowin/ginfowin/ainfowin`、`rmapup/gmapup/amapup`、`ruupmain/geupmain/alupmain`)。
+- **主題全域** `[VA 0x5f1b34]`(file 0x1C2C34):**★實機截圖確認 theme0=盟(al)、theme1=德(ge)、theme2=俄(ru)★**。**舊筆記寫 theme0=ru/theme2=al 是反的,別信「記憶體前綴順序 ru,ge,al」去猜——以實機為準。** 購買畫面與戰鬥介面**共用此全域**。
+- **classify** @file `0x956bb`:把目前戰役名 strcmp 兩張指標表:北非表(8 @VA 0x5f1660/file 0x1c2860)命中→bucket0;西歐表(14 @0x5f1708/0x1c2908)命中→bucket1;都沒中→bucket2(蘇聯/其餘)。
+- **setter** @file `0x95961`:德軍 flag `[0x5f1b54]`≠0 → theme=1(德,不經 switch);否則 classify()→switch。
+- **switch(★正確 = 原始遊戲值★)**:`0x9599d` `mov[0x5f1b34],0`(bucket0/1 西方盟軍→theme0=盟)、`0x959ac` `mov[0x5f1b34],2`(bucket2 蘇聯→theme2=俄)。德軍走 flag→theme1。
 
-- **主題全域** `[VA 0x5f1b34]`:0=ru、1=ge、2=al(經實機截圖確認 **theme0=ru**)。
-- **classify** @file `0x956bb`:把目前戰役名稱對兩張 Big5 指標表做 strcmp。
-  - loop1:8 筆,ptr 表 @VA `0x5f1660`(file `0x1c2860`)→ 命中回 **0**(bucket0,北非)。
-  - loop2:14 筆,ptr 表 @VA `0x5f1708`(file `0x1c2908`)→ 命中回 **1**(bucket1,西線)。
-  - 都沒中 → 回 **2**(其餘/俄戰役)。
-- **setter** @file `0x95961`:先看德軍 flag `[0x5f1b54]`,非 0 → 直接存 theme=1(ge,德軍走此路,**不經 switch**);否則 `bucket=classify()` 再進 switch。
-- **switch store 點**(原始英文 = 我 session 前 = 完全相同):
-  - `0x9599d`:`mov [0x5f1b34], 0`(bucket0/1 → 走這 → theme0=ru)
-  - `0x959ac`:`mov [0x5f1b34], 2`(bucket2 → 走這 → theme2=al)
+### ★兩個本地化引入的 bug(2026-05-31 修正,實機驗證 Meuse=盟綠/蘇聯=俄灰/德=德)★
+1. **switch 被改反**:更早一次「戰鬥配色 fix」誤信 theme0=ru,把 switch 對調成 `0x9599d=2`/`0x959ac=0` → 西方→theme2、蘇聯→theme0,**方向顛倒**。**正解 = 改回原始 `0x9599d+6=00`、`0x959ac+6=02`**(備份 `.pretheme2`)。**那次 fix 一直沒被發現是因為 classify 同時壞掉(見下),bucket0/1 從沒被觸發,休眠至今。**
+2. **★classify strcmp 表被翻成中文 → classify 整個失效(真根因)★**:北非/西歐表指向的 22 個戰役名字串 @VA `0x5F1600-0x5F16FF`,被 **campaign-name 翻譯就地改成中文**(西迪巴拉尼/默茲河…)。但 classify 比對的「場景物件名」走 lookup 路徑**仍是英文**(遊戲標題列顯示 "Meuse" 即證)→ **中文表 vs 英文名永不命中 → 所有場景落 bucket2 → 全部同一主題**。
+   **這 22 字串被 classify(lookup,需英文)與戰役選單顯示表 B' @`0x1BFE4C`(需中文)共用** → 翻了顯示卻同時毀了 classify。
+   **正解**:另寫一份**英文副本**到安全 .data padding(北非 blob @file 0x1BD330、西歐 @0x1BD43B,描述區 padding),只把 **classify 表 `0x1c2860`(8)/`0x1c2908`(14)重指英文副本**;顯示表 B' 維持指中文。備份 `.preclassify`。工具 `_ag_analyze/fix_classify.py`。
 
-### Bug 與修法
-分類表內容是**北非/西線=盟軍戰役名**(見下),命中 → bucket0/1 → **theme0=ru** → 美/英戰場顯示**俄配色**(德軍正常因走 flag)。映射顛倒。
-**修法 = 對調兩個 store 立即值**(8 byte 內,已 commit,備份 `AG.EXE.pretheme`):
-- `0x9599d+6`:`00 00 00 00` → `02 00 00 00`(bucket0/1 盟軍 → theme2=al)
-- `0x959ac+6`:`02 00 00 00` → `00 00 00 00`(bucket2 俄/其餘 → theme0=ru)
-驗證:`mov [0x5f1b34],2` @0x9599d、`mov [0x5f1b34],0` @0x959ac。德軍 flag 路徑(@0x96581 `mov [..],1`)不動。
+### ★教訓(重要)★
+- **theme0/1/2 = 盟/德/俄(al/ge/ru)**,以實機截圖定,別用前綴順序猜(踩過兩次)。
+- **strcmp/lookup 用的字串表絕不可原地翻譯**(同 SCENARIO.TDB/戰役名 規則)。這 22 個分類名是 classify 的 lookup key,翻了 classify 就死。要顯示中文 → 指標重導向另存中文副本給顯示表,lookup/classify 表保留(或另存)英文。
+- 改 theme/switch 前**務必先確認 classify 有在運作**(表 vs 場景名同語言),否則改 switch 是改一個休眠的死碼,毫無效果還誤導。
 
-### 分類表內容(Big5,前 session 已譯;**我未動**)
-- table-0(北非,→bucket0):西迪巴拉尼/艾季拉/十字軍/馬爾薩布雷加/加查拉/黎波里/阿拉曼/開羅
-- table-1(西線,→bucket1):火炬/凱賽林/馬雷斯線/突尼斯/西西里/安齊奧/朱比特/霸王行動/眼鏡蛇/默茲河/摩澤爾/進軍萊茵河/魯爾/德國本土
-
-**覆蓋限制**:盟軍配色只認這 22 個戰役名。**不在表內的盟軍關卡 → bucket2 → 俄配色**。
-要讓某盟軍關卡走盟軍配色,得把它的戰役名加進其中一張表(strcmp 來源 = 戰役物件名,非 MAPNAMES;操作名如「火炬/霸王行動」不在 MAPNAMES,只在此 .data 表)。
+### 分類表名(英文,classify 用;顯示表 B' 為對應中文)
+- 北非(bucket0):Sidi Barrani/El Agheila/Crusader/Mersa El Brega/Gazala/Tripoli/El Alamein/Cairo
+- 西歐(bucket1):Torch/Kasserine/Mareth Line/Tunis/Sicily/Anzio/Jupiter/Overlord/Cobra/**Meuse**/Moselle/To The Rhine/Ruhr/Germany
+- 不在這 22 名的關卡 → bucket2 → 俄主題。要讓某西方關卡走盟軍主題,把它的英文戰役名加進對應表。
 
 ---
 
