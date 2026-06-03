@@ -1,6 +1,6 @@
 ---
 name: panzer-general-wine
-description: 在 wine 下啟動 Panzer General (PG-cht.exe，繁中化 Borland Pascal Win95 老遊戲) 的完整解法。當使用者談到「PG」「Panzer General」「裝甲元帥」「256 色才能執行」「exNilPtr」「記憶體不足」「PG 跑不起來」「缺 WING32.dll」等情境觸發。
+description: 在 wine 下啟動 Panzer General (PG-cht.exe) 與 Allied General (AG.EXE) 兩款繁中化 Win95 老遊戲的完整解法。當使用者談到「PG」「Panzer General」「裝甲元帥」「AG」「Allied General」「盟軍將軍」「256 色才能執行」「exNilPtr」「記憶體不足」「PG/AG 跑不起來」「缺 WING32.dll」等情境觸發。
 ---
 
 # Panzer General 繁中化版在 wine 啟動的解法
@@ -262,6 +262,115 @@ N=1 catches 註冊 exNilPtr class (init 階段，非真實 nil)。N=2 開始是�
 - Windows 版本（7/10/11）
 - 完整錯誤訊息（"Cannot find DLL: WING32.DLL" vs "ordinal 5 not found in WING32.DLL"）— 後者代表已有但版本不對
 - 玩家有沒有額外裝 DirectX 或其他 WinG-bundled 軟體
+
+## Allied General (AG.EXE) 在 wine 下的等效解法
+
+**重要差異**：AG.EXE 是 **MSVC 4.0 C++ 編譯**（VC++ 2.55 linker），不是 Borland Pascal。Exception code 是 `e06d7363` (EXCEPTION_WINE_CXX_EXCEPTION)，跟 PG 的 Borland SEH 機制完全不同。但 wine 下踩到的根因相同（fresh prefix 沒 cursor），patch 思路也類似。
+
+### 工作目錄
+
+`/home/anr2/game/Panzer_General/AlliedGeneral_CHT_v1.1_portable_20260531/AlliedGeneral_CHT_v1.1/`
+
+關鍵檔：
+- `AG.EXE` — patched 版本（256 色 bypass + cursor wrapper bypass）
+- `AG.EXE.bak` — 原版（SHA256 `11ad2d4f...`，2167611 bytes）
+- `shim.dll` — 已備好的 GDI32 wrapper（29 個 export 完全對應 AG 從 GDI32 import 的 29 個函數）
+- `WING32.DLL` — WinG runtime（隨遊戲附帶）
+
+### 兩個 PE patch
+
+#### Patch 1：`GDI32.dll` → `shim.dll`（256 色 bypass）
+
+同 PG 邏輯。AG 啟動先查 `GetDeviceCaps(hdc, BITSPIXEL)`，回 8 才允許執行。原地把 `GDI32.dll\0` (10 bytes) 改為 `shim.dll\0\0` (10 bytes)：
+
+```python
+data = bytearray(open('AG.EXE.bak','rb').read())
+i = data.find(b'GDI32.dll\x00')           # 位於 file offset 0x1d2402
+data[i:i+10] = b'shim.dll\x00\x00'
+open('AG.EXE','wb').write(data)
+```
+
+#### Patch 2：`jne` → `jmp` @ 0x54c606（cursor wrapper bypass）
+
+跟 PG Patch 3 一模一樣的 SetCursor → exNilPtr pattern（連 `jne +0x4b` 偏移量都同），只是位址不同。AG 的 cursor wrapper 在 VA 0x54c5bd，呼叫 `SetCursor` 回 NULL 後，於 0x54c606 判斷前一個 cursor 是否 != 0 → 失敗就 throw exNilPtr。
+
+```
+.text:0054C5BD              push    ebp
+.text:0054C5BE              mov     ebp, esp
+.text:0054C5C0              push    -1
+.text:0054C5C2              push    offset SEH_handler_54c674
+.text:0054C5C7              mov     eax, fs:0
+.text:0054C5CD              push    eax
+.text:0054C5CE              mov     fs:0, esp                    ; 裝 SEH
+.text:0054C5D5              sub     esp, 224h
+.text:0054C5DE              mov     [ebp-230h], ecx              ; this
+.text:0054C5E4              mov     eax, [ebp-230h]
+.text:0054C5EA              mov     eax, [eax]                   ; this->cursor
+.text:0054C5EC              push    eax
+.text:0054C5ED              call    ds:SetCursor                 ; <-- SetCursor (從 IAT 0x601590)
+.text:0054C5F3              mov     ecx, [ebp-230h]
+.text:0054C5F9              mov     [ecx+4], eax                 ; this->prevCursor = SetCursor 回傳值
+.text:0054C5FC              mov     eax, [ebp-230h]
+.text:0054C602              cmp     dword ptr [eax+4], 0
+.text:0054C606              jne     short ok                     ; ← Patch 此處
+.text:0054C60C              push    0
+.text:0054C60E              push    offset throwinfo_5fbda4
+.text:0054C613              lea     eax, [ebp-22Ch]
+.text:0054C619              push    eax
+.text:0054C61A              call    raise_exNilPtr_403ad5        ; throw exNilPtr
+```
+
+File offset 0x14ba06，把 6 bytes `0f 85 4b 00 00 00` (jne) 換成 `e9 4c 00 00 00 90` (jmp; nop)，讓 throw 永遠 unreachable。
+
+```python
+data = bytearray(open('AG.EXE.bak','rb').read())
+# Patch 1
+i = data.find(b'GDI32.dll\x00')
+data[i:i+10] = b'shim.dll\x00\x00'
+# Patch 2
+data[0x14ba06:0x14ba0c] = bytes([0xe9, 0x4c, 0x00, 0x00, 0x00, 0x90])
+open('AG.EXE','wb').write(data)
+```
+
+### 找 AG 內 nil-deref site 的方法（與 PG 不同）
+
+PG 的 Borland Pascal helper 集中（487 個 nil-check 全 call 一支 helper），用 `patch_helper.py` hijack 即可抓 IP。AG 是 MSVC C++，**throw 透過 `__CxxThrowException` 走 `RaiseException(code=e06d7363)`**，沒有單一 helper。改用 `WINEDEBUG=+relay` 全 trace，搜 `RaiseException(e06d7363` 與其前面的 user32/gdi32 call：
+
+```bash
+DISPLAY=:1 WINEDEBUG=+relay timeout 8 wine ./AG.EXE 2>/tmp/ag-relay.log
+grep -B5 "RaiseException(e06d7363" /tmp/ag-relay.log | tail -20
+```
+
+關鍵線索：throw 前最後一個 user32 call 通常就是觸發的 API。實測 AG 是：
+```
+0024:Ret  user32.SetCursor() retval=00000000 ret=0054c5f3
+0024:Call KERNEL32.RaiseException(e06d7363,00000001,00000003,0074e2d0) ret=0059350d
+```
+
+`ret=0054c5f3` 直接指向 cursor wrapper 內 SetCursor 後的 fall-through。
+
+### AG.EXE 關鍵位址（ImageBase 0x400000）
+
+| 位址 | 用途 |
+|---|---|
+| 0x1d2402 | file offset of "GDI32.dll" import name — Patch 1 |
+| 0x54c5bd | cursor wrapper function entry |
+| 0x54c606 | jne in cursor wrapper — Patch 2 |
+| 0x5934d7 | `__CxxThrowException` wrapper (4 callers in AG) |
+| 0x5e7690 | exNilPtr ThrowInfo struct (MSVC C++ exception type info) |
+| 0x5fbd28 / 0x5fbda4 | exNilPtr CatchableTypeArray pointers（兩個 ctor variants） |
+| 0x5f0618 | "O [%d]" 錯誤訊息格式字串（exception 顯示時用） |
+| 0x601590 | IAT user32!SetCursor |
+
+### AG AppImage 打包
+
+`/home/anr2/game/Panzer_General/build/AlliedGeneral-x86_64.AppImage`（442 MB，自帶 wine-11.0 stable，Ubuntu 22.04+）。AppRun 行為：
+- 首次啟動：`wineboot --init` 建 fresh wine 11 prefix（~10s）
+- 自動 symlink 系統 Noto Sans CJK 字型 + 設 FontSubstitutes
+- DPI 預設 144 (`LogPixels=0x90`)，1.5× 縮放
+- 用 `wine explorer /desktop=AG,1280x800` 包成虛擬桌面視窗
+- `AG_DESKTOP=...` 環境變數可覆蓋桌面大小（`AG_DESKTOP=none` 則直接內嵌）
+- 遊戲檔解到 `~/.local/share/AlliedGeneral/game/` 以支援存檔
 
 ## 還原為 baseline (只 256 色 bypass)
 
