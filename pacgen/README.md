@@ -10,7 +10,7 @@
 - [快速開始](#快速開始) — [Linux (wine)](#linuxwine-11) / [Windows 10/11](#windows-10--11) 兩路啟動
 - [心得專欄](#心得專欄) — [`docs/`](docs/) 6 篇文章索引
 - [技術資料](#技術資料) — 翻譯工具 + string dump + wine 啟動配方
-- [進度](#進度) — v0.1-v0.6 CHT + AppImage 三層雷解 + A1 拉高畫布 (亂碼根因與正解)
+- [進度](#進度) — v0.1-v0.6 CHT + AppImage 三層雷解 + Plan B 造字中文顯示成功 (亂碼根因與解法)
 - [相關](#相關) / [授權](#授權)
 
 **深入閱讀路徑**:先看 [`docs/00-序.md`](docs/00-序.md) hero letter → 想直接玩跳 [`docs/01-wine-啟動配方.md`](docs/01-wine-啟動配方.md) / [`docs/02-modern-windows.md`](docs/02-modern-windows.md) → 想懂遊戲檔案結構讀 [`docs/03-遊戲檔案結構.md`](docs/03-遊戲檔案結構.md) / [`docs/04-裝備檔解析.md`](docs/04-裝備檔解析.md) → 想懂譯名為什麼這樣翻讀 [`docs/05-中文化依據.md`](docs/05-中文化依據.md)
@@ -112,21 +112,26 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 
 v0.3-v0.6 的 Big5 patch **資料層寫進去了,但畫面上是亂碼**。根因:遊戲用自訂 `TFONT1.DAT` **8×8 bitmap font**、**零 GDI 繪字** (查 import 無 TextOut/CreateFont),wine 字型代換無效;8×8 格子物理上塞不下可讀中文。詳見 [`docs/08-tfont-re.md`](docs/08-tfont-re.md)。
 
-**🎯 A1 拉高畫布 (rule 81):讓中文能 24×24 清晰顯示的正解**
+**🎯 Plan B:single-byte 造字 + font 加高 — 中文顯示成功 ✅ (實機驗證)**
 
-逆向進度 (只列**純靜態 RE** 的可靠結果;涉及跑起來看畫面的結論一律待乾淨環境驗證):
+不拉畫布、不 patch 繪字管線,只改 font 檔 + 字串,讓遊戲顯示清晰中文。**主選單 v1.1 改造字碼後實機顯示「開始」兩字**(見 [`docs/planb-cjk-SUCCESS-zoom.png`](docs/planb-cjk-SUCCESS-zoom.png))—— 遊戲畫面**第一次顯示可讀中文**。
 
-- **靜態偵察 ✅ 可靠**:`TFONT1.DAT` 格式全解 (8×8, 256 glyph,見 [`docs/08-tfont-re.md`](docs/08-tfont-re.md))、`SetDisplayMode` 單點靜態定位 VA `0x40cdf8`(file `0x40cdfa`/`0x40cdff`)、解析度/stride 常數 capstone 掃描計數可枚舉
-- **⏸ 待乾淨環境驗證**:改 mode 是否 crash、present 機制 (DirectDraw Blt 還是 Lock+copy)、放大手法。先前 session 曾有「present stretch」結論,但在不穩環境產生、**已作廢移除**,需重做
-- **Phase 3 (未做,最重)**:font 換 24×24 畫在高解析畫布 + Big5 2-byte lookup。**這是讓上述所有 Big5 CHT 從亂碼變可讀中文的臨門一腳**
+三個關鍵發現(實機):
+1. **繪字管線讀 font header height** (`0x08`) — 改 header 8→16 字變高,確認非硬編 → **改 font 檔即可,不碰 EXE**
+2. glyph 補到 16 高後 ASCII 正常顯示 (不 crash 不破壞)
+3. 中文 16×16 glyph 塞未用 byte slot + 字串改 single-byte 造字碼 → 中文走 font byte code,**不走 Big5**
 
-完整路線圖 [`docs/09-a1-hires-canvas-roadmap.md`](docs/09-a1-hires-canvas-roadmap.md);方法論獨立成 skill [`../skills/retro-directdraw-hires-cjk`](../skills/retro-directdraw-hires-cjk/SKILL.md)。
+為何可行:選單 23 字 / 全 UI 150 字 < font 可用 slot 數。工具 `tools/font_rebuild.py` + `tools/poc_cjk.py`,完整方法見 [`docs/10-planb-cjk-success.md`](docs/10-planb-cjk-success.md)。
+
+**A1 拉高畫布 (rule 81) — 另一條更完整但更重的路(未完成)**
+
+若要 24×24 更清晰 + 底圖同步放大,可拉高整個畫布。靜態偵察可靠(SetDisplayMode 單點 `0x40cdf8`);但工程遠大於 Plan B(需 RE present 機制 + 底圖 blit ×2 + 座標映射)。方法論見 [`docs/09-a1-hires-canvas-roadmap.md`](docs/09-a1-hires-canvas-roadmap.md) + skill [`retro-directdraw-hires-cjk`](../skills/retro-directdraw-hires-cjk/SKILL.md)。**Plan B 已夠讓選單中文化,A1 是 nice-to-have。**
 
 **目前實際狀態**
 
-- ✅ **資料層**:33 劇本 TIT/DES + 119 條 UI + 40 條裝備名,已 Big5 patch (byte-preserving)
-- ⚠ **顯示層**:遊戲內仍顯示亂碼 (8×8 font 硬牆),需 A1 Phase 3 (font 24×24) 才可讀
-- ✅ 現代環境跑通 (wine 三層雷解) + AppImage + Windows zip + 完整中文文件 (劇本/裝備/攻略/翻譯原則)
+- ✅ **資料層**:33 劇本 TIT/DES + 119 條 UI + 40 條裝備名 (已 Big5 patch)
+- ✅ **顯示層突破**:Plan B POC 證明「中文能在遊戲畫面顯示」(font 加高 + 造字碼);v0.8 做 150 字 atlas + 字串重映射,選單就是可讀中文
+- ✅ 現代環境跑通 (wine 三層雷解) + AppImage + Windows zip + 完整中文文件
 
 ## 相關
 
