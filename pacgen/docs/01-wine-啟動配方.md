@@ -71,7 +71,7 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 
 ## 給 CHT AppImage 打包者的備忘
 
-當我把這款遊戲包成 AppImage（比照裝甲元帥、盟軍將軍的做法），AppRun 應該這樣寫：
+當我把這款遊戲包成 AppImage（比照裝甲元帥、盟軍將軍的做法），AppRun 骨架：
 
 ```bash
 # 只需要虛擬桌面 640x480,無需 patch
@@ -79,3 +79,37 @@ exec "$WINELOADER" explorer /desktop=PACGEN,640x480 ./PACGEN.EXE "$@"
 ```
 
 DPI 不用調（遊戲用 DDraw 直接畫 pixel art，不吃 GDI DPI 值）。虛擬桌面大小可以透過 env 覆蓋讓玩家自己拉更大 —— 但**必須整數倍**（640×480、1280×960、1920×1440），非整數倍會出現 nearest-neighbor 縮放不均勻。
+
+## v0.1 AppImage 首次啟動的雷（fresh WINEPREFIX + DirectDraw 3D backend）
+
+實測 v0.1 AppImage 在 fresh WINEPREFIX 首次啟動時，PACGEN.EXE 會 silent crash。已在 log 看到訊號：
+
+```
+0160:fixme:d3d_shader:glsl_blitter_upload_palette P8 texture loaded without a palette.
+```
+
+**根因**：wine 11 對 fresh WINEPREFIX 預設啟用 3D 支援，PACGEN.EXE 用 DirectDraw 8-bit palette (P8) 打貼圖，走 GLSL blitter 路徑時 palette 沒對，texture 上不去 → 遊戲 abort。
+
+**規避**：AppRun 在 wineboot 完成後注入 registry 強制 GDI renderer：
+
+```
+[HKEY_CURRENT_USER\Software\Wine\Direct3D]
+"renderer"="gdi"
+"MaxShaderModelVS"=dword:00000000
+"MaxShaderModelPS"=dword:00000000
+```
+
+**注意**：即使加了上面，v0.1 AppImage 在某些機器上首次啟動仍不穩定（暫存的 wineserver 狀態、prefix 初次 boot 的 race）。**臨時 workaround**：
+
+```bash
+# 若 v0.1 AppImage 首次啟動失敗:
+./PacificGeneral-x86_64.AppImage --appimage-extract
+cd squashfs-root
+# 手動預熱 prefix 一次
+WINEPREFIX=~/.local/share/PacificGeneral/wine \
+  wine wineboot -u
+# 再跑 AppRun
+./AppRun
+```
+
+或直接不用 AppImage、走 [Windows portable zip](https://github.com/wicanr2/pg-cht/releases) 的解壓即跑路線 —— zip 版已驗證能跑。v0.2 會補 AppImage 首次啟動的完整 warm-up 序列。
