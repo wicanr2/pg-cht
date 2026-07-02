@@ -5,7 +5,9 @@
 - **Linux AppImage** (366 MB) — Ubuntu 22.04+ 雙擊即跑,免裝 wine
 - **Windows 7-Zip SFX** (~12 MB) — Windows 10/11 雙擊即跑,免裝 .NET / 任何 runtime
 
-> 同引擎的 **《盟軍元帥》(Allied General)** 繁中化(含烤在點陣圖裡的 UI、開頭畫面標題、執行期狀態列)另見下方 [盟軍元帥 (Allied General) 中文化](#盟軍元帥-allied-general-中文化) 專節。
+> 同引擎的 **《盟軍元帥》(Allied General, 1995)** 繁中化(含烤在點陣圖裡的 UI、開頭畫面標題、執行期狀態列)另見下方 [盟軍元帥 (Allied General) 中文化](#盟軍元帥-allied-general-中文化) 專節。
+>
+> 5D 系列末代 **《太平洋元帥》(Pacific General, 1997)** 繁中化與 wine/Windows 復活記錄見 [太平洋元帥 (Pacific General) 中文化](#太平洋元帥-pacific-general-中文化) 專節及 [`pacgen/`](pacgen/) 子目錄。
 
 > 本 repo 不含 **遊戲本體**(版權所有)、**已配置 WINEPREFIX**(857 MB)、**最終 AppImage**(366 MB)、**最終 SFX .exe**,只放可重做的 **腳本、構建材料、技術文件、截圖**。
 
@@ -139,6 +141,47 @@
 | **改完 email 後一進戰場就閃退** | 破解者的 email blob(`0x3d15f–0x3d17a`,reversed+XOR0xFF)**尾端 2 byte 與可執行碼重疊** —— 正好是 `call 0x43dda3` 的運算元高位 + 一個 `ret`。原本「整段 28 byte 覆寫」把 call/ret 改成 `0xFF` → 選單能開、**一進關卡執行到該段就崩潰**。 | **只改字串需要的 13 byte**(null + Big5),保留 `0x3d15f/0x3d160` 的 code byte;反組譯確認 `call+ret` 還原。詳見 [`ag-ui-runtime.md` §6](skills/panzer-general-cht/references/ag-ui-runtime.md)。**教訓:cracker 把資料藏進 .text 時常與指令交疊,改之前務必反組譯確認該 byte 不是 code。** |
 | **字形與原始 Lite 不同** | 前期跟隨 PG 把字體 face `Arial`→`Tahoma`(26 處);Windows 原生對 Big5 的代換字型因此不同。 | **還原回 `Arial`**(`b"Tahoma"`→`b"Arial\0"`,26 處)。Tahoma 改法是 wine 端 Big5 fallback 用,**Windows 原生保留 `Arial` 即可**。 |
 | **256 色才能執行(WinG 老遊戲)** | AG.EXE 啟動檢查 `GetDeviceCaps(BITSPIXEL)==8`,Win10/11 為 32bpp → 跳「需 256 色」對話框退出。 | 本機無編譯器 → **用 Python 手工組 32-bit PE `shim.dll`**:轉發 29 個 GDI32 函式給真 gdi32、只攔 `GetDeviceCaps` 的 BITSPIXEL→回 8;patch AG.EXE import `GDI32.dll`→`shim.dll`。手法同 pg-cht wine 的 `pgs.dll`([`panzer-general-wine`](skills/panzer-general-wine/SKILL.md))。 |
+
+---
+
+## 太平洋元帥 (Pacific General) 中文化
+
+*Pacific General* (SSI/Mindscape 1997,5D General 系列末代)的繁中化與現代環境跑通指南。歷代三大誌 1997 從沒為這款寫過中文專欄;本節是 29 年後的補完。
+
+**目錄**: [pacgen/](pacgen/) — 完整心得專欄、翻譯工具、字串 dump、譯名依據。
+
+### 現況(v0.1 施工中)
+
+| 項目 | 結果 |
+|---|---|
+| Wine 啟動配方 | ✅ `wine explorer /desktop=PACGEN,640x480 PACGEN.EXE`,無需 DLL override / no exe patch |
+| PACGEN.EXE 字串 dump | ✅ 3813 條 ASCII → filter 出 356 條 UI 候選 |
+| 心得專欄 (6 篇) | ✅ 序 / wine 配方 / Windows / 檔案結構 / 裝備檔 / 中文化依據 |
+| TXT.PFP 字表 unpack | ⏳ 進行中(11 個內含檔:`classes/terrain/nations/bignats/stance/weather/latitude/months/research/specials/tilefile`) |
+| 33 個劇本 TIT/DES 中譯 | ⏳ 待做 |
+| EXE UI 字串 Big5 length-preserving patch | ⏳ 待做 |
+| AppImage + Windows zip 打包 | ⏳ 待做(pattern 同 PG/AG,virtual desktop 640x480) |
+
+### 三個 wine 踩坑(給後來的人)
+
+DirectDraw exclusive fullscreen 老遊戲的通用坑:
+
+1. **直接 `wine PACGEN.EXE`** → 遊戲搶主機解析度到 640x480,桌面環境要花數秒才反應過來
+2. **`explorer /desktop=PACGEN,1024x768`** → 虛擬桌面尺寸不匹配 → 遊戲 window 縮成 1x1、純藍屏 20 秒
+3. **`explorer /desktop=PACGEN,640x480`** → 剛好匹配 DDraw primary surface → **正常畫面**
+
+詳解見 [pacgen/docs/01-wine-啟動配方.md](pacgen/docs/01-wine-啟動配方.md)。
+
+### Pacific General 中文化心得專欄
+
+| # | 篇章 | 主題 |
+|---|---|---|
+| [00](pacgen/docs/00-序.md) | 序 | 為什麼 1997 年沒中文版 |
+| [01](pacgen/docs/01-wine-啟動配方.md) | wine 啟動配方 | DirectDraw 三個坑 |
+| [02](pacgen/docs/02-modern-windows.md) | modern Windows | v1.1 patch + no-CD + 相容模式 + 字型 |
+| [03](pacgen/docs/03-遊戲檔案結構.md) | 檔案結構解剖 | data / scen / Maps / bnk / stream / SMACK |
+| [04](pacgen/docs/04-裝備檔解析.md) | 裝備檔解析 | 813 實體單位 + 282 佔位,EQP 結構 |
+| [05](pacgen/docs/05-中文化依據.md) | 中文化依據 | Zero 為何不譯「零戰」、艦名譯法規範 |
 
 ---
 

@@ -1,0 +1,6 @@
+build/
+*.AppImage
+*.AppDir/
+*.pyc
+__pycache__/
+scratch/

@@ -1,0 +1,357 @@
+file_off	va	section	xref	len	text
+0xc81a0	0x4c91a0	.rdata	1	4	Free
+0xc87e0	0x4c97e0	.rdata	1	6	{%ld} 
+0xc87e8	0x4c97e8	.rdata	1	10	%hs(%d) : 
+0xc87f4	0x4c97f4	.rdata	1	19	#File Error#(%d) : 
+0xc882c	0x4c982c	.rdata	1	5	%.2X 
+0xc8a38	0x4c9a38	.rdata	1	6	(null)
+0xc8adc	0x4c9adc	.rdata	1	11	%s(%d) : %s
+0xc8b90	0x4c9b90	.rdata	1	34	Microsoft Visual C++ Debug Library
+0xc8cb4	0x4c9cb4	.rdata	2	22	<program name unknown>
+0xc8d3c	0x4c9d3c	.rdata	1	22	flag == 0 || flag == 1
+0xc9098	0x4ca098	.rdata	1	36	Microsoft Visual C++ Runtime Library
+0xc9140	0x4ca140	.rdata	1	4	.com
+0xc9150	0x4ca150	.rdata	1	4	.bat
+0xc9158	0x4ca158	.rdata	1	4	.cmd
+0xc922c	0x4ca22c	.rdata	1	9	size >= 0
+0xc9244	0x4ca244	.rdata	1	60	cchCount1==0 && cchCount2==1 || cchCount1==1 && cchCount2==0
+0xc998c	0x4cb58c	.data	1	7	%s (%s)
+0xc9994	0x4cb594	.data	1	7	%s (%s)
+0xc999c	0x4cb59c	.data	1	7	%s (%s)
+0xc9cf4	0x4cb8f4	.data	1	5	*.map
+0xc9de4	0x4cb9e4	.data	1	4	19%d
+0xc9ed4	0x4cbad4	.data	1	30	Days left of starting weather.
+0xc9f0c	0x4cbb0c	.data	1	8	*BD%d/%d
+0xc9f18	0x4cbb18	.data	1	21	Enter new bonus MONTH
+0xc9f30	0x4cbb30	.data	1	20	Enter new bonus YEAR
+0xca224	0x4cbe24	.data	1	4	v1.1
+0xca2cc	0x4cbecc	.data	1	5	*.sv?
+0xca2f4	0x4cbef4	.data	1	32	No sea trans found for player:%d
+0xca318	0x4cbf18	.data	1	32	No air trans found for player:%d
+0xca40c	0x4cc00c	.data	1	4	%s%d
+0xca414	0x4cc014	.data	1	4	%s%d
+0xca41c	0x4cc01c	.data	1	4	%s, 
+0xca42c	0x4cc02c	.data	1	7	(%d,%d)
+0xca44c	0x4cc04c	.data	1	5	%s %d
+0xca484	0x4cc084	.data	1	5	%-10s
+0xca490	0x4cc090	.data	1	6	%s %d 
+0xca498	0x4cc098	.data	1	5	%s %d
+0xca4a0	0x4cc0a0	.data	1	5	%s %d
+0xca4a8	0x4cc0a8	.data	1	5	%-10s
+0xca758	0x4cc358	.data	1	5	%c%c\
+0xca760	0x4cc360	.data	1	4	%s%s
+0xca9e0	0x4cc5e0	.data	1	8	main.pal
+0xca9ec	0x4cc5ec	.data	1	9	menu2.pal
+0xcac74	0x4cc874	.data	1	15	Pacific General
+0xcb2ec	0x4cceec	.data	1	4	ALT-
+0xcb2f4	0x4ccef4	.data	1	4	CTL-
+0xcc5c0	0x4ce1c0	.data	1	19	%sDATA\pacequip.eqp
+0xcc5d4	0x4ce1d4	.data	1	21	%c:\DATA\pacequip.eqp
+0xcc66c	0x4ce26c	.data	1	6	%s.TXT
+0xcc720	0x4ce320	.data	1	6	%s.TXT
+0xcca08	0x4ce608	.data	1	4	%c:\
+0xcca34	0x4ce634	.data	1	6	%c:\%s
+0xcca74	0x4ce674	.data	1	6	%c:\%s
+0xccab8	0x4ce6b8	.data	1	36	Unable to get a mutex for DrawShape.
+0xccafc	0x4ce6fc	.data	1	40	Unable to get a mutex for DrawShapeFlip.
+0xccb4c	0x4ce74c	.data	1	45	Unable to get a mutex for DrawShapeTranslate.
+0xccba0	0x4ce7a0	.data	1	45	Unable to get a mutex for OffscreenToPrimary.
+0xccbe4	0x4ce7e4	.data	1	31	Unable to get a mutex for Pump.
+0xccc24	0x4ce824	.data	1	41	Unable to get a mutex for PumpForConfirm.
+0xccc6c	0x4ce86c	.data	1	37	Unable to get a mutex for PumpAndAct.
+0xcccb0	0x4ce8b0	.data	1	38	Unable to get a mutex for VerifyShape.
+0xcccf4	0x4ce8f4	.data	1	38	Unable to get a mutex for DrawFuelBox.
+0xccd3c	0x4ce93c	.data	1	41	Unable to get a mutex for DrawWeatherBox.
+0xccd68	0x4ce968	.data	1	41	Software\Microsoft\Windows\CurrentVersion
+0xcce74	0x4cea74	.data	1	7	day.pal
+0xccea8	0x4ceaa8	.data	1	7	day.pal
+0xcd0b0	0x4cecb0	.data	1	10	%s %d (%d)
+0xcd0bc	0x4cecbc	.data	1	9	%s %s, %s
+0xcd0cc	0x4ceccc	.data	1	5	%s %s
+0xcd114	0x4ced14	.data	1	7	day.pal
+0xcd154	0x4ced54	.data	1	41	Campaign error: next scen coming up as %d
+0xcd180	0x4ced80	.data	1	5	*.sve
+0xcd198	0x4ced98	.data	1	13	turn%02dj.pal
+0xcd1b8	0x4cedb8	.data	1	13	turn%02du.pal
+0xcd25c	0x4cee5c	.data	1	7	day.pal
+0xcd384	0x4cef84	.data	1	8	Frame:%d
+0xcd3b8	0x4cefb8	.data	1	35	Scenario will be implemented later.
+0xcd474	0x4cf074	.data	1	5	%s %s
+0xcd47c	0x4cf07c	.data	1	6	%s %s.
+0xcd484	0x4cf084	.data	1	5	%s %s
+0xcd65c	0x4cf25c	.data	1	5	*.map
+0xcd664	0x4cf264	.data	1	9	%sMAPS\%s
+0xcd670	0x4cf270	.data	1	9	%sSAVE\%s
+0xcd6c8	0x4cf2c8	.data	1	5	*.map
+0xcd6d0	0x4cf2d0	.data	1	9	%sMAPS\%s
+0xcd6dc	0x4cf2dc	.data	1	9	%sSAVE\%s
+0xcd6e8	0x4cf2e8	.data	1	9	%sSAVE\%s
+0xcd710	0x4cf310	.data	1	5	%s %s
+0xcd754	0x4cf354	.data	1	4	.SVE
+0xcd760	0x4cf360	.data	1	5	*.map
+0xcd768	0x4cf368	.data	1	9	%sMAPS\%s
+0xcd774	0x4cf374	.data	1	9	%sSAVE\%s
+0xcd780	0x4cf380	.data	1	13	%sSAVE\%s.sve
+0xcd790	0x4cf390	.data	1	13	%sSAVE\%s.svg
+0xcd7a0	0x4cf3a0	.data	1	5	*.map
+0xcd7a8	0x4cf3a8	.data	1	13	%sSAVE\%s.map
+0xcd7b8	0x4cf3b8	.data	1	13	%sSAVE\%s.sve
+0xcd7fc	0x4cf3fc	.data	1	5	*.map
+0xcd804	0x4cf404	.data	1	28	I'm trying to load a map: ..
+0xcd828	0x4cf428	.data	1	41	Trying to load a scenario or save game...
+0xcd928	0x4cf528	.data	1	7	Act on 
+0xce074	0x4cfc74	.data	1	24	Failed to destroy myself
+0xce240	0x4cfe40	.data	1	52	Received message %d from %d which is %d bytes long. 
+0xce2e8	0x4cfee8	.data	1	4	Host
+0xce420	0x4d0020	.data	1	5	%s>%s
+0xce62c	0x4d022c	.data	1	9	%sSCEN\%s
+0xce67c	0x4d027c	.data	1	35	Scenario will be implemented later.
+0xce7ec	0x4d03ec	.data	1	15	whichbuffer = 4
+0xced0c	0x4d090c	.data	1	8	I'm dead
+0xceee4	0x4d0ae4	.data	1	11	%s\smack\%s
+0xceef0	0x4d0af0	.data	1	12	%c:\smack\%s
+0xcef00	0x4d0b00	.data	1	15	Unable to open 
+0xcef14	0x4d0b14	.data	1	7	day.pal
+0xcef50	0x4d0b50	.data	2	8	MCGA.DLL
+0xd0bc8	0x4d27c8	.data	1	11	%c:\scen\%s
+0xd0d68	0x4d2968	.data	1	4	%s, 
+0xd0d74	0x4d2974	.data	1	11	(%d,%d) %s 
+0xd0d80	0x4d2980	.data	1	7	(%d,%d)
+0xd0e84	0x4d2a84	.data	1	5	%-10s
+0xd0e90	0x4d2a90	.data	1	6	%s %d 
+0xd0e98	0x4d2a98	.data	1	5	%s %d
+0xd0ea0	0x4d2aa0	.data	1	5	%s %d
+0xd0ea8	0x4d2aa8	.data	1	5	%-10s
+0xd0fd0	0x4d2bd0	.data	1	14	%sscen\s%s.tst
+0xd0fe4	0x4d2be4	.data	1	6	%s.nfo
+0xd1018	0x4d2c18	.data	1	4	Name
+0xd1184	0x4d2d84	.data	1	23	Cant save the nfo file.
+0xd12d4	0x4d2ed4	.data	1	11	WTHRCLR.SHP
+0xd12e0	0x4d2ee0	.data	1	11	WTHRMUD.SHP
+0xd12ec	0x4d2eec	.data	1	12	WTHRRAIN.SHP
+0xd12fc	0x4d2efc	.data	1	12	WTHRSNOW.SHP
+0xd1324	0x4d2f24	.data	1	11	AMP%02d.SHP
+0xd1330	0x4d2f30	.data	1	11	AMP%02d.SHP
+0xd133c	0x4d2f3c	.data	1	11	AMP%02d.SHP
+0xd16f4	0x4d32f4	.data	1	25	Read Mass Replace Units. 
+0xd1744	0x4d3344	.data	1	15	map is too big.
+0xd17f4	0x4d33f4	.data	1	20	Retreating null unit
+0xd1a18	0x4d3618	.data	1	6	%s: %d
+0xd1a20	0x4d3620	.data	1	6	%s: %d
+0xd1e04	0x4d3a04	.data	1	14	%sDATA\EXT.IDX
+0xd1e14	0x4d3a14	.data	1	16	%c:\DATA\EXT.IDX
+0xd1e28	0x4d3a28	.data	1	18	%sDATA\PFPDATA.IDX
+0xd1e3c	0x4d3a3c	.data	1	20	%c:\DATA\PFPDATA.IDX
+0xd1e54	0x4d3a54	.data	1	13	%sDATA\%s.PFP
+0xd1e64	0x4d3a64	.data	1	15	%c:\DATA\%s.PFP
+0xd1f20	0x4d3b20	.data	1	10	Lay  Tiles
+0xd1fd8	0x4d3bd8	.data	2	4	Axis
+0xd2110	0x4d3d10	.data	1	13	t_%s_%c%c.til
+0xd2160	0x4d3d60	.data	1	13	s_%s_%c%c.til
+0xd21f0	0x4d3df0	.data	1	36	Unable to allocate memory for a map.
+0xd2218	0x4d3e18	.data	1	6	%s.TNM
+0xd22ec	0x4d3eec	.data	1	34	Can't lay tiles while IDing tiles.
+0xd2310	0x4d3f10	.data	1	24	Error: Unknown map mode.
+0xd23a4	0x4d3fa4	.data	1	23	Game Map (%02d, %02d), 
+0xd23bc	0x4d3fbc	.data	1	14	Scen Name %d, 
+0xd23cc	0x4d3fcc	.data	1	4	%s, 
+0xd23d4	0x4d3fd4	.data	1	21	terrain id error:%d, 
+0xd23ec	0x4d3fec	.data	1	34	%s(Using alternate text for %s),  
+0xd2410	0x4d4010	.data	1	10	Error %d, 
+0xd241c	0x4d401c	.data	1	10	Nation:%s.
+0xd2428	0x4d4028	.data	1	10	No Nation.
+0xd2434	0x4d4034	.data	1	29	Nation has a problem:Value:%d
+0xd2454	0x4d4054	.data	1	24	Off of map---Crash City!
+0xd24b4	0x4d40b4	.data	1	75	%s (%02d, %02d=%d)   %s    nation:%d                                       
+0xd2544	0x4d4144	.data	1	10	No Strings
+0xd25e8	0x4d41e8	.data	1	7	s%s.tst
+0xd26f4	0x4d42f4	.data	1	4	%s%s
+0xd2748	0x4d4348	.data	1	14	%smaps\s%s.tst
+0xd275c	0x4d435c	.data	1	7	s%s.tst
+0xd2788	0x4d4388	.data	1	42	%d entered for map width. Is this correct?
+0xd27b4	0x4d43b4	.data	1	15	Odd settings...
+0xd27c4	0x4d43c4	.data	1	43	%d entered for map height. Is this correct?
+0xd27f0	0x4d43f0	.data	1	15	Odd settings...
+0xd2818	0x4d4418	.data	1	44	Place old X origin at what new even X (0-%d)
+0xd2848	0x4d4448	.data	1	45	Place new X origin at what old even X (0-%d)?
+0xd2878	0x4d4478	.data	1	40	Place old Y origin at what new Y (0-%d)?
+0xd28a4	0x4d44a4	.data	1	40	Place new Y origin at what old Y (0-%d)?
+0xd28ec	0x4d44ec	.data	1	29	Click on hex to place geo in.
+0xd2970	0x4d4570	.data	1	9	Place Geo
+0xd297c	0x4d457c	.data	1	15	Place Geo Here?
+0xd2990	0x4d4590	.data	1	29	Geo wrongSize. Press any key.
+0xd29c8	0x4d45c8	.data	1	34	Couldn't allocate mem for geo map.
+0xd2a3c	0x4d463c	.data	1	13	Geo placement
+0xd2a4c	0x4d464c	.data	1	16	Place this Geo ?
+0xd2a78	0x4d4678	.data	1	19	Geo doesn't exist. 
+0xd2a8c	0x4d468c	.data	1	17	Edit Hex (%d, %d)
+0xd2ae4	0x4d46e4	.data	1	25	Too many terrain strings.
+0xd2b08	0x4d4708	.data	1	8	File: %s
+0xd2b14	0x4d4714	.data	1	12	Size: %d, %d
+0xd2b24	0x4d4724	.data	1	8	Mode: %s
+0xd2b30	0x4d4730	.data	1	8	Type: %s
+0xd2b3c	0x4d473c	.data	1	17	Save Terrain ID's
+0xd2b50	0x4d4750	.data	1	49	Would you like to save all tile terrain ID files?
+0xd2b84	0x4d4784	.data	1	4	.tnm
+0xd2c50	0x4d4850	.data	1	13	t_%s_%c%c.til
+0xd2ca0	0x4d48a0	.data	1	13	s_%s_%c%c.til
+0xd2d04	0x4d4904	.data	1	42	Enter island range modifier (currently:%d)
+0xd3054	0x4d4c54	.data	1	4	%02d
+0xd3074	0x4d4c74	.data	1	4	%02d
+0xd30e4	0x4d4ce4	.data	1	5	%-10s
+0xd30f0	0x4d4cf0	.data	1	6	%s %d 
+0xd30f8	0x4d4cf8	.data	1	5	%s %d
+0xd3100	0x4d4d00	.data	1	5	%s %d
+0xd3108	0x4d4d08	.data	1	5	%-10s
+0xd3148	0x4d4d48	.data	1	5	%-10s
+0xd3154	0x4d4d54	.data	1	6	%s %d 
+0xd315c	0x4d4d5c	.data	1	5	%s %d
+0xd3164	0x4d4d64	.data	1	5	%s %d
+0xd316c	0x4d4d6c	.data	1	5	%-10s
+0xd335c	0x4d4f5c	.data	1	4	%s, 
+0xd3370	0x4d4f70	.data	1	8	(%d %s) 
+0xd337c	0x4d4f7c	.data	1	6	%d %s 
+0xd3384	0x4d4f84	.data	1	6	%d %s 
+0xd338c	0x4d4f8c	.data	1	9	 (%d,%d) 
+0xd3398	0x4d4f98	.data	1	5	%s %d
+0xd33a0	0x4d4fa0	.data	1	10	%s %d (%d)
+0xd3568	0x4d5168	.data	1	4	%02d
+0xd3588	0x4d5188	.data	1	4	%02d
+0xd366c	0x4d526c	.data	1	8	main.Pal
+0xd3678	0x4d5278	.data	1	9	menu2.pal
+0xd3684	0x4d5284	.data	1	7	day.pal
+0xd3700	0x4d5300	.data	1	38	Looking for %s in a PFP.Can't find it!
+0xd3b64	0x4d5764	.data	1	8	Later...
+0xd3c60	0x4d5860	.data	1	5	%s %s
+0xd3da4	0x4d59a4	.data	1	4	[%d]
+0xd3db8	0x4d59b8	.data	1	4	[%d]
+0xd3dcc	0x4d59cc	.data	1	4	[%d]
+0xd3dd8	0x4d59d8	.data	1	4	[%d]
+0xd3de4	0x4d59e4	.data	1	4	[%d]
+0xd3df8	0x4d59f8	.data	1	4	[%d]
+0xd4228	0x4d5e28	.data	1	5	%s %s
+0xd42bc	0x4d5ebc	.data	1	6	%s %s.
+0xd443c	0x4d603c	.data	1	4	[%d]
+0xd4448	0x4d6048	.data	1	4	[%d]
+0xd4454	0x4d6054	.data	1	4	[%d]
+0xd4460	0x4d6060	.data	1	4	[%d]
+0xd446c	0x4d606c	.data	1	4	[%d]
+0xd465c	0x4d625c	.data	1	8	I'm dead
+0xd47b0	0x4d63b0	.data	1	38	Learn how to ride a motorcycle, today!
+0xd47d8	0x4d63d8	.data	1	19	Tame the Iron Horse
+0xd5c90	0x4d7890	.data	7	14	PacGen Session
+0xd5cb0	0x4d78b0	.data	10	13	Mike and Paul
+0xd5f10	0x4d7b10	.data	1	5	 (%d)
+0xd5f18	0x4d7b18	.data	1	5	 (%d)
+0xd6064	0x4d7c64	.data	1	16	%sSAVE\quick.svg
+0xd6078	0x4d7c78	.data	1	16	%sSAVE\quick.svg
+0xd608c	0x4d7c8c	.data	1	20	Quick Load complete.
+0xd61c0	0x4d7dc0	.data	1	5	*.svg
+0xd61f8	0x4d7df8	.data	1	5	*.sv?
+0xd6288	0x4d7e88	.data	1	23	xunits = %d yunits = %d
+0xd62dc	0x4d7edc	.data	1	5	%d,%d
+0xd6364	0x4d7f64	.data	1	5	%d/%d
+0xd636c	0x4d7f6c	.data	1	5	%d/%d
+0xd6374	0x4d7f74	.data	1	5	%d %s
+0xd637c	0x4d7f7c	.data	1	5	%d %s
+0xd639c	0x4d7f9c	.data	1	4	[%d]
+0xd63ac	0x4d7fac	.data	1	4	[%d]
+0xd63bc	0x4d7fbc	.data	1	4	[%d]
+0xd63c8	0x4d7fc8	.data	1	4	[%d]
+0xd63d0	0x4d7fd0	.data	1	4	[%d]
+0xd63e0	0x4d7fe0	.data	1	4	[%d]
+0xd6420	0x4d8020	.data	1	5	%d/%d
+0xd67f4	0x4d83f4	.data	1	10	.MAP files
+0xd6880	0x4d8480	.data	1	9	File Open
+0xd689c	0x4d849c	.data	1	10	.MAP files
+0xd6928	0x4d8528	.data	1	9	File Save
+0xd6944	0x4d8544	.data	1	11	%c:\data\%s
+0xd69c4	0x4d85c4	.data	1	11	%c:\data\%s
+0xd6a58	0x4d8658	.data	1	24	Error with equip name %d
+0xd6a74	0x4d8674	.data	1	27	Error with tilefile name %d
+0xd75a8	0x4d91a8	.data	1	4	%c:\
+0xd7614	0x4d9214	.data	1	5	%d/%d
+0xd7620	0x4d9220	.data	1	5	%d/%d
+0xd7638	0x4d9238	.data	1	4	[%d]
+0xd7644	0x4d9244	.data	1	4	[%d]
+0xd7650	0x4d9250	.data	1	4	[%d]
+0xd765c	0x4d925c	.data	1	4	[%d]
+0xd7668	0x4d9268	.data	1	4	[%d]
+0xd7688	0x4d9288	.data	1	7	%d (%d)
+0xd79cc	0x4d95cc	.data	1	22	Freemem Error: %s (%d)
+0xd79e4	0x4d95e4	.data	1	26	Total Equipment Pieces: %d
+0xd7a00	0x4d9600	.data	1	26	Selected Equipment : %d/%d
+0xd7a4c	0x4d964c	.data	1	29	Too many pieces of equipment.
+0xd7a84	0x4d9684	.data	1	5	uh oh
+0xd7aa4	0x4d96a4	.data	1	7	Uh oh 2
+0xd7aac	0x4d96ac	.data	1	10	Copy of %s
+0xd7ab8	0x4d96b8	.data	1	23	%d is an invalid entry.
+0xd7b00	0x4d9700	.data	1	8	I'm dead
+0xd7b0c	0x4d970c	.data	1	18	Error with delete.
+0xd7b20	0x4d9720	.data	1	8	I'm dead
+0xd7b30	0x4d9730	.data	1	9	%s saved.
+0xd7b3c	0x4d973c	.data	1	6	%s.TXT
+0xd7b50	0x4d9750	.data	1	33	Unable to save equipment strings.
+0xd7b74	0x4d9774	.data	1	4	NUll
+0xd7b80	0x4d9780	.data	1	4	NUll
+0xd7b88	0x4d9788	.data	1	4	NUll
+0xd7b90	0x4d9790	.data	1	8	I'm dead
+0xd7b9c	0x4d979c	.data	1	24	Error with equip name %d
+0xd7c64	0x4d9864	.data	1	11	%3d; %13s; 
+0xd7c70	0x4d9870	.data	1	25	 %2d/%2d; %3d; %3d; %3d; 
+0xd7c8c	0x4d988c	.data	1	10	%4d; %3d; 
+0xd7c98	0x4d9898	.data	1	10	%3d; %3d; 
+0xd7ca4	0x4d98a4	.data	1	30	 [%2d];  [%2d];  %3d;   %3d;  
+0xd7cc4	0x4d98c4	.data	1	29	 %3d;   %3d;   [%2d];  %3d;  
+0xd7ce4	0x4d98e4	.data	1	28	 %3d;   %3d;   %3d;   %3d;  
+0xd7d04	0x4d9904	.data	1	10	%3d; %3d; 
+0xd7d10	0x4d9910	.data	1	10	%3d; %3c; 
+0xd7e04	0x4d9a04	.data	1	11	%3d; %13s; 
+0xd7e10	0x4d9a10	.data	1	10	%4d; %3d; 
+0xd7e1c	0x4d9a1c	.data	1	10	%3d; %3d; 
+0xd7e28	0x4d9a28	.data	1	30	 [%2d];  [%2d];  %3d;   %3d;  
+0xd7e48	0x4d9a48	.data	1	29	 %3d;   %3d;   [%2d];  %3d;  
+0xd7e68	0x4d9a68	.data	1	28	 %3d;   %3d;   %3d;   %3d;  
+0xd7e88	0x4d9a88	.data	1	10	%3d; %3d; 
+0xd7e94	0x4d9a94	.data	1	10	%3d; %3c; 
+0xd7f64	0x4d9b64	.data	1	11	%3d; %13s; 
+0xd7f70	0x4d9b70	.data	1	15	%2d//%2d; %2d; 
+0xd7f80	0x4d9b80	.data	1	10	%3d; %2d; 
+0xd7f8c	0x4d9b8c	.data	1	10	%2d; %8s; 
+0xd7f98	0x4d9b98	.data	1	5	Sur; 
+0xd7fa0	0x4d9ba0	.data	1	5	Air; 
+0xd7fa8	0x4d9ba8	.data	1	5	Err; 
+0xd7fb0	0x4d9bb0	.data	1	10	%3d; %3d; 
+0xd7fbc	0x4d9bbc	.data	1	10	%2d; %2d; 
+0xd7fc8	0x4d9bc8	.data	1	5	%2d; 
+0xd7fd0	0x4d9bd0	.data	1	5	%2d; 
+0xd7fd8	0x4d9bd8	.data	1	5	%2d; 
+0xd7fe0	0x4d9be0	.data	1	5	%3c; 
+0xd7fe8	0x4d9be8	.data	1	11	%10s; %2d; 
+0xd80e0	0x4d9ce0	.data	1	5	%d %s
+0xd8a0c	0x4da60c	.data	1	7	Save-F2
+0xd8a30	0x4da630	.data	1	7	Load-F3
+0xd8a54	0x4da654	.data	1	6	(Q)uit
+0xd8aa0	0x4da6a0	.data	1	10	(H)exsides
+0xd8af0	0x4da6f0	.data	1	9	Load(G)eo
+0xd8b68	0x4da768	.data	1	10	(I)d Tiles
+0xd8bb8	0x4da7b8	.data	1	9	(N)ew Map
+0xd8be0	0x4da7e0	.data	1	6	(F)ill
+0xd8c04	0x4da804	.data	1	10	(A)utoroad
+0xd8cc4	0x4da8c4	.data	1	11	*Map Editor
+0xd8cec	0x4da8ec	.data	1	13	*Equip Editor
+0xd8e6c	0x4daa6c	.data	1	13	*WeatherTurns
+0xd8e98	0x4daa98	.data	1	9	*Max Core
+0xd9050	0x4dac50	.data	1	4	Done
+0xd9690	0x4db290	.data	1	11	streamsize:
+0xd9990	0x4db590	.data	1	47	ERROR: vsprintf() returned EOF in LocalDebugf()
+0xd9f98	0x4dbb98	.data	1	4	.xmi
+0xd9fa8	0x4dbba8	.data	1	4	.tlk
+0xd9ffc	0x4dbbfc	.data	1	8	Device: 
+0xda0b0	0x4dbcb0	.data	1	9	mode co80
+0xda0bc	0x4dbcbc	.data	1	20	Mel 4.0.0.A 02/14/97
+0xda2e8	0x4dbee8	.data	1	4	%s%d
+0xda2f0	0x4dbef0	.data	1	20	Mel 4.0.0.A 02/14/97
+0xda320	0x4dbf20	.data	1	13	Generic Error
+0xda338	0x4dbf38	.data	1	11	Lock Failed
+0xda34c	0x4dbf4c	.data	1	12	Alloc Failed
