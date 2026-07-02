@@ -44,12 +44,28 @@ patch 兩個 push(480→960, 640→1280)後:
 
 ## A1 完整路線圖(Phase 1-5)
 
-### Phase 1:back buffer 放大 + stride 修正 —— 中難度(~2-3 session)
+### Phase 1:present stretch —— 重大簡化(動態 trace 確認)
 
-1. back buffer malloc 640×480 → 1280×960(5 處 `307200` → `1228800`)
-2. stride ×640 → ×1280(~9-30 處 `×5<<7` 逐一 RE 判斷真 stride vs 常數)
-3. SetDisplayMode 已 patch
-4. **驗證里程碑**:畫面填滿 1280×960 不再擠頂部(即使內容仍 640×480 排版縮在左上)
+**原估「改 30 處 stride」被推翻**。動態 `WINEDEBUG=+ddraw` trace 揭露真實 present 機制:
+
+```
+ddraw1_SetDisplayMode  width 640, height 480, bpp 8
+ddraw1_CreateSurface   × 3  (primary 005E5A18 + back buffers 004E6518 / 005E793C)
+ddraw_surface1_Blt  dst_rect (0,0)-(640,480), src 01597FF8, src_rect (0,0)-(640,480)
+```
+
+**present 是 640×480 → 640×480 的 1:1 Blt**(src = back buffer 01597FF8)。這代表 rule 81 stretch 方案**只需**:
+
+1. SetDisplayMode → 1280×960 ✅(已 patch 驗證,file 0x40cdfa/0x40cdff)
+2. present Blt 的 `dst_rect (0,0)-(640,480)` → `(0,0)-(1280,960)` → DirectDraw StretchBlt(nearest = crisp)
+
+**不需要**改 30 處 stride、不需要改 back buffer malloc、不需要改繪圖座標。遊戲照常畫 640×480 back buffer,present 時 DirectDraw 硬體 stretch ×2。這是 A1 的**重大簡化**。
+
+- **驗證里程碑**:畫面 crisp 放大填滿 1280×960(底圖 pixel art nearest ×2)
+
+**待定位**:present Blt 的 dst_rect RECT struct(動態 trace 已知 src surface = 01597FF8;靜態需找建 `RECT{0,0,640,480}` 接該 Blt 的函式,或 +relay 抓 Blt return address)。colorfill Blt(`DDBLT_COLORFILL 0x1000600`)在 VA 0x4232c0,**非** present,勿混。
+
+**注意**:此 stretch 方案讓「畫面放大」變簡單,但 font 仍在 640×480 back buffer 畫 8×8 → stretch 後 16×16 糊。中文清晰仍需 Phase 3(font 在高解析層畫 24×24)。
 
 ### Phase 2:底圖 nearest ×2 放大 —— 高難度(~3-5 session)
 
