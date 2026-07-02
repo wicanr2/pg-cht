@@ -150,17 +150,20 @@
 
 **目錄**: [pacgen/](pacgen/) — 完整心得專欄、翻譯工具、字串 dump、譯名依據。
 
-### 現況(v0.1 施工中)
+### 現況(v0.1 已 ship 2026-07-02)
 
 | 項目 | 結果 |
 |---|---|
 | Wine 啟動配方 | ✅ `wine explorer /desktop=PACGEN,640x480 PACGEN.EXE`,無需 DLL override / no exe patch |
 | PACGEN.EXE 字串 dump | ✅ 3813 條 ASCII → filter 出 356 條 UI 候選 |
 | 心得專欄 (6 篇) | ✅ 序 / wine 配方 / Windows / 檔案結構 / 裝備檔 / 中文化依據 |
-| TXT.PFP 字表 unpack | ⏳ 進行中(11 個內含檔:`classes/terrain/nations/bignats/stance/weather/latitude/months/research/specials/tilefile`) |
-| 33 個劇本 TIT/DES 中譯 | ⏳ 待做 |
-| EXE UI 字串 Big5 length-preserving patch | ⏳ 待做 |
-| AppImage + Windows zip 打包 | ⏳ 待做(pattern 同 PG/AG,virtual desktop 640x480) |
+| TXT.PFP unpack tooling | ✅ 74 節 byte-perfect roundtrip |
+| 33 個劇本 TIT/DES 中譯 | ✅ 標題 + 原創繁中史實簡報 |
+| AppImage v0.1 | ✅ 769 MB (含 wine-11 + CHT 遊戲檔) |
+| Windows zip v0.1 | ✅ 354 MB (portable + BJensen no-CD + 相容模式指南) |
+| TXT.PFP CHT 版套用 | ⚠️ v0.1 未 ship — PFPDATA.IDX 硬編碼 offset,Big5 長度改變會撞歪索引。v0.2 補 |
+| EXE UI 字串 Big5 length-preserving patch | ⏳ v0.2 |
+| PACEQUIP 裝備名 813 條中譯 | ⏳ v0.2 |
 
 ### 三個 wine 踩坑(給後來的人)
 

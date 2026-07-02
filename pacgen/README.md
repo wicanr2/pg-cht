@@ -62,15 +62,26 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 
 ## 進度
 
-v0.1 施工中。這是 3-5 個 session 的專案。
+**v0.1 完成 (2026-07-02)** — AppImage + Windows zip 已可用。
 
-- [x] Wine 啟動配方確認
-- [x] EXE 字串 dump + 初步 filter
-- [x] docs 專欄骨架
-- [ ] TXT.PFP 內字表 unpack
-- [ ] 33 個劇本 TIT / DES 中譯
-- [ ] EXE UI 字串 Big5 length-preserving patch
-- [ ] AppImage + Windows zip 打包
+- [x] Wine 啟動配方確認 (explorer /desktop=PACGEN,640x480)
+- [x] EXE 字串 dump + 初步 filter (3813 條 → 356 UI 候選)
+- [x] docs 專欄骨架 (00 序 / 01 wine / 02 windows / 03 檔案結構 / 04 裝備檔 / 05 中文化依據)
+- [x] TXT.PFP unpack tooling (74 節 byte-perfect roundtrip)
+- [x] 33 個劇本 TIT (歷史學界慣用譯) + DES (原創繁中史實敘述)
+- [x] AppImage + Windows zip 打包(v0.1)
+
+**已知限制 (v0.1 → v0.2)**
+
+- **TXT.PFP 未修改**:CHT 版打包後 game 秒 crash。根因:同目錄 `PFPDATA.IDX` (22 KB) 含硬編碼 offset 到 TXT.PFP 各節區起點,中文 Big5 內容改變 byte 長度就撞歪索引。v0.2 需一併 patch PFPDATA.IDX 或用「Big5 padded 到原長度」策略。
+- **PACGEN.EXE 未 patch**:UI 字串 (菜單、按鈕、對話框) 仍原文。v0.2 補 length-preserving binary patch。
+- **PACEQUIP.EQP/.TXT 未譯**:813 個裝備名仍原文。v0.2 補。
+
+**v0.1 實際 CHT 範圍**
+
+- ✅ 33 個劇本標題 (Big5) — 玩家選劇本時看到「中途島」「瓜達康納爾」「雷伊泰灣」
+- ✅ 33 個劇本簡報 (Big5, 原創史實敘述) — 玩家看 briefing 時看到繁中年份/指揮官/戰略意義
+- ⚠ 主選單、UI、裝備、天氣、國家、月份等 — 仍英文
 
 ## 相關
 
