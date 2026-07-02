@@ -61,7 +61,7 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 |---|---|---|
 | 直接跑會 crash @ eip=0x41544144 ('ATAD') | 以為是 mss32.dll (Miles Sound System) 出錯 | 是沒有 virtual desktop 導致 DDraw 掛掉，crash 位置只是 handler 讀到損毀 vtable |
 | 加 `smackw32=b` (built-in) 感覺穩定 | 以為 Smacker video codec 有問題 | 純巧合，真正的 fix 還是 virtual desktop |
-| 藍屏懷疑 CD check 卡住 | 靜態分析找到 CD-check 迴圈 @ VA 0x40c847 (見 [CD-check RE 筆記](../docs/re-cd-check.md)) | CD 檢查其實通過（pacintro.smk 在當前目錄），黑屏純粹是 window size 問題 |
+| 藍屏懷疑 CD check 卡住 | 靜態分析找到 CD-check 迴圈 @ VA 0x40c847-0x40c8d8,關鍵 offset:`mov [ebp-0x2c], 0` @ 0x40c861、`call MessageBox` @ 0x40c8a6、`call 0x4b8530` 使用結果、loop back @ 0x40c8d8 | CD 檢查其實通過(pacintro.smk 在 pwd),黑屏純粹是 window size 問題 |
 
 ## 相關檔案
 

@@ -13,6 +13,26 @@
 
 ---
 
+## 目錄
+
+**PG 主體**(本頁)
+
+- [成果](#成果) / [成果截圖](#成果截圖appimage-實機)
+- [快速使用](#快速使用) — Linux / Windows 四種啟動方式
+- [三層字體問題](#三層字體問題摘要完整見-wine-font-setupmd) / [Windows 端的三個踩坑](#windows-端的三個踩坑摘要完整見-windows-sfxreadmemd)
+- [環境](#環境) / [已知限制](#已知限制) / [License](#license)
+
+**AG / PacGen / 三作共用**(拆到子文件)
+
+- [盟軍將軍 (AG) 摘要](#盟軍元帥-allied-general-中文化) → [`docs/allied-general.md`](docs/allied-general.md) 完整內容
+- [太平洋元帥 (PacGen) 摘要](#太平洋元帥-pacific-general-中文化) → [`pacgen/`](pacgen/) 子專案
+- [三作 110 個劇本歷史簡介](docs/scenarios/) — [pg.md](docs/scenarios/pg.md) / [ag.md](docs/scenarios/ag.md) / [pacgen.md](docs/scenarios/pacgen.md)
+- [宣傳影片規劃](docs/video-plan.md) — 三作各 45-60s 分鏡表
+- [開發成本估算](#開發成本估算cocomo-sloc-模型) → [`docs/development-cost.md`](docs/development-cost.md) COCOMO 完整推導
+- [目錄結構](#目錄結構) — 完整 repo tree
+
+---
+
 ## 成果
 
 | 項目 | 結果 |
