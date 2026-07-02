@@ -114,10 +114,10 @@ v0.3-v0.6 的 Big5 patch **資料層寫進去了,但畫面上是亂碼**。根�
 
 **🎯 A1 拉高畫布 (rule 81):讓中文能 24×24 清晰顯示的正解**
 
-逆向進度 (誠實標註驗證狀態):
+逆向進度 (只列**純靜態 RE** 的可靠結果;涉及跑起來看畫面的結論一律待乾淨環境驗證):
 
-- **Phase 0 ✅ 已驗證**:`TFONT1.DAT` 格式全解 (8×8, 256 glyph)、`SetDisplayMode` 單點定位 VA `0x40cdf8`、patch 到 1280×960 **實測 window 變大不 crash**
-- **Phase 1 (機制已確認,畫面成果待定案)**:`WINEDEBUG=+ddraw` 動態 trace 6976 行確認 **present = DirectDraw Blt** (`0x40d6dc` 一帶,DDBLT_WAIT dst 640×480 src=back buffer)。stretch 概念 = 改 present dst 尺寸 → DirectDraw StretchBlt。**⚠ 完整 4-word stretch 的畫面放大成果尚未在乾淨環境定案** (曾做實驗但截圖驗證環境不穩,待重跑)
+- **靜態偵察 ✅ 可靠**:`TFONT1.DAT` 格式全解 (8×8, 256 glyph,見 [`docs/08-tfont-re.md`](docs/08-tfont-re.md))、`SetDisplayMode` 單點靜態定位 VA `0x40cdf8`(file `0x40cdfa`/`0x40cdff`)、解析度/stride 常數 capstone 掃描計數可枚舉
+- **⏸ 待乾淨環境驗證**:改 mode 是否 crash、present 機制 (DirectDraw Blt 還是 Lock+copy)、放大手法。先前 session 曾有「present stretch」結論,但在不穩環境產生、**已作廢移除**,需重做
 - **Phase 3 (未做,最重)**:font 換 24×24 畫在高解析畫布 + Big5 2-byte lookup。**這是讓上述所有 Big5 CHT 從亂碼變可讀中文的臨門一腳**
 
 完整路線圖 [`docs/09-a1-hires-canvas-roadmap.md`](docs/09-a1-hires-canvas-roadmap.md);方法論獨立成 skill [`../skills/retro-directdraw-hires-cjk`](../skills/retro-directdraw-hires-cjk/SKILL.md)。
