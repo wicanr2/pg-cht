@@ -43,104 +43,13 @@
 
 *Allied General*(SSI 1995,與 Panzer General **同引擎**)的繁體中文化。針對社群「Lite v1.1」重打包版(`AG.EXE` 2,167,611 bytes),完成 EXE 字串、資料檔、**烤在點陣圖裡的 UI**、開頭畫面標題全面中文化,並修掉重打包者藏的簽名。
 
-### 遊戲簡介 — 經典 Hex-based 戰術骨灰作
+**完整技術細節**(遊戲簡介、中文化開頭畫面、完成項目、點陣圖 UI 中文化工作流、陣營主題 bug 連鎖、踩雷紀錄)搬到 **[`docs/allied-general.md`](docs/allied-general.md)**。快速預覽:
 
-作為 SSI 經典神作《裝甲元帥》(Panzer General) 的續作,《盟軍元帥》在 Windows 95 世代將戰場視角切換至盟軍陣營。其核心玩法本質上是一套**具備部隊養成機制的六角格 (Hex-based) 資源調度與戰術模擬系統**。
+- ![盟軍元帥 中文化開頭畫面](docs/screenshots/ag_splash_zh.png)
+- 完成項目:EXE UI 字串 + 任務簡報 + PANZEQUP.EQP 裝備名 + MAPNAMES.STR 城市名 + **烤在點陣圖裡的 UI**(共用按鈕、購買面板、戰損統計表,盟/德/俄三主題各一套變體) + 移除重打包者簽名
+- 三大技術難點:RLEi 逐列 RLE 編解碼、陣營 theme classify bug、狀態列指標重導向 padding 洩漏
+- 兩個 skill:[`art-dat-bitmap-cht`](skills/art-dat-bitmap-cht/SKILL.md)(點陣圖 UI)、[`panzer-general-cht`](skills/panzer-general-cht/SKILL.md)(EXE 字串)
 
-**核心架構 — 三大 Campaign**:遊戲將歷史戰役拆解為三條獨立邏輯主線,各有不同操作痛點與資源限制:
-
-| 戰線 | 風格 | 痛點 |
-|---|---|---|
-| **蘇聯線 (Soviet)** | 先防禦後反攻 | 初期(巴巴羅薩行動)以空間換時間,用消耗戰拖延德軍閃電戰;中後期重工業成型後全面壓制 |
-| **英國線 (British)** | 長途補給與多軍種協同 | 戰場在北非沙漠與義大利,裝甲基數小,極度依賴海空軍掩護與精準戰線維持 |
-| **美國線 (American)** | 強大資源與空權壓制 | 從火炬行動推到德國本土,容錯率最高,後勤與空中火力壓倒性 |
-
-**核心機制與戰術邏輯**:深度不在複雜操作,而在三個底層機制相互堆疊:
-
-1. **核心部隊繼承 (Core Units Instance)** — 關卡結束時倖存部隊攜帶累積經驗值 (Stars) 直接繼承到下一關。玩家真正的核心資產是這群高經驗王牌;**避免王牌因失誤被全滅 (Permadeath) 是貫穿全局的最高原則**。
-2. **科技樹演進與動態升級** — 戰役時間軸推進 (1941 → 1945) 解鎖新歷史裝備,可消耗**聲望值 (Prestige)** 升級部隊硬體。範例:輕型 M3 Stuart → 主力 M4 Sherman → 後期抗虎式主力 M26 Pershing。
-3. **多兵種協同 (Combined Arms) 與地形限制** — 單一兵種衝鋒極易觸發「遭遇戰 (Rugged Defense)」而崩盤。標準戰術執行鏈:
-
-   > 偵察車 (Recon) 開霧 → 火砲 (Artillery) 間接壓制 → 空軍洗地 → 步兵/裝甲收尾
-
-   城市與密林等地形對裝甲有極高負面修正,須改由步兵近身清理。
-
-**總結 — 核心價值**:成功在於「易學難精 (Easy to learn, hard to master)」。它把複雜的軍事手冊計算隱藏於簡單的攻擊/防禦數值與地形加成公式中。對喜歡沙盤推演、注重部隊養成與最優解戰術布局的玩家,本作奠定了現代回合制策略遊戲(如 *Panzer Corps*)的底層邏輯。
-
-### 中文化後的開頭畫面
-
-在原版 `ALLIED GENERAL` 標誌下,新增**鋼鐵漸層書法風**的「盟軍元帥」(字寬對齊英文、置中其下、套垂直銀灰漸層 + 深色描邊,直接重繪進 `ART\SPLASH.DAT` 的點陣圖):
-
-![盟軍元帥 中文化開頭畫面](docs/screenshots/ag_splash_zh.png)
-
-### 完成項目
-
-| 類別 | 內容 |
-|---|---|
-| EXE UI 字串 | menu / 對話框 / 按鈕 / 狀態列(Big5 就地翻譯 + RT_MENU/RT_DIALOG/RT_STRING) |
-| 任務簡報 | RT_STRING 全中文,並修正兩個致命踩雷:**尾端空格 padding 造成換行大空洞**、**空字串(wLen=0)導致組字器回顯重複** |
-| 回合/開戰畫面 | 天氣(晴朗/陰天/下雨/下雪)、地面(乾/泥濘/結冰)、陣營(盟軍/軸心)、月份(一~十二月) |
-| 裝備名稱 | `PANZEQUP.EQP` 全中文 + 縮短(國名 1 字、刪重複英文機名;如 `美國 野馬 P51B Mustg` → `美野馬 P51B`) |
-| 城市/地形/戰術標籤 | `MAPNAMES.STR`(1553/1570)、`TACMAP.TGF`(與 PG 共用) |
-| **點陣圖 UI(烤在圖上)** | PREFERENCES / SETTINGS(盟德俄三版)/ 戰役按鈕 / 共用按鈕(取消·確定·購買·離開·下頁·上頁·升級·撤回·核准·否決)/ **購買部隊金牌面板(盟德俄 3 變體)** / **戰損統計表(盟德俄 3 變體 + 18 兵種名)** — 全靠逆向 `ART.DAT` 的 RLEi 編解碼重繪;小字改用**抗鋸齒**渲染求清晰 |
-| 狀態列/對話框按鈕(GDI 字串) | 油料·彈藥·戰壕值·主動…、OK→確定(指標重導向)、Cancel→取消 / Yes→是 / No→否(就地翻) |
-| 開頭畫面 | 加「盟軍元帥」鋼鐵漸層標題(見上) |
-| **修正陣營主題(theme)bug** | 戰鬥介面 + 購買畫面 + 戰損表共用 theme 全域,蘇/德場景顯示錯主題。**真根因 = classify 比對的戰役名表被前一次翻譯就地改成中文,但場景 lookup 名仍英文 → 永不命中 → 全部落同一主題**;另有更早一次「配色 fix」把 switch 改反方向(因 classify 已壞而休眠未爆)。修法 = classify 表重指英文副本(顯示維持中文)+ switch 改回原始。實機定案 theme0=盟/1=德/2=俄 |
-| **修正點陣圖洩漏 bug** | 狀態列「戰壕值/確定」指標重導向時,空區選到單位資料標籤表(0x20-stride)的 slot 內 padding,off-by-one 蓋掉前一字串 NUL → 單位面板顯示「油料:戰壕值:%d」亂入。改放真正不被索引的描述區 padding |
-| **移除重打包者簽名** | 藏在狀態列(**反向 + XOR 0xFF** 編碼)的 email `raywolf@chuvashia.ru` → 改顯示玩家代號;明文 `kilroy was here.` → `盟軍元帥中文版` |
-
-### 點陣圖 UI 中文化 — 設計概念與前後對照
-
-這是整個專案技術含量最高的部分。**這些英文不在 EXE 字串表裡** —— 它們是「**烤**」在 `ART/ART.DAT`(~25 MB 自訂封存檔)內的**調色盤 RLE 點陣圖**。你 grep 不到、改 EXE 也沒用,只能把那一張張小圖**解碼出來、抹掉英文、重畫中文、再編碼塞回去**。
-
-#### 共用對話按鈕(取消 / 確定 / 購買 / 核准 / 否決 …)
-
-![按鈕 中文化前後](docs/screenshots/ag_buttons_before_after.png)
-
-每顆按鈕是獨立的 RLEi chunk,連金邊、漸層底、內框、紅/綠高對比都要原樣保留 —— **去字只抹文字筆畫、不能平塗單色**,否則質感全毀。
-
-#### 戰損統計表(整張對話框背景圖,連 18 兵種名都烤在裡面)
-
-![戰損表 中文化前後](docs/screenshots/ag_losses_before_after.png)
-
-`LOSSES → 戰損`、`Infantry/Tank/… → 步兵/戰車/…` 全部烤在**同一張 448×441 背景圖**裡(連表格線、單位剪影、羊皮紙紋理都是)。而且**盟 / 德 / 俄各有一套變體**(`aRon`/`gRon`/`rRon`),由陣營主題自動選擇 —— 三套都要逐一重畫。
-
-#### 購買部隊金牌資訊面板
-
-![購買面板 中文化前後](docs/screenshots/ag_purchase_before_after.png)
-
-`UNIT SLOTS FREE → 剩餘編制`、`YOUR PRESTIGE → 您的聲望` … 同樣烤在整張購買畫面背景圖,亦有盟 / 德 / 俄三變體(`ajSn`/`gcSn`/`rpSn`)。
-
-#### 設計概念(重繪工作流)
-
-1. **格式逆向不靠猜** —— ART.DAT = `Indx` 索引 + `CPal` 調色盤 + `RLEi` 影像。RLEi 是**逐列 RLE**(每列 `BE16 rowlen` 前綴 + run/literal/skip token)。整套文法是**反組譯遊戲自己的解碼程式**(`AG.EXE` VA `0x54CF05` 一帶,capstone)逐指令確認的 —— 寬鬆解碼器能 round-trip 自己的輸出,但遊戲解碼器更嚴,差一個 control byte 整片花屏。
-2. **去字保底(保留陰影漸層)** —— 金條/面板底是帶陰影的漸層,逐列把「文字暗像素」改回**該列底色眾數**,保留頂亮邊 / 本體 / 底陰影,不平塗單色。
-3. **對位用 ground-truth 投影,不用肉眼猜** —— 在生成區掃「文字色 vs 底色」的列/欄密度得到原文精確 bbox;中文畫在與英文**完全相同的位置/字高**,避開遊戲疊上的 sprite。
-4. **小字清晰度靠抗鋸齒(AA)** —— 小型 CJK 用 bi-level 硬門檻會糊;把字型 glyph 的**灰階覆蓋率映到「底色↔墨色漸層」**,每階取最近調色盤色,小到 9-10px 也清楚。
-5. **就地回填、archive 大小不變** —— 中文比英文短,重編碼的 stream 一定塞得進原 chunk;補零只到 `off+size` 邊界(超過會蓋掉下一個 chunk 的 header → `exMedia` 崩潰)。
-
-> **關鍵心法**:遊戲裡找不到對應的 UI 英文,先判斷它是「**EXE 字串(GDI 即時繪字)**」還是「**烤在 ART.DAT 的點陣圖**」—— 翻了 EXE 字串重開仍英文,就是後者。兩者工具鏈完全不同。
-
-#### 陣營主題(theme)系統 — 一個 bug 帶出的連鎖
-
-戰鬥介面、購買畫面、戰損表**共用同一個 theme 全域**(`[0x5f1b34]`,實機定案 `theme0=盟 / 1=德 / 2=俄`),由 `classify`(把當前戰役名對「北非 8 + 西歐 14」兩張表做 `strcmp`)決定。**最隱蔽的 bug**:更早一次翻譯把 classify 比對用的戰役名表**就地翻成中文**,但程式比對時拿的是**英文 lookup 名** → 中文表 vs 英文名**永遠不命中** → 所有場景擠進同一個主題。修法 = 把 classify 表**另存英文副本並重指**(畫面顯示走另一條中文重導向,兩者拆開)。
-
-> **教訓**:`strcmp`/lookup 用的字串表**絕不可原地翻譯**(同 `SCENARIO.TDB` 鐵則)。要顯示中文就用指標重導向另存中文副本,讓 lookup 表保留英文。
-
-### 技術文件(可重做)
-
-- **點陣圖 UI 中文化**(ART.DAT 索引 / CPal 調色盤 / RLEi 逐列 RLE 編解碼 / 去字保底 / 抗鋸齒小字 / 鋼鐵漸層標題):[`skills/art-dat-bitmap-cht/SKILL.md`](skills/art-dat-bitmap-cht/SKILL.md) + `tools/art-dat/`
-- **EXE / 資料檔 中文化 + 執行期 UI + 破解者簽名逆向**:[`skills/panzer-general-cht/SKILL.md`](skills/panzer-general-cht/SKILL.md)、[`references/ag-ui-runtime.md`](skills/panzer-general-cht/references/ag-ui-runtime.md)
-
-> 與 PG 相同,本 repo **不含遊戲本體**(版權所有),僅放可重做的腳本 / 技術文件 / 截圖。
-
-### 踩雷紀錄(2026-05-30 事件)
-
-| 事件 | 根因 | 處理 |
-|---|---|---|
-| **改完 email 後一進戰場就閃退** | 破解者的 email blob(`0x3d15f–0x3d17a`,reversed+XOR0xFF)**尾端 2 byte 與可執行碼重疊** —— 正好是 `call 0x43dda3` 的運算元高位 + 一個 `ret`。原本「整段 28 byte 覆寫」把 call/ret 改成 `0xFF` → 選單能開、**一進關卡執行到該段就崩潰**。 | **只改字串需要的 13 byte**(null + Big5),保留 `0x3d15f/0x3d160` 的 code byte;反組譯確認 `call+ret` 還原。詳見 [`ag-ui-runtime.md` §6](skills/panzer-general-cht/references/ag-ui-runtime.md)。**教訓:cracker 把資料藏進 .text 時常與指令交疊,改之前務必反組譯確認該 byte 不是 code。** |
-| **字形與原始 Lite 不同** | 前期跟隨 PG 把字體 face `Arial`→`Tahoma`(26 處);Windows 原生對 Big5 的代換字型因此不同。 | **還原回 `Arial`**(`b"Tahoma"`→`b"Arial\0"`,26 處)。Tahoma 改法是 wine 端 Big5 fallback 用,**Windows 原生保留 `Arial` 即可**。 |
-| **256 色才能執行(WinG 老遊戲)** | AG.EXE 啟動檢查 `GetDeviceCaps(BITSPIXEL)==8`,Win10/11 為 32bpp → 跳「需 256 色」對話框退出。 | 本機無編譯器 → **用 Python 手工組 32-bit PE `shim.dll`**:轉發 29 個 GDI32 函式給真 gdi32、只攔 `GetDeviceCaps` 的 BITSPIXEL→回 8;patch AG.EXE import `GDI32.dll`→`shim.dll`。手法同 pg-cht wine 的 `pgs.dll`([`panzer-general-wine`](skills/panzer-general-wine/SKILL.md))。 |
 
 ---
 
@@ -148,95 +57,24 @@
 
 *Pacific General* (SSI/Mindscape 1997,5D General 系列末代)的繁中化與現代環境跑通指南。歷代三大誌 1997 從沒為這款寫過中文專欄;本節是 29 年後的補完。
 
-**目錄**: [pacgen/](pacgen/) — 完整心得專欄、翻譯工具、字串 dump、譯名依據。
+**完整內容都在 [`pacgen/`](pacgen/) 子目錄**:
 
-### 現況(v0.1 已 ship 2026-07-02)
+- [`pacgen/README.md`](pacgen/README.md) — 專案總覽 + v0.2 進度表(AppImage 首次啟動三層雷全解)
+- [`pacgen/docs/`](pacgen/docs/) — 6 篇中文化心得專欄
+- [`pacgen/tools/`](pacgen/tools/) — TXT.PFP unpack/pack + glossary apply
+- [`pacgen/translations/`](pacgen/translations/) — 33 個劇本 TIT/DES + glossary + TXT.PFP 中譯
 
-| 項目 | 結果 |
-|---|---|
-| Wine 啟動配方 | ✅ `wine explorer /desktop=PACGEN,640x480 PACGEN.EXE`,無需 DLL override / no exe patch |
-| PACGEN.EXE 字串 dump | ✅ 3813 條 ASCII → filter 出 356 條 UI 候選 |
-| 心得專欄 (6 篇) | ✅ 序 / wine 配方 / Windows / 檔案結構 / 裝備檔 / 中文化依據 |
-| TXT.PFP unpack tooling | ✅ 74 節 byte-perfect roundtrip |
-| 33 個劇本 TIT/DES 中譯 | ✅ 標題 + 原創繁中史實簡報 |
-| AppImage v0.1 | ✅ 769 MB (含 wine-11 + CHT 遊戲檔) |
-| Windows zip v0.1 | ✅ 354 MB (portable + BJensen no-CD + 相容模式指南) |
-| TXT.PFP CHT 版套用 | ⚠️ v0.1 未 ship — PFPDATA.IDX 硬編碼 offset,Big5 長度改變會撞歪索引。v0.2 補 |
-| EXE UI 字串 Big5 length-preserving patch | ⏳ v0.2 |
-| PACEQUIP 裝備名 813 條中譯 | ⏳ v0.2 |
-
-### 三個 wine 踩坑(給後來的人)
-
-DirectDraw exclusive fullscreen 老遊戲的通用坑:
-
-1. **直接 `wine PACGEN.EXE`** → 遊戲搶主機解析度到 640x480,桌面環境要花數秒才反應過來
-2. **`explorer /desktop=PACGEN,1024x768`** → 虛擬桌面尺寸不匹配 → 遊戲 window 縮成 1x1、純藍屏 20 秒
-3. **`explorer /desktop=PACGEN,640x480`** → 剛好匹配 DDraw primary surface → **正常畫面**
-
-詳解見 [pacgen/docs/01-wine-啟動配方.md](pacgen/docs/01-wine-啟動配方.md)。
-
-### Pacific General 中文化心得專欄
-
-| # | 篇章 | 主題 |
-|---|---|---|
-| [00](pacgen/docs/00-序.md) | 序 | 為什麼 1997 年沒中文版 |
-| [01](pacgen/docs/01-wine-啟動配方.md) | wine 啟動配方 | DirectDraw 三個坑 |
-| [02](pacgen/docs/02-modern-windows.md) | modern Windows | v1.1 patch + no-CD + 相容模式 + 字型 |
-| [03](pacgen/docs/03-遊戲檔案結構.md) | 檔案結構解剖 | data / scen / Maps / bnk / stream / SMACK |
-| [04](pacgen/docs/04-裝備檔解析.md) | 裝備檔解析 | 813 實體單位 + 282 佔位,EQP 結構 |
-| [05](pacgen/docs/05-中文化依據.md) | 中文化依據 | Zero 為何不譯「零戰」、艦名譯法規範 |
+**v0.2 已 ship**:AppImage 769 MB (wine-11 內建 + DDraw fix + wineserver kill trick) + Windows portable zip 354 MB。首次啟動 40 秒內主選單。TXT.PFP CHT 版套用因 `PFPDATA.IDX` 硬編碼 offset 問題留待 v0.3。
 
 ---
 
 ## 開發成本估算(COCOMO SLOC 模型)
 
-用經典 **COCOMO Basic**(`工作量 PM = a · KLOC^b`)反推「這套東西**用傳統方式**要投入多少人力」,再對照 **2026 AI-agent 工具棧**的實際投入。
+用經典 COCOMO Basic 反推「這套東西**用傳統方式**要投入多少人力」,再對照 **2026 AI-agent 工具棧**的實際投入。
 
-### 實測 SLOC(本專案實際產出)
+**一句話結論**:COCOMO 教科書(Embedded, 6.18 KLOC)喊 **~32 人月(2.7 人年)**;實際跑下來 **~2 週、~0.25-0.5 人月** — 差距約 **30-60 倍**,正是逆向 + 漢化這類「低 SLOC / 高 RE 密度」被現代 AI 工具放大最劇烈的典型案例。
 
-| 類別 | 檔數 | 有效碼行 |
-|---|---|---|
-| pg-cht repo 可重用工具(art-dat / SFX / wine / fonts) | 21 | 1,178 |
-| 逆向 + patch 工作腳本(`_ag_analyze/`,多為一次性探針) | 137 | 5,006 |
-| **程式碼小計** | 158 | **6,184** |
-| skill / 技術文件(md) | 14 | 2,370 行 |
-
-### COCOMO Basic 結果(取程式碼 6.18 KLOC)
-
-| 模式 | 工作量(人月 PM) | 工期 | 並行人數 | 人年 |
-|---|---|---|---|---|
-| Organic 有機 | 16.3 | 7.2 mo | 2.3 | 1.35 |
-| Semi-detached 半嵌入 | 23.1 | 7.5 mo | 3.1 | 1.92 |
-| **Embedded 嵌入 ★採用★** | **32.0** | 7.6 mo | 4.2 | **2.67** |
-
-### 為何這樣計算(方法論註解)
-
-1. **為何選 Embedded 模式?** COCOMO 三模式中,Embedded 對應「**緊約束、高複雜度、新領域**」。本專案是 PE 二進位逆向 + 自訂封存檔(ART.DAT/RLEi)格式反推 + 數十處 hex patch + slot 長度/指標重導向硬約束 —— 完全吻合 Embedded 的特徵,而非一般應用程式(Organic)。
-
-2. **為何 KLOC 取 6.18 而非只算交付工具的 1.18?** 逆向工程的本質是「**探索**」:那 5,006 行一次性分析腳本(反組譯、調色盤渲染、零區掃描、黑箱探針)**就是真實工時的載體**,不是浪費。只算最後 commit 的 1.18 KLOC 會嚴重低估。
-
-3. **COCOMO 在此類專案的兩個系統性偏差(必須揭露)**
-   - **低估**:SLOC 抓不到「**0 行卻最燒時間**」的工作 —— 讀反組譯、反推 RLEi 文法、theme 配色 bug 獵殺、逐張點陣圖目視驗證。RE 是典型的「**低 SLOC / 每行高心智成本**」。
-   - **高估**:COCOMO 校準自 1980-2000 年代**團隊全生命週期**開發**新應用**,內含大量團隊溝通與流程 overhead;本案是**單人 + 大量拋棄式腳本**,沒有那層 overhead。
-   - 兩者部分相抵 → **32 人月**視為「**傳統人力合理上界**」;一個資深 RE 工程師**單幹、無 AI** 的現實落點約 **4–9 人月**。
-
-4. **★2026 工具棧現實校正(本專案即為實測 spike,非空口)★**
-   - **時程**:~2026-05-16 → 05-31,約 **2 週** wall-clock 互動 session。
-   - **人的投入**:給方向 + 數十輪實機測試 ≈ **30–60 小時 ≈ 0.2–0.35 人月**。
-   - **AI agent**:6K 行腳本 + capstone 反組譯 + 逐 chunk patch/render 皆**分鐘級**產出;host CPU 暴力掃指標/零區/調色盤。
-   - 相對「單人無 AI 的 RE」壓縮約 **10–30×**(逆向漢化這類低-SLOC-高-RE-密度工作,被現代工具放大最劇烈)。
-
-### 結論(三個數字並陳)
-
-| 視角 | 人力 |
-|---|---|
-| COCOMO 教科書(Embedded, 6.18 KLOC) | **~32 人月(2.7 人年)** |
-| 資深 RE 工程師單幹、無 AI(校正 overhead 後) | **~4–9 人月** |
-| **2026 實際(AI agent + 人主導測試)** | **~2 週、~0.25–0.5 人月** |
-
-> **一句話**:COCOMO 純按行數會喊「將近 3 人年」,但那是「**用 1990s 方式硬幹的等效規模**」;在 2026 AI-agent 工具棧下實際壓到 **2 週 / 半個人月以內** —— 差距約 **30–60 倍**,正是逆向 + 漢化這類工作被現代工具放大最劇烈的典型案例。
->
-> *(SLOC 由 `*.py / *.ps1 / *.sh` 去空行去純註解行統計;COCOMO 係數採教科書 Basic 值 Organic/Semi/Embedded = a:2.4/3.0/3.6, b:1.05/1.12/1.20。)*
+**完整推導**(SLOC 統計、Embedded 模式選擇、COCOMO 兩個系統性偏差揭露、AI 工具棧壓縮倍率)見 **[`docs/development-cost.md`](docs/development-cost.md)**。
 
 ---
 
@@ -244,40 +82,59 @@ DirectDraw exclusive fullscreen 老遊戲的通用坑:
 
 ```
 pg-cht/
-├── README.md                       # 你正在看的這份
-├── WINE-FONT-SETUP.md              # 詳細技術文件(三層字體問題 + 解法)
-├── docs/
-│   ├── 01-symptom-screenshots.md   # 原 6 張時序截圖的敘事(□□ → 正常 → 粗體 → AppImage)+ 3 張最終成果
-│   └── screenshots/                # 3 張最終成果 PNG(00/01/02);原時序 6 張未保留
-├── tools/                          # 字體與 prefix 配置腳本
+├── README.md                       # 你正在看的這份 (系列總覽 + PG 主體)
+├── WINE-FONT-SETUP.md              # 三層字體問題 + 解法詳解
+│
+├── docs/                           # 系列共用文件
+│   ├── allied-general.md           # 盟軍將軍 (AG) 完整中文化技術文件
+│   ├── development-cost.md         # COCOMO 開發成本估算 + AI 工具棧壓縮倍率
+│   ├── 01-symptom-screenshots.md   # □□ → 正常 → 粗體 → AppImage 時序敘事
+│   ├── screenshots/                # PG 3 張成果截圖 + AG 前後對照 5 張
+│   └── scenarios/                  # 三作 110 個劇本歷史簡介 TSV
+│       ├── README.md               # 索引與譯名規範
+│       ├── pg-scenarios.tsv        # 裝甲元帥 38 個劇本 (1939-46 德軍視角)
+│       ├── ag-scenarios.tsv        # 盟軍將軍 39 個劇本 (1940-45 盟/蘇)
+│       └── pacgen-scenarios.tsv    # 太平洋元帥 33 個劇本 (1936-46 太平洋)
+│
+├── pacgen/                         # 太平洋元帥中文化子專案 (獨立 README + docs)
+│   ├── README.md                   # v0.2 進度表 + 三層雷 debug 路線圖
+│   ├── CONTEXT.md                  # 譯名 glossary
+│   ├── docs/                       # 6 篇心得專欄 + wine 啟動配方
+│   ├── tools/                      # pfp_split/pack + apply_glossary + dump_pe_strings
+│   └── translations/               # 33 劇本 TIT/DES + TXT.PFP 74 節中譯
+│
+├── tools/                          # 全系列共用工具
 │   ├── setup-wine.sh               # 一鍵裝 wine + 建 prefix + DPI=136
-│   ├── write-menufont.py           # 寫 binary LOGFONTW 改 menu/caption 字體
-│   ├── merge-tahoma.py             # v1:Microsoft Tahoma + 教育部宋體 merge(細體)
-│   ├── merge-tahoma-bold.py        # v2:Source Han Sans Heavy 改名 Tahoma(粗體,最終採用)
-│   ├── replace-tahoma.py           # 把產出的字體覆蓋進 prefix,設 fontRev=32767.99
-│   ├── rename-fonts.py             # 改字體 face name(mingliu/pmingliu/simsun 等別名)
-│   └── fontforge.Dockerfile        # docker fontforge 環境(複雜字體操作用)
-├── appimage/                       # Linux AppImage 構建材料
-│   ├── README.md                   # AppImage 構建與設計筆記
-│   ├── AppRun                      # 啟動腳本
-│   ├── panzer-general.desktop      # XDG entry
-│   ├── panzer-general.png          # icon
-│   ├── wine-portable.sh            # 取代 /usr/bin/wine(原版 hardcode 路徑)
-│   ├── wineserver-portable.sh      # 取代 /usr/bin/wineserver
-│   ├── wineserver-dispatcher.sh    # 取代 /usr/lib/wine/wineserver
+│   ├── merge-tahoma*.py            # 字型 merge (v1 細體 / v2 粗體)
+│   ├── replace-tahoma.py           # 覆蓋字型進 prefix
+│   ├── rename-fonts.py             # 改 face name (mingliu/pmingliu/simsun 別名)
+│   ├── write-menufont.py           # binary LOGFONTW 改 menu/caption
+│   ├── fontforge.Dockerfile        # docker fontforge 環境
+│   ├── art-dat/                    # AG ART.DAT (RLEi 點陣圖 UI 中文化)
+│   └── video/                      # 宣傳片素材錄製 (Xvfb + wine + ffmpeg x11grab)
+│       └── capture_pacgen.sh       # PacGen 主選單/劇本畫面自動錄影
+│
+├── appimage/                       # PG Linux AppImage 構建材料
+│   ├── README.md, AppRun, *.desktop, *.png
+│   ├── wine-portable.sh            # 取代 /usr/bin/wine (原版 hardcode 路徑)
+│   ├── wineserver-portable.sh, wineserver-dispatcher.sh
 │   └── build.sh                    # 一鍵打包 .AppImage
-├── windows-sfx/                    # Windows 7-Zip SFX 構建材料
+│
+├── windows-sfx/                    # PG Windows 7-Zip SFX 構建材料
 │   ├── README.md                   # SFX 設計筆記 + WING32 patch 原理
-│   ├── patch_wing32.py             # 對 WING32.DLL 套 2-byte patch(suppress dialog)
-│   ├── PG-cht.cmd                  # 自含啟動器(__COMPAT_LAYER=256COLOR env var)
-│   ├── stamp_icon.ps1              # Win32 UpdateResource P/Invoke icon stamper
-│   ├── build_sfx.ps1               # 一鍵打包 .exe(stage→.7z→config→stamp→concat)
-│   └── Remove-256Color-Shim.reg    # 清掉舊 HKCU AppCompat shim
-└── skills/
-    ├── panzer-general-cht/SKILL.md       # PG/AG 中文化領域知識
-    ├── panzer-general-wine/SKILL.md      # wine 啟動環境(256 色 bypass via pgs.dll)
-    └── wing-portable-sfx/SKILL.md        # Windows 原生 + SFX 打包(WING32 patch + __COMPAT_LAYER)
+│   ├── patch_wing32.py             # 對 WING32.DLL 套 2-byte patch (suppress dialog)
+│   ├── PG-cht.cmd                  # 自含啟動器 (__COMPAT_LAYER=256COLOR)
+│   ├── stamp_icon.ps1, build_sfx.ps1
+│   └── Remove-256Color-Shim.reg
+│
+└── skills/                         # 領域知識 skill (Claude Code agent 可 invoke)
+    ├── panzer-general-cht/SKILL.md      # PG/AG EXE 字串 + 資料檔中文化 (含 AG runtime)
+    ├── panzer-general-wine/SKILL.md     # wine 啟動 (PG pgs.dll 256 色 bypass + AG shim)
+    ├── art-dat-bitmap-cht/SKILL.md      # AG ART.DAT RLEi 點陣圖 UI 中文化
+    └── wing-portable-sfx/SKILL.md       # Windows 原生 + SFX 打包 (WING32 patch)
 ```
+
+**與現行 repo 的對照**:PG 主體 (appimage/, windows-sfx/, tools/) 保留;AG 文件抽到 [`docs/allied-general.md`](docs/allied-general.md);PacGen 獨立子專案 [`pacgen/`](pacgen/);三作劇本簡介集中於 [`docs/scenarios/`](docs/scenarios/);COCOMO 分析獨立 [`docs/development-cost.md`](docs/development-cost.md)。
 
 ---
 
