@@ -80,36 +80,99 @@ exec "$WINELOADER" explorer /desktop=PACGEN,640x480 ./PACGEN.EXE "$@"
 
 DPI 不用調（遊戲用 DDraw 直接畫 pixel art，不吃 GDI DPI 值）。虛擬桌面大小可以透過 env 覆蓋讓玩家自己拉更大 —— 但**必須整數倍**（640×480、1280×960、1920×1440），非整數倍會出現 nearest-neighbor 縮放不均勻。
 
-## v0.1 AppImage 首次啟動的雷（fresh WINEPREFIX + DirectDraw 3D backend）
+## AppImage 首次啟動的三層雷（fresh WINEPREFIX + DirectDraw 3D backend）
 
-實測 v0.1 AppImage 在 fresh WINEPREFIX 首次啟動時，PACGEN.EXE 會 silent crash。已在 log 看到訊號：
+**v0.2 已解**：實機驗證 AppImage 首次啟動 40 秒內主選單完整顯示。
+
+三個雷疊在一起，缺一個就掛：
+
+### 雷 1：fresh WINEPREFIX 預設啟用 3D → P8 palette 崩
+
+wine 11 對 fresh WINEPREFIX 預設啟用 3D 支援。PACGEN.EXE 用 DirectDraw 8-bit palette (P8) 打貼圖，走 GLSL blitter 路徑時 palette 沒對，texture 上不去。log 訊號：
 
 ```
 0160:fixme:d3d_shader:glsl_blitter_upload_palette P8 texture loaded without a palette.
 ```
 
-**根因**：wine 11 對 fresh WINEPREFIX 預設啟用 3D 支援，PACGEN.EXE 用 DirectDraw 8-bit palette (P8) 打貼圖，走 GLSL blitter 路徑時 palette 沒對，texture 上不去 → 遊戲 abort。
-
-**規避**：AppRun 在 wineboot 完成後注入 registry 強制 GDI renderer：
+**修**：AppRun 注入 registry 強制 renderer=gdi：
 
 ```
 [HKEY_CURRENT_USER\Software\Wine\Direct3D]
 "renderer"="gdi"
 "MaxShaderModelVS"=dword:00000000
 "MaxShaderModelPS"=dword:00000000
+
+[HKEY_CURRENT_USER\Software\Wine\DirectDraw]
+"MaxShaderModelVS"=dword:00000000
+"MaxShaderModelPS"=dword:00000000
+"OffscreenRenderingMode"="backbuffer"
 ```
 
-**注意**：即使加了上面，v0.1 AppImage 在某些機器上首次啟動仍不穩定（暫存的 wineserver 狀態、prefix 初次 boot 的 race）。**臨時 workaround**：
+生效後 log 會看到：
+
+```
+err:winediag:wined3d_dll_init Disabling 3D support.
+```
+
+這行是**成功訊號**（不是錯誤，wine 標成 err 只是慣例），意即 wined3d 已退場、DDraw 走 GDI blit 路徑。
+
+### 雷 2：X11 Driver GrabFullscreen 未設 → DDraw exclusive 沒抓 X 焦點
+
+fresh WINEPREFIX 沒 `Software\Wine\X11 Driver` 子鍵。PACGEN.EXE 進 DirectDraw exclusive fullscreen 時嘗試 grab X 鍵盤，wine 用預設 `GrabFullscreen=N`，DDraw grab 失敗 → 遊戲 fallback 到不正確的視窗狀態。
+
+**修**：同一份 registry 加：
+
+```
+[HKEY_CURRENT_USER\Software\Wine\X11 Driver]
+"GrabFullscreen"="Y"
+"Managed"="Y"
+"UseTakeFocus"="N"
+```
+
+### 雷 3（最刁鑽）：regedit 完不 kill wineserver → 遊戲用舊 registry snapshot
+
+前兩層都做對了，遊戲還是秒 exit。這一層我 debug 最久。
+
+**根因**：`wine regedit /S <file.reg>` 把新 key 寫進 user.reg 磁碟檔，**但當前 wineserver session 快照的是 wineboot 完成當時的 registry**。接下來的 `wine explorer PACGEN.EXE` 命令會附著到**同一個 wineserver**，讀到的是舊 snapshot——renderer=gdi 沒生效、3D 沒 disable、glsl_blitter 上場、遊戲崩。
+
+**判別**：如果你已注入 renderer=gdi 但 log 還是看到 `glsl_blitter_upload_palette` fixme（不是 `Disabling 3D support`），就中這個雷。
+
+**修**：`regedit` 完立刻 `wineserver -k`，讓下一次 wine 命令啟動新 wineserver，讀新 registry：
 
 ```bash
-# 若 v0.1 AppImage 首次啟動失敗:
-./PacificGeneral-x86_64.AppImage --appimage-extract
-cd squashfs-root
-# 手動預熱 prefix 一次
-WINEPREFIX=~/.local/share/PacificGeneral/wine \
-  wine wineboot -u
-# 再跑 AppRun
-./AppRun
+"$WINELOADER" regedit /S "$TMPREG" >/dev/null 2>&1
+"$WINESERVER" -k >/dev/null 2>&1  # 這行是關鍵
+sleep 1
 ```
 
-或直接不用 AppImage、走 [Windows portable zip](https://github.com/wicanr2/pg-cht/releases) 的解壓即跑路線 —— zip 版已驗證能跑。v0.2 會補 AppImage 首次啟動的完整 warm-up 序列。
+### 定案 AppRun 骨架
+
+```bash
+"$WINELOADER" wineboot --init >/dev/null 2>&1
+"$WINESERVER" -w
+# 注入 Direct3D + DirectDraw + X11 Driver 三組 registry
+"$WINELOADER" regedit /S <(cat <<'EOF'
+REGEDIT4
+[HKEY_CURRENT_USER\Software\Wine\Direct3D]
+"renderer"="gdi"
+[HKEY_CURRENT_USER\Software\Wine\DirectDraw]
+"OffscreenRenderingMode"="backbuffer"
+[HKEY_CURRENT_USER\Software\Wine\X11 Driver]
+"GrabFullscreen"="Y"
+EOF
+)
+"$WINESERVER" -k          # ← 關鍵!讓遊戲用新 snapshot
+sleep 1
+cd "$USER_GAME"
+exec "$WINELOADER" explorer /desktop=PACGEN,640x480 ./PACGEN.EXE
+```
+
+### Debug 路線圖（給後來的人）
+
+如果你正在 debug 類似「AppImage 首次啟動 game silent exit」，順序這樣走：
+
+1. **抓 wine log**（`WINEDEBUG=+seh` 或至少 default）
+2. 看有沒有 `glsl_blitter_upload_palette` 這行——有 → 雷 1（3D backend），加 renderer=gdi
+3. renderer=gdi 加了還崩 → 看 log 有沒有 `Disabling 3D support`。**有**這行、遊戲還崩 → 進雷 3；**沒有**這行 → 你的 renderer=gdi 沒寫進 registry（雷 3 的變種，wineserver session 快照舊 registry）
+4. 加 `wineserver -k` 讓 registry 生效
+5. 驗證：warm prefix 能跑 vs fresh prefix 不能跑 → 一定是 prefix state 問題（registry 內容 or wineserver session）

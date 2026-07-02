@@ -71,11 +71,21 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 - [x] 33 個劇本 TIT (歷史學界慣用譯) + DES (原創繁中史實敘述)
 - [x] AppImage + Windows zip 打包(v0.1)
 
-**已知限制 (v0.1 → v0.2)**
+**AppImage 首次啟動 (v0.2 已解)**
 
-- **TXT.PFP 未修改**:CHT 版打包後 game 秒 crash。根因:同目錄 `PFPDATA.IDX` (22 KB) 含硬編碼 offset 到 TXT.PFP 各節區起點,中文 Big5 內容改變 byte 長度就撞歪索引。v0.2 需一併 patch PFPDATA.IDX 或用「Big5 padded 到原長度」策略。
-- **PACGEN.EXE 未 patch**:UI 字串 (菜單、按鈕、對話框) 仍原文。v0.2 補 length-preserving binary patch。
-- **PACEQUIP.EQP/.TXT 未譯**:813 個裝備名仍原文。v0.2 補。
+實測 40 秒內完整跑到主選單。三層雷疊在一起,缺一個就掛:
+
+1. Direct3D renderer=gdi (避 P8 palette 崩)
+2. X11 Driver GrabFullscreen=Y (DDraw exclusive 抓 X 焦點)
+3. **regedit 完立刻 `wineserver -k`** — 讓遊戲用新 registry snapshot 而非 wineboot 舊 session 的
+
+完整解說見 [docs/01-wine-啟動配方.md](docs/01-wine-啟動配方.md) 「AppImage 首次啟動的三層雷」。
+
+**已知限制 (v0.2 → v0.3)**
+
+- **TXT.PFP 未修改**:CHT 版打包後 game 秒 crash。根因:同目錄 `PFPDATA.IDX` (22 KB) 含硬編碼 offset 到 TXT.PFP 各節區起點,中文 Big5 內容改變 byte 長度就撞歪索引。v0.3 需一併 patch PFPDATA.IDX 或用「Big5 padded 到原長度」策略。
+- **PACGEN.EXE 未 patch**:UI 字串 (菜單、按鈕、對話框) 仍原文。v0.3 補 length-preserving binary patch。
+- **PACEQUIP.EQP/.TXT 未譯**:813 個裝備名仍原文。v0.3 補。
 
 **v0.1 實際 CHT 範圍**
 
