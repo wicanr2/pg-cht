@@ -10,7 +10,7 @@
 - [快速開始](#快速開始) — [Linux (wine)](#linuxwine-11) / [Windows 10/11](#windows-10--11) 兩路啟動
 - [心得專欄](#心得專欄) — [`docs/`](docs/) 6 篇文章索引
 - [技術資料](#技術資料) — 翻譯工具 + string dump + wine 啟動配方
-- [進度](#進度) — v0.2 完成度 + AppImage 三層雷解 + 已知限制 (v0.3)
+- [進度](#進度) — v0.1-v0.6 CHT + AppImage 三層雷解 + A1 拉高畫布 (亂碼根因與正解)
 - [相關](#相關) / [授權](#授權)
 
 **深入閱讀路徑**:先看 [`docs/00-序.md`](docs/00-序.md) hero letter → 想直接玩跳 [`docs/01-wine-啟動配方.md`](docs/01-wine-啟動配方.md) / [`docs/02-modern-windows.md`](docs/02-modern-windows.md) → 想懂遊戲檔案結構讀 [`docs/03-遊戲檔案結構.md`](docs/03-遊戲檔案結構.md) / [`docs/04-裝備檔解析.md`](docs/04-裝備檔解析.md) → 想懂譯名為什麼這樣翻讀 [`docs/05-中文化依據.md`](docs/05-中文化依據.md)
@@ -102,17 +102,31 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 - **PFP patch + CHT TIT + CHT DES 三者同時 ship**(v0.2.1 的併用 crash 懸念已解:三者組合 fresh source hardlink 測試能穩定 boot,前兩輪誤診根因是我在 CHT build dir 累積的 patch/revert 髒狀態 + wine session 髒污)
 - 詳見 [`docs/06-txt-pfp-inplace-patch.md`](docs/06-txt-pfp-inplace-patch.md) 第三輪徹底翻案
 
-**已知限制 (v0.3 → v0.4)**
+**v0.4 / v0.5 (2026-07-02):PFP in-place patch 擴充到 119 條 UI 字串**
 
-- **TXT.PFP 大部分節區未修改**:除 section 47 兩條字串外仍原文。v0.4 用同一 in-place 策略擴充到其他可見 UI 字串 (main menu、button 標籤、weather、月份等,詳見 [`translations/txt_pfp_zh/`](translations/txt_pfp_zh/) 的 glossary 套用結果)。
-- **PACGEN.EXE 未 patch**:UI 字串 (菜單、按鈕、對話框) 仍原文。v0.4 補 length-preserving binary patch。
-- **PACEQUIP.EQP/.TXT 未譯**:813 個裝備名仍原文。v0.4 補。
+自動 pipeline (`tools/build_pfp_patches.py` + `patch_pfp_v2.py`):掃 en/zh 對照,找 Big5 ≤ 原文 byte 長度的行就 patch。v0.4 92 條 + v0.5 補 `glossary_short.tsv` 22 條縮字別名 (月份一~臘、國別美/義、Air→空) 解掉 24 條 too-long → 共 **119 條**。涵蓋兵種 15、地形 13、國別 11、月份 12、主選單/按鈕 6、天氣、Battle Generator。
 
-**v0.1 實際 CHT 範圍**
+**v0.6:PACEQUIP 40 條裝備名 in-place patch** (步兵/騎兵/工兵/艦名/日文兵種,byte-preserving,`glossary_equip.tsv`)
 
-- ✅ 33 個劇本標題 (Big5) — 玩家選劇本時看到「中途島」「瓜達康納爾」「雷伊泰灣」
-- ✅ 33 個劇本簡報 (Big5, 原創史實敘述) — 玩家看 briefing 時看到繁中年份/指揮官/戰略意義
-- ⚠ 主選單、UI、裝備、天氣、國家、月份等 — 仍英文
+**⚠ 亂碼根因 (v0.7 判定):遊戲用 8×8 點陣字型,上述 Big5 patch 在畫面顯示為亂碼**
+
+v0.3-v0.6 的 Big5 patch **資料層寫進去了,但畫面上是亂碼**。根因:遊戲用自訂 `TFONT1.DAT` **8×8 bitmap font**、**零 GDI 繪字** (查 import 無 TextOut/CreateFont),wine 字型代換無效;8×8 格子物理上塞不下可讀中文。詳見 [`docs/08-tfont-re.md`](docs/08-tfont-re.md)。
+
+**🎯 A1 拉高畫布 (rule 81):讓中文能 24×24 清晰顯示的正解**
+
+逆向進度 (誠實標註驗證狀態):
+
+- **Phase 0 ✅ 已驗證**:`TFONT1.DAT` 格式全解 (8×8, 256 glyph)、`SetDisplayMode` 單點定位 VA `0x40cdf8`、patch 到 1280×960 **實測 window 變大不 crash**
+- **Phase 1 (機制已確認,畫面成果待定案)**:`WINEDEBUG=+ddraw` 動態 trace 6976 行確認 **present = DirectDraw Blt** (`0x40d6dc` 一帶,DDBLT_WAIT dst 640×480 src=back buffer)。stretch 概念 = 改 present dst 尺寸 → DirectDraw StretchBlt。**⚠ 完整 4-word stretch 的畫面放大成果尚未在乾淨環境定案** (曾做實驗但截圖驗證環境不穩,待重跑)
+- **Phase 3 (未做,最重)**:font 換 24×24 畫在高解析畫布 + Big5 2-byte lookup。**這是讓上述所有 Big5 CHT 從亂碼變可讀中文的臨門一腳**
+
+完整路線圖 [`docs/09-a1-hires-canvas-roadmap.md`](docs/09-a1-hires-canvas-roadmap.md);方法論獨立成 skill [`../skills/retro-directdraw-hires-cjk`](../skills/retro-directdraw-hires-cjk/SKILL.md)。
+
+**目前實際狀態**
+
+- ✅ **資料層**:33 劇本 TIT/DES + 119 條 UI + 40 條裝備名,已 Big5 patch (byte-preserving)
+- ⚠ **顯示層**:遊戲內仍顯示亂碼 (8×8 font 硬牆),需 A1 Phase 3 (font 24×24) 才可讀
+- ✅ 現代環境跑通 (wine 三層雷解) + AppImage + Windows zip + 完整中文文件 (劇本/裝備/攻略/翻譯原則)
 
 ## 相關
 
