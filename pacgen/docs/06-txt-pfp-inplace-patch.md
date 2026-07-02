@@ -43,12 +43,25 @@ v0.1/v0.2 都沒 ship CHT TXT.PFP。使用者觀察遊戲畫面看到英文 `Sel
 | 純源目錄 (all English) | ✅ boot |
 | 源 + PFP in-place patch (無 CHT TIT/DES) | ✅ boot |
 | 源 + PFP patch + CHT TIT (無 DES) | ✅ boot |
-| 源 + PFP patch + CHT TIT + CHT DES | ❌ **crash @ 0x54484320** |
-| 源 + CHT TIT + CHT DES (v0.1 打包時的組合) | ✅ boot (但 wine session 累積後可能不穩) |
+| 源 + PFP patch + CHT TIT + CHT DES | 曾以為 crash |
+| 源 + CHT TIT + CHT DES (v0.1 打包時的組合) | ✅ boot |
 
-**結論(修正)**:PFP 就地 patch **本身沒問題**,byte-length preserving 假設成立。**真凶是 CHT DES 檔**與 PFP patch 併用時觸發某條路徑崩潰(可能是 game 讀 briefing 時的 buffer overflow 或編碼假設)。
+**第三輪徹底翻案 (v0.3 深挖)**:
 
-第一輪誤診的根因是我在 CHT dir 上做的多輪 patch/revert 累積了不乾淨狀態,測試時也 wineserver session 髒污,導致「PFP 患者論」看起來成立。
+| 組合 | 結果 |
+|---|---|
+| 源 + CHT DES 單獨 (無 PFP, 無 TIT) | ✅ boot |
+| 源 + PFP patch + CHT DES (無 TIT) | ✅ boot |
+| 源 + PFP patch + CHT TIT + CHT DES (完整三者) | ✅ **boot!** |
+
+**結論(徹底修正)**:**PFP patch / CHT TIT / CHT DES 三者兩兩皆能 boot,三者同時也能 boot**。
+
+前兩輪誤診的根因:
+1. 我在 CHT build dir 上做的多輪 patch/revert 累積了不乾淨狀態
+2. 測試間隔 wineserver session 髒污 (page fault @ 0x54484320 是隨機記憶體垃圾)
+3. 誤把 wine session 髒污歸咎到「檔案內容併用」
+
+**正確做法**:每次測試前 `wineserver -k + sleep 3 + rm -rf /tmp/pg-test-*` 然後 fresh `cp -al` 源目錄再套 patch。這樣測所有組合都能 boot。
 
 ## 待驗證假設 (給下 session)
 

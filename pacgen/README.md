@@ -94,19 +94,19 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 
 完整解說見 [docs/01-wine-啟動配方.md](docs/01-wine-啟動配方.md) 「AppImage 首次啟動的三層雷」。
 
-**v0.2.1 增量 (2026-07-02):Campaign Selection Screen 兩條字串 in-place patch**
+**v0.3 增量 (2026-07-02):TXT.PFP in-place patch + 全 CHT ship**
 
 - `Select Axis Campaign` (0x5fdb, 20B) → 「選擇軸心戰役」+ 8 空格
 - `Select Allied Campaign` (0x5ff1, 22B) → 「選擇盟軍戰役」+ 10 空格
 - **byte-length preserving 策略成立**,PFPDATA.IDX 無需重寫
-- CHT DES (33 個劇本簡報) 暫不套用 — 隔離測試發現 PFP patch + CHT TIT + CHT DES 三者並用會撞 crash;PFP patch + CHT TIT 兩者能穩定 boot。DES 問題留 v0.3 深挖 (可能是 buffer overflow 或編碼假設)。
+- **PFP patch + CHT TIT + CHT DES 三者同時 ship**(v0.2.1 的併用 crash 懸念已解:三者組合 fresh source hardlink 測試能穩定 boot,前兩輪誤診根因是我在 CHT build dir 累積的 patch/revert 髒狀態 + wine session 髒污)
+- 詳見 [`docs/06-txt-pfp-inplace-patch.md`](docs/06-txt-pfp-inplace-patch.md) 第三輪徹底翻案
 
-**已知限制 (v0.2.1 → v0.3)**
+**已知限制 (v0.3 → v0.4)**
 
-- **TXT.PFP 大部分節區未修改**:除 section 47 兩條字串外仍原文。v0.3 用同一 in-place 策略擴充到其他可見 UI 字串 (main menu、button 標籤、weather、月份等,詳見 [`translations/txt_pfp_zh/`](translations/txt_pfp_zh/) 的 glossary 套用結果)。
-- **CHT DES 33 個劇本簡報**:與 PFP patch 併用會 crash。需分離測試看是 buffer overflow / encoding assumption / 其他。詳見 [`docs/06-txt-pfp-inplace-patch.md`](docs/06-txt-pfp-inplace-patch.md)。
-- **PACGEN.EXE 未 patch**:UI 字串 (菜單、按鈕、對話框) 仍原文。v0.3 補 length-preserving binary patch。
-- **PACEQUIP.EQP/.TXT 未譯**:813 個裝備名仍原文。v0.3 補。
+- **TXT.PFP 大部分節區未修改**:除 section 47 兩條字串外仍原文。v0.4 用同一 in-place 策略擴充到其他可見 UI 字串 (main menu、button 標籤、weather、月份等,詳見 [`translations/txt_pfp_zh/`](translations/txt_pfp_zh/) 的 glossary 套用結果)。
+- **PACGEN.EXE 未 patch**:UI 字串 (菜單、按鈕、對話框) 仍原文。v0.4 補 length-preserving binary patch。
+- **PACEQUIP.EQP/.TXT 未譯**:813 個裝備名仍原文。v0.4 補。
 
 **v0.1 實際 CHT 範圍**
 
