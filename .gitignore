@@ -19,6 +19,11 @@ appimagetool
 appimage-build/
 /tmp/
 
+# 影片 output (mod repo 不放大檔;本地產生,發佈走 YouTube unlisted)
+dist-all/
+*.mp4
+*.webm
+
 # Python
 __pycache__/
 *.pyc
