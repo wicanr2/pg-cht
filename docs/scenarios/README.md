@@ -2,31 +2,35 @@
 
 SSI 5D General 系列三作(裝甲元帥 1994 / 盟軍將軍 1995 / 太平洋元帥 1997)所有劇本的**歷史背景中文簡介**。
 
-三份 TSV,每個劇本一行,欄位 `scen year zh_name era brief_zh`:
+## 讀者路徑
 
-- [`pg-scenarios.tsv`](pg-scenarios.tsv) — 裝甲元帥,38 個劇本(德軍視角,1939-45 歐洲戰場)
-- [`ag-scenarios.tsv`](ag-scenarios.tsv) — 盟軍將軍,39 個劇本(盟軍/蘇軍視角,1940-45 歐洲與非洲)
-- [`pacgen-scenarios.tsv`](pacgen-scenarios.tsv) — 太平洋元帥,33 個劇本(1936-45 太平洋與亞洲)
+想快速看某作全部劇本 → 讀 MD:
 
-## 說明
+- **[裝甲元帥 pg.md](pg.md)** — 38 個劇本,按 開戰 / 東線 / 西線 / 架空 分節
+- **[盟軍將軍 ag.md](ag.md)** — 39 個劇本,按 北非 / 南歐 / 西歐 / 東線 分節
+- **[太平洋元帥 pacgen.md](pacgen.md)** — 33 個劇本,按 開戰 / 南方作戰 / 反攻 / 教學 / 架空 分節
 
-- **原創繁中歷史敘述**,不直譯 SSI 版權簡報。基於公共領域二戰史實(維基百科、正式軍史著作)寫成。
-- 譯名遵循台灣軍事史學界慣用(參見 [pacgen/docs/05-中文化依據](../../pacgen/docs/05-中文化依據.md)):
+想做程式處理(表格 / 過濾 / 統計)→ 讀 TSV:
+
+- [pg-scenarios.tsv](pg-scenarios.tsv) / [ag-scenarios.tsv](ag-scenarios.tsv) / [pacgen-scenarios.tsv](pacgen-scenarios.tsv)
+- 欄位: `scen year zh_name era brief_zh`
+
+## 內容原則
+
+- **原創繁中歷史敘述**,基於公共領域二戰史實(維基百科、正式軍史著作)寫成
+- **不直譯 SSI 版權簡報**,是我方的原創史實整理
+- 譯名遵循台灣軍事史學界慣用(參見 [`pacgen/docs/05-中文化依據.md`](../../pacgen/docs/05-中文化依據.md)):
   - 地名:阿拉曼、瓜達康納爾、雷伊泰灣(不用大陸簡譯)
   - 戰役:巴巴羅薩、大君主、火炬(從英/俄原名音譯)
   - 指揮官:隆美爾、朱可夫、蒙哥馬利、山本五十六(通用譯)
-- **era** 欄位分類:
-  - PG:開戰(1939-40)/ 東線(1941-45)/ 西線(1940-45)
-  - AG:北非 / 南歐 / 西歐 / 東線
-  - PacGen:南方作戰(1941-42)/ 反攻(1943-45)/ 教學 / 架空
 
-## 用途
+## 兩份 pipeline
 
-- 玩家開劇本前速覽歷史脈絡
-- 譯者製作 briefing/tooltip 中文化的參考
-- 攻略 / wiki 索引起點
+- **TSV → MD** 由 [`tools/scenarios_to_md.py`](../../tools/scenarios_to_md.py) 產出,按 era 欄自動分節
+- 想改 era 分類就編 TSV 的 `era` 欄,再重跑 script
 
 ## 待補
 
-- 每個劇本的**勝負條件、關鍵單位、常見戰術**(pg-cht/ag-cht 已有部分,pacgen v0.2 補)
+- 每個劇本的**勝負條件、關鍵單位、常見戰術**(pg-cht / ag-cht 內部已有部分,尚未彙整)
 - 劇本樹狀圖(哪個劇本贏了進哪個)
+- 系列跨作連動(PG 1945 未打 → AG 1945;某些場景重疊)
