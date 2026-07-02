@@ -1,0 +1,6 @@
+#
+Turn Master Volume on or off
+Turn Music Volume on or off
+Turn Movement Sound Effects on or off
+Turn Attack and Hit Sound Effects on or off
+Turn Ambient Sound Effects on or off

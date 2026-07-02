@@ -1,0 +1,23 @@
+#
+儲存劇本
+載入劇本
+Victory Hex Mode
+Deployment Hex Mode
+Nation Hex Mode
+Toggle Ownership
+Place Mode
+Edit Mode
+Air/Land View
+Name Unit
+!!!FREE
+購買
+Increase Strength
+Decrease Strength
+Increase Experience
+Decrease Experience
+Increase Entrenchment
+Decrease Entrenchment
+Mount
+Embark/Debark
+Special
+Quit To Main Menu

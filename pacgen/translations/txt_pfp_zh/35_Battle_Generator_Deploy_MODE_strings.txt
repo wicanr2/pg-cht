@@ -1,0 +1,21 @@
+# 	note: they are 20 byte strings
+Edit Unit
+Victory Hex Mode
+Deployment Hex Mode
+Place Unit Mode
+Nation Hex Mode
+Toggle Ownership
+#end deploy mode mode strings
+#the map is part of the scenario... i don't know that we need this.
+Part of Scenario
+Error Saving File
+Too Many Deployment Hexes
+Set Victory Hex Value
+Scenario Description String
+Scenario Title String
+#
+# 	The following are not used in the final game
+#
+Note
+Game over because someone lost... you killed the last guy(or you died?)?
+Game over because someone lost... you conquered something?

@@ -1,0 +1,4 @@
+#
+Current Victory Level
+Axis Victory Points Gained
+Allied Victory Points Gained

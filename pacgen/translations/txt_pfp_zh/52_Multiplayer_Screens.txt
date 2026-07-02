@@ -1,0 +1,9 @@
+#
+Enter Player Name
+Enter Session Name
+Use IPX
+Use TCP/IP
+Use Modem
+Host game
+Guest game
+Suppression

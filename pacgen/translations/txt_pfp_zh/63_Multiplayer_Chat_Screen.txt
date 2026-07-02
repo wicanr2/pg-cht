@@ -1,0 +1,11 @@
+#
+Turn Weather Off
+Turn Weather On
+Turn Supply Off
+Turn Supply On
+Turn Hidden Units Off
+Turn Hidden Units On
+Enter Chat Message
+The Chat Messages
+Wait for other player to click.
+Move Mode

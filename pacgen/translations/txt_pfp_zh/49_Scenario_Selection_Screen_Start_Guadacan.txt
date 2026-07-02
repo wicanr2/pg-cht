@@ -1,0 +1,11 @@
+#
+¶}©l
+Rotate Globe
+Scroll Through Scenarios
+Scenario Description
+Load Home Made Scenario
+Start a Campaign
+#
+# 	Scenario Selection Screen - append name of selected scenario to this string
+#		PBEM ("Start email game: Guadacanal")
+Start Email Game:

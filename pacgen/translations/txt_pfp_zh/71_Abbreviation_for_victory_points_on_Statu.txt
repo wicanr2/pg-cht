@@ -1,0 +1,11 @@
+#
+VP
+The Carrier has planes on board! Disband anyway?
+Purchase Cost
+Upgrade Cost
+You still have units to deploy. Are you sure you want to end deployment?
+#
+# off/on for menu items... "Toggle weather off"
+# Needs the blank space in front
+ Off
+ On

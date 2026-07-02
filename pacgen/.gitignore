@@ -4,3 +4,6 @@ build/
 *.pyc
 __pycache__/
 scratch/
+
+# 原文 dump (SSI 版權,不入 repo),可用 tools/pfp_split.py 從本地遊戲重新產生
+translations/txt_pfp_en/

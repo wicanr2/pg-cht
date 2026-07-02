@@ -1,0 +1,10 @@
+#
+Set Starting Month
+Set Starting Day
+Set Starting Year
+Current Latitude:
+All Units Deployed. Switching to Edit Mode.
+You've Just Added the Last Possible Victory Hex.
+Str:
+Entrenchment:
+CAP:

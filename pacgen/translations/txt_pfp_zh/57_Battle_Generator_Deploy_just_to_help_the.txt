@@ -1,0 +1,7 @@
+#
+Since you haven't deployed all your units, I'm switching you to Place Mode.
+Air:
+Sea:
+All units deployed. Click End Deployment to continue.
+Air Trans Avail
+Sea Trans Avail

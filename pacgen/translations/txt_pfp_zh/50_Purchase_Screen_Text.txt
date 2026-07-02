@@ -1,0 +1,33 @@
+#
+³°¦a
+Sea/Air
+Warning
+No Units Selected For This Player:
+Please Select Map Before Entering Deployment
+#	Not Used
+Can't Purchase Core. Either you haven't set core maximums or you've reached core max. Go to main Battle Generator to fix.
+Not Enough Prestige To Purchase
+Out of Auxiliary Slots
+Select Unit To Purchase/Upgrade
+Select Owned Unit
+Select a Transport
+Primary Unit
+Transportation Unit
+Equipment Information
+Toggle Between Land/Air and Naval Equipment
+Toggle Between Axis and Allies
+Select class:
+Purchase Unit
+Can't Purchase Unit
+Go Back to Battle Generation Setup
+Go Back to Game
+Go to Deploy
+Remove Unit
+Upgrade Unit
+Disband Unit
+Pick nation:
+#	Not Used
+Pick Another Nation Equipment List
+#purchase general user information stuff
+#header for free/max core and aux slots
+Free [MAX]

@@ -1,0 +1,75 @@
+idx	filename	lines	title
+00	00_The_list_of_Classes_for_the_Glossary_and.txt	21	The list of Classes, for the Glossary and Purchase screens
+01	01_List_of_terrain_types.txt	38	List of terrain types
+02	02_Nationality_list_for_Equipment_editor.txt	32	Nationality list for Equipment editor
+03	03_Nationality_Names_used_in_various_screen.txt	32	Nationality Names, used in various screens
+04	04_Stance_for_Sides_used_in_Battle_Generato.txt	4	Stance for Sides - used in Battle Generator
+05	05_Weather_Conditions.txt	5	Weather Conditions
+06	06_Battle_Generator_Latitude_Names.txt	9	Battle Generator Latitude Names
+07	07_Months_used_in_the_Battle_Generator_Need.txt	25	Months used in the Battle Generator.  Need to be short strings. 
+08	08_Specials_displayed_in_various_locations.txt	21	Specials ... displayed in various locations, mainly Purchase and Go To Unit
+09	09_List_of_tile_types.txt	17	List of tile types
+10	10_Main_Game_text_for_buttons_and_menus.txt	37	Main Game text for buttons and menus
+11	11_These_are_specific_names_for_Specials.txt	1069	These are specific names for Specials
+12	12_Combat_Results_appears_on_the_combat_res.txt	18	Combat Results, appears on the combat results pop-up box
+13	13_Player_ID_text_10_items_Only_first_2_nee.txt	11	Player ID text, 10 items.  Only first 2 need localizing
+14	14_Ground_Conditions_3_items.txt	4	Ground Conditions - 3 items
+15	15_Game_State_Text_8_items.txt	9	Game State Text - 8 items
+16	16_Movement_Modes_11_items.txt	12	Movement Modes - 11 items.
+17	17_Map_Types_3_items.txt	9	Map Types - 3 items
+18	18_Battle_Generator_Deploy_Screen_menu_text.txt	23	Battle Generator Deploy Screen menu text - 22 items
+19	19_Target_Types_5_items.txt	6	Target Types - 5 items
+20	20_Defense_Names_5_items.txt	6	Defense Names = 5 items
+21	21_Transportable_Type_how_it_can_be_transpo.txt	5	Transportable Type (how it can be transported) Names - 4 items
+22	22_Medium_names_2_items.txt	3	Medium names - 2 items
+23	23_Deployment_Screen_during_Campaign_text.txt	9	Deployment Screen during Campaign text
+24	24_Various_text_strings.txt	3	Various text strings
+25	25_Score_Screen_within_the_game.txt	3	Score Screen within the game
+26	26_If_text_doesn_t_fit_in_a_box.txt	2	If text doesn't fit in a box
+27	27_Types_of_Win_Loss.txt	5	Types of Win/Loss
+28	28_Audio_Controls_toggles.txt	6	Audio Controls, toggles
+29	29_Audio_Controls_types_of_sliders.txt	6	Audio Controls, types of sliders
+30	30_Debug_error.txt	2	Debug error
+31	31_Battle_Generator_set_starting_ground_bei.txt	2	Battle Generator, set starting ground being dry/mud/snow
+32	32_the_following_is_always_in_reference_to.txt	3	the following is always in reference to going back to the previous game screen
+33	33_Battle_Generator_Main_Screen_hot_text.txt	29	Battle Generator Main Screen, hot text
+34	34_used_for_dialog_that_asks_to_enter_value.txt	11	used for dialog that asks to enter values or strings
+35	35_Battle_Generator_Deploy_MODE_strings.txt	21	Battle Generator Deploy MODE strings
+36	36_Headers_for_unit_information_in_Go_To_Un.txt	26	Headers for unit information in Go To Unit Screen
+37	37_Confirmation_of_Quick_Load.txt	2	Confirmation of Quick Load
+38	38_Before_main_menu.txt	4	Before main menu
+39	39_PBEM.txt	4	PBEM
+40	40_Various_Game_Questions.txt	4	Various Game Questions
+41	41_Options_Screen.txt	12	Options Screen
+42	42_Information_Screen.txt	3	Information Screen
+43	43_Go_To_Unit_Screen.txt	4	Go To Unit Screen
+44	44_Inter_turn_Messages_Turn_3_13.txt	4	Inter-turn Messages ("Turn 3/13")
+45	45_Inter_turn_Messages_for_the_next_turn_pr.txt	3	Inter-turn Messages, for the next turn (projected)
+46	46_Scenario_ends_do_you_want_to_review_batt.txt	2	Scenario ends, do you want to review battlefield?
+47	47_Campaign_Selection_Screen.txt	3	Campaign Selection Screen
+48	48_Scenario_Selection_Screen_the_scenario_n.txt	2	Scenario Selection Screen - the scenario name gets appended ("Select Guadacanal")
+49	49_Scenario_Selection_Screen_Start_Guadacan.txt	11	Scenario Selection Screen - ("Start Guadacanal")
+50	50_Purchase_Screen_Text.txt	33	Purchase Screen Text
+51	51_Battle_Generator_on_set_prestige_screen.txt	3	Battle Generator, on set prestige screen (filling buckets out)
+52	52_Multiplayer_Screens.txt	9	Multiplayer Screens
+53	53_Critical_Hit_Types.txt	23	Critical Hit Types
+54	54_Warning_screens.txt	3	Warning screens
+55	55_In_Carrier_box_if_plane_selected_to_laun.txt	6	In Carrier box, if plane selected to launch
+56	56_Battle_Generator_Main.txt	10	Battle Generator Main
+57	57_Battle_Generator_Deploy_just_to_help_the.txt	7	Battle Generator Deploy, just to help the player
+58	58_Multiplayer_Guest_screens_flashes.txt	2	Multiplayer, Guest screens ... flashes
+59	59_Information_Screen.txt	5	Information Screen
+60	60_Load_Save_Screen.txt	10	Load/Save Screen
+61	61_Main_Menu.txt	9	Main Menu
+62	62_General.txt	4	General
+63	63_Multiplayer_Chat_Screen.txt	11	Multiplayer Chat Screen
+64	64_Purchase_screen_toggle_for_Core_or_Auxil.txt	3	Purchase screen - toggle for Core or Auxiliary units
+65	65_Number_ends_such_as_9th_1st_etc.txt	5	Number ends, such as 9th, 1st  etc...
+66	66_Tutorial_Screen.txt	5	Tutorial Screen
+67	67_Purchase_Screen.txt	10	Purchase Screen
+68	68_Target_Types.txt	5	Target Types
+69	69_Type_of_plane_land_or_naval_based.txt	3	Type of plane, land or naval based
+70	70_Score_screen_printed_in_lower_corners_to.txt	4	Score screen, printed in lower corners to display current conditions
+71	71_Abbreviation_for_victory_points_on_Statu.txt	11	Abbreviation for victory points on Status Bar
+72	72_Multiplayer_Messages.txt	7	Multiplayer Messages
+73	73_From_scenario_Selection_screen_what_type.txt	1597	From scenario Selection screen - what type of game to load, for home made scenarios

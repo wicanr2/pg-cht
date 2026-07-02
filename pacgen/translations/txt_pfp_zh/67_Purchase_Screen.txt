@@ -1,0 +1,10 @@
+#
+Total Cost
+Look At Truck Information
+Look At Primary Information
+#
+Comment
+View Replay
+Not Transportable
+Sea Transportable
+Air Transportable
