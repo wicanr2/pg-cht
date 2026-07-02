@@ -1,0 +1,35 @@
+english	chinese	category	notes
+Infantry	步兵	unit_equip
+Cavalry	騎兵	unit_equip
+Engineers	工兵	unit_equip
+Paratroopers	傘兵	unit_equip
+Partisans	游擊隊	unit_equip
+Marines	陸戰隊	unit_equip
+Commandos	突擊兵	unit_equip
+Regular Infantry	正規步兵	unit_equip
+Conscript Infantry	徵召步兵	unit_equip
+Pioneer Infantry	工程步兵	unit_equip
+Ski Infantry	滑雪步兵	unit_equip
+Recon	偵察	unit_equip
+Truck	卡車	unit_equip
+Grant	格蘭特	unit_equip	M3 Grant 戰車
+Tribal	部落級	ship_class	Tribal-class destroyer
+Fiji	斐濟級	ship_class	Fiji-class cruiser
+Doria	多里亞	ship_name	Andrea Doria 義戰列艦
+Aquila	鷹級	ship_class	義大利 Aquila 航空母艦
+Graf Zeppelin	齊柏林伯爵	ship_name	德國航母
+Matilda IV	瑪蒂達 IV	unit_equip
+Matilda Frog	瑪蒂達噴火	unit_equip
+Valentine Mk III	Valentine III	unit_equip
+Valentine Mk VI	Valentine VI	unit_equip
+Hohei 1936	日步兵 1936	unit_equip	日文 步兵
+Hohei HW 1936	日重步 1936	unit_equip	Heavy Weapons
+Kihei	日騎兵	unit_equip	日文 騎兵
+Teishin Dan 1936	日傘兵 1936	unit_equip	挺進團 = 空降師
+Wehr Inf 1936	德步兵 1936	unit_equip	Wehrmacht Infantry
+Infantry 1936	步兵 1936	unit_equip
+Infantry 1939	步兵 1939	unit_equip
+Infantry HW 1936	重步兵 1936	unit_equip
+Paratroopers 1936	傘兵 1936	unit_equip
+Paratroopers 1944	傘兵 1944	unit_equip
+Engineers 1936	工兵 1936	unit_equip
