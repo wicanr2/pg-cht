@@ -30,16 +30,25 @@ v0.1/v0.2 都沒 ship CHT TXT.PFP。使用者觀察遊戲畫面看到英文 `Sel
 - Entry 2 (TERRAIN): offset=0x119 (= 前一節 size), size=0x1af
 - Entry 3 (NATIONS): offset=0x2c8 (= 0x119+0x1af), size=0xc8
 
-## 就地 patch (byte-length preserving) 試驗
+## 就地 patch (byte-length preserving) 試驗與更正
 
 **假設**:如果 patch 後每節 byte 長度不變,IDX 內的 offset/size 也不需要動,遊戲讀 section 47 內容還是同一塊記憶體。
 
-**實測結果 (2026-07-02, wine 11 + system prefix)**:
+**第一輪實測 (誤診)**:CHT dir 套 PFP patch 後 crash,以為是結構問題。
 
-- 純 Big5 patch (「選擇軸心戰役」+ 8 空格,共 20 bytes) → 遊戲 **crash**:`page fault on read access to 54484320`
-- 純 ASCII patch (`AXIS CAMPAIGN       ` 20 bytes) → 遊戲**同樣 crash** 同一位址
+**第二輪隔離實測 (真相)**:用**乾淨 fresh source hardlink dir** 分開測:
 
-**結論**:crash **不是** Big5 特有問題,是**結構問題**。原假設「byte-length preserved 就 OK」**不成立**。
+| 組合 | 結果 |
+|---|---|
+| 純源目錄 (all English) | ✅ boot |
+| 源 + PFP in-place patch (無 CHT TIT/DES) | ✅ boot |
+| 源 + PFP patch + CHT TIT (無 DES) | ✅ boot |
+| 源 + PFP patch + CHT TIT + CHT DES | ❌ **crash @ 0x54484320** |
+| 源 + CHT TIT + CHT DES (v0.1 打包時的組合) | ✅ boot (但 wine session 累積後可能不穩) |
+
+**結論(修正)**:PFP 就地 patch **本身沒問題**,byte-length preserving 假設成立。**真凶是 CHT DES 檔**與 PFP patch 併用時觸發某條路徑崩潰(可能是 game 讀 briefing 時的 buffer overflow 或編碼假設)。
+
+第一輪誤診的根因是我在 CHT dir 上做的多輪 patch/revert 累積了不乾淨狀態,測試時也 wineserver session 髒污,導致「PFP 患者論」看起來成立。
 
 ## 待驗證假設 (給下 session)
 
