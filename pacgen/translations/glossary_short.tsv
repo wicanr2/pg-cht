@@ -1,0 +1,23 @@
+english	chinese	category	notes
+AA	防	unit_class_short	Anti-Aircraft 縮字 2B (原 2B slot)
+Carrier	航母	unit_class_short	Aircraft Carrier 縮 4B (原 7B slot)
+USA	美	nation_short	單字 2B (原 3B slot)
+Italy	義	nation_short	單字 2B (原 5B slot)
+Apr	四	month_short	2B (原 3B slot)
+Aug	八	month_short	2B
+Feb	二	month_short	2B
+Jan	一	month_short	2B
+Jul	七	month_short	2B
+Jun	六	month_short	2B
+Mar	三	month_short	2B
+May	五	month_short	2B
+Oct	十	month_short	2B
+Sep	九	month_short	2B
+Dec	臘	month_short	單字歷史寫法 (臘月=十二月) 2B
+Nov	冬	month_short	單字季節寫法 (冬 ~ 十一月中) 2B
+Flak	高砲	unit_class_short	高射砲 縮 4B (原 4B slot)
+Dry	乾	ground_short	單字 2B (原 3B slot)
+Mud	泥	ground_short	單字 2B
+Air	空	medium_short	單字 2B (原 3B slot)
+Leg	腳	movement_short	單字 2B (原 3B slot)
+Next Turn	下回合	game_short	縮 6B (原 9B slot)

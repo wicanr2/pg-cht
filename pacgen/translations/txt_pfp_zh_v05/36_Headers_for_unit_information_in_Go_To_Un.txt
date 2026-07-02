@@ -1,0 +1,26 @@
+#
+Name
+Cost
+Fuel
+N/A
+Movement
+Target
+Spotting
+Initiative
+Soft Attack
+困難攻擊
+空攻擊
+海軍攻擊
+Sub Attack
+Ground Defense
+防空
+Assault Defense
+Torpedo Defense
+Depth Charge Defense
+Experience
+Kills
+Ammo
+Range
+Transportable Type
+Container Max
+Specials

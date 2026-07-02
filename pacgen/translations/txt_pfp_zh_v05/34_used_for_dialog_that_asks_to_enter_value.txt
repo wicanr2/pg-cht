@@ -1,0 +1,11 @@
+#
+«Â±æ
+Points Needed To Lose
+Victory Hexes Needed To Live
+Units Needed To Live
+Enter Title
+Enter Description
+Sea Transport Maximum
+Air Transport Maximum
+Error
+Need At Least 1 Nation For Both Sides

@@ -1,0 +1,7 @@
+#
+Lost Session
+Opponent Quit
+#	Multiplayer Chat Names -- "Guest> Mike"
+Guest
+#	If no CD when game is started
+Please insert Pacific General CD

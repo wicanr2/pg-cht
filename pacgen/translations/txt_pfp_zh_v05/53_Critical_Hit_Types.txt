@@ -1,0 +1,23 @@
+#
+Magazine Explosion
+Engine Room Hit
+Magazine Damaged
+Flooding
+Steering Damaged
+Fuel Bunker Damaged
+Power Plant Damaged
+Airplane Fuel Burning
+Hangar Fire
+Elevator Damaged
+Hull Crushed
+Flooding
+Conning Tower Damaged
+Torpedo Tubes Damaged
+Diving Planes Damaged
+Batteries Damaged
+Leaking Oil
+Leaking Hull
+Propeller Damaged
+Bridge Damaged
+Severe Fire
+Turret Damaged

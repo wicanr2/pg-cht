@@ -1,0 +1,6 @@
+#
+Set Master Volume
+Set Music Volume
+Set Movement Sound Effects Volume
+Set Attack and Explosion Sound Effects Volume
+Set Ambient Sound Effects Volume

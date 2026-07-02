@@ -1,0 +1,9 @@
+#
+開始戰役
+開始劇本
+Battle Generator
+Multiplay
+Load/Save
+Information Screen
+離開
+Tutorial

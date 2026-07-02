@@ -1,10 +1,10 @@
 {
   "stats": {
     "total_lines": 3461,
-    "en_zh_diff": 116,
-    "fits": 92,
-    "toolong": 24,
-    "unchanged": 3024
+    "en_zh_diff": 117,
+    "fits": 117,
+    "toolong": 0,
+    "unchanged": 3023
   },
   "patches": [
     {
@@ -60,6 +60,16 @@
     {
       "idx": 0,
       "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 113,
+      "orig_len": 2,
+      "en": "AA",
+      "zh": "防",
+      "zh_bytes_hex": "a8be",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
       "abs_offset": 117,
       "orig_len": 11,
       "en": "Air Defense",
@@ -86,6 +96,16 @@
       "zh": "戰列艦",
       "zh_bytes_hex": "bed4a643c4a5",
       "pad_spaces": 4
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 166,
+      "orig_len": 7,
+      "en": "Carrier",
+      "zh": "航母",
+      "zh_bytes_hex": "afe8a5c0",
+      "pad_spaces": 3
     },
     {
       "idx": 0,
@@ -143,9 +163,9 @@
       "abs_offset": 251,
       "orig_len": 13,
       "en": "Air Transport",
-      "zh": "空中運輸",
-      "zh_bytes_hex": "aac5a4a4b942bfe9",
-      "pad_spaces": 5
+      "zh": "空運輸",
+      "zh_bytes_hex": "aac5b942bfe9",
+      "pad_spaces": 7
     },
     {
       "idx": 0,
@@ -288,6 +308,16 @@
       "pad_spaces": 9
     },
     {
+      "idx": 2,
+      "title": "Nationality list for Equipment editor",
+      "abs_offset": 897,
+      "orig_len": 3,
+      "en": "USA",
+      "zh": "美",
+      "zh_bytes_hex": "acfc",
+      "pad_spaces": 1
+    },
+    {
       "idx": 3,
       "title": "Nationality Names, used in various screens",
       "abs_offset": 964,
@@ -350,6 +380,16 @@
     {
       "idx": 3,
       "title": "Nationality Names, used in various screens",
+      "abs_offset": 1093,
+      "orig_len": 5,
+      "en": "Italy",
+      "zh": "義",
+      "zh_bytes_hex": "b871",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
       "abs_offset": 1100,
       "orig_len": 5,
       "en": "Japan",
@@ -388,6 +428,26 @@
       "pad_spaces": 0
     },
     {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1255,
+      "orig_len": 3,
+      "en": "USA",
+      "zh": "美",
+      "zh_bytes_hex": "acfc",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 5,
+      "title": "Weather Conditions",
+      "abs_offset": 1402,
+      "orig_len": 4,
+      "en": "Fair",
+      "zh": "晴朗",
+      "zh_bytes_hex": "b4b8aed4",
+      "pad_spaces": 0
+    },
+    {
       "idx": 5,
       "title": "Weather Conditions",
       "abs_offset": 1408,
@@ -420,12 +480,142 @@
     {
       "idx": 7,
       "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1726,
+      "orig_len": 3,
+      "en": "Jan",
+      "zh": "一",
+      "zh_bytes_hex": "a440",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1731,
+      "orig_len": 3,
+      "en": "Feb",
+      "zh": "二",
+      "zh_bytes_hex": "a447",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1736,
+      "orig_len": 3,
+      "en": "Mar",
+      "zh": "三",
+      "zh_bytes_hex": "a454",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1741,
+      "orig_len": 3,
+      "en": "Apr",
+      "zh": "四",
+      "zh_bytes_hex": "a57c",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1746,
+      "orig_len": 3,
+      "en": "May",
+      "zh": "五",
+      "zh_bytes_hex": "a4ad",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1751,
+      "orig_len": 3,
+      "en": "Jun",
+      "zh": "六",
+      "zh_bytes_hex": "a4bb",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1756,
+      "orig_len": 3,
+      "en": "Jul",
+      "zh": "七",
+      "zh_bytes_hex": "a443",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1761,
+      "orig_len": 3,
+      "en": "Aug",
+      "zh": "八",
+      "zh_bytes_hex": "a44b",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1766,
+      "orig_len": 3,
+      "en": "Sep",
+      "zh": "九",
+      "zh_bytes_hex": "a445",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1771,
+      "orig_len": 3,
+      "en": "Oct",
+      "zh": "十",
+      "zh_bytes_hex": "a451",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1776,
+      "orig_len": 3,
+      "en": "Nov",
+      "zh": "冬",
+      "zh_bytes_hex": "a556",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1781,
+      "orig_len": 3,
+      "en": "Dec",
+      "zh": "臘",
+      "zh_bytes_hex": "c3be",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1793,
+      "orig_len": 4,
+      "en": "Flak",
+      "zh": "高砲",
+      "zh_bytes_hex": "b0aaafa5",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
       "abs_offset": 1804,
       "orig_len": 9,
       "en": "Naval Air",
-      "zh": "海軍空中",
-      "zh_bytes_hex": "aefcad78aac5a4a4",
-      "pad_spaces": 1
+      "zh": "海軍空",
+      "zh_bytes_hex": "aefcad78aac5",
+      "pad_spaces": 3
     },
     {
       "idx": 8,
@@ -533,9 +723,9 @@
       "abs_offset": 4348,
       "orig_len": 11,
       "en": "USA Cavalry",
-      "zh": "美國騎兵",
-      "zh_bytes_hex": "acfcb0eac34da74c",
-      "pad_spaces": 3
+      "zh": "美騎兵",
+      "zh_bytes_hex": "acfcc34da74c",
+      "pad_spaces": 5
     },
     {
       "idx": 11,
@@ -543,9 +733,9 @@
       "abs_offset": 4361,
       "orig_len": 11,
       "en": "USA Militia",
-      "zh": "美國民兵",
-      "zh_bytes_hex": "acfcb0eaa5c1a74c",
-      "pad_spaces": 3
+      "zh": "美民兵",
+      "zh_bytes_hex": "acfca5c1a74c",
+      "pad_spaces": 5
     },
     {
       "idx": 11,
@@ -553,9 +743,9 @@
       "abs_offset": 13088,
       "orig_len": 13,
       "en": "Air Transport",
-      "zh": "空中運輸",
-      "zh_bytes_hex": "aac5a4a4b942bfe9",
-      "pad_spaces": 5
+      "zh": "空運輸",
+      "zh_bytes_hex": "aac5b942bfe9",
+      "pad_spaces": 7
     },
     {
       "idx": 11,
@@ -586,6 +776,26 @@
       "zh": "盟軍",
       "zh_bytes_hex": "b7f9ad78",
       "pad_spaces": 2
+    },
+    {
+      "idx": 14,
+      "title": "Ground Conditions - 3 items",
+      "abs_offset": 19532,
+      "orig_len": 3,
+      "en": "Dry",
+      "zh": "乾",
+      "zh_bytes_hex": "b0ae",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 14,
+      "title": "Ground Conditions - 3 items",
+      "abs_offset": 19537,
+      "orig_len": 3,
+      "en": "Mud",
+      "zh": "泥",
+      "zh_bytes_hex": "aa64",
+      "pad_spaces": 1
     },
     {
       "idx": 14,
@@ -626,6 +836,26 @@
       "zh": "輪型",
       "zh_bytes_hex": "bdfcabac",
       "pad_spaces": 3
+    },
+    {
+      "idx": 16,
+      "title": "Movement Modes - 11 items.",
+      "abs_offset": 19732,
+      "orig_len": 3,
+      "en": "Leg",
+      "zh": "腳",
+      "zh_bytes_hex": "b87d",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 16,
+      "title": "Movement Modes - 11 items.",
+      "abs_offset": 19742,
+      "orig_len": 3,
+      "en": "Air",
+      "zh": "空",
+      "zh_bytes_hex": "aac5",
+      "pad_spaces": 1
     },
     {
       "idx": 16,
@@ -738,6 +968,16 @@
       "pad_spaces": 4
     },
     {
+      "idx": 22,
+      "title": "Medium names - 2 items",
+      "abs_offset": 20613,
+      "orig_len": 3,
+      "en": "Air",
+      "zh": "空",
+      "zh_bytes_hex": "aac5",
+      "pad_spaces": 1
+    },
+    {
       "idx": 23,
       "title": "Deployment Screen during Campaign text",
       "abs_offset": 20680,
@@ -803,9 +1043,9 @@
       "abs_offset": 23427,
       "orig_len": 10,
       "en": "Air Attack",
-      "zh": "空中攻擊",
-      "zh_bytes_hex": "aac5a4a4a7f0c0bb",
-      "pad_spaces": 2
+      "zh": "空攻擊",
+      "zh_bytes_hex": "aac5a7f0c0bb",
+      "pad_spaces": 4
     },
     {
       "idx": 36,
@@ -846,6 +1086,16 @@
       "zh": "回合",
       "zh_bytes_hex": "a65ea658",
       "pad_spaces": 0
+    },
+    {
+      "idx": 45,
+      "title": "Inter-turn Messages, for the next turn (projected)",
+      "abs_offset": 24403,
+      "orig_len": 9,
+      "en": "Next Turn",
+      "zh": "下回合",
+      "zh_bytes_hex": "a455a65ea658",
+      "pad_spaces": 3
     },
     {
       "idx": 49,

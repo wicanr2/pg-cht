@@ -1,0 +1,29 @@
+#
+Set Prestige
+Set Reinforcements
+Toggle Air/Land Transport
+Set Transportation Maximums
+Victory Condition Points Needed To Lose
+Victory Condition Hexes Needed To Live
+Victory Condition Units Needed To Live
+Set Victory Conditions
+Set AI bucket
+Toggle Stance
+Current Stance
+Set Starting Weather
+Set Turns In Scenario
+Set Turns Per Day
+Set Days Per Turn
+Current Starting Side
+Toggle Latitude
+Pick Nations
+Select Primary Nation
+Toggle Between Axis/Allies For Functions
+Edit Day/Night Turns
+¸ü¤J¼@¥»
+Load Map
+Edit Scenario Title
+Edit Scenario Description
+Select Air Transport
+Select Sea Transport
+Toggle Axis Facing

@@ -1,0 +1,6 @@
+#
+Launch Plane
+Current Selection
+Strength
+Save Before Quitting Map Editor?
+Not Enough Drive Space To Save

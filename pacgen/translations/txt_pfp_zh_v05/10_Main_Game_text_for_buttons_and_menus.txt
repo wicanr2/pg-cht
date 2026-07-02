@@ -1,0 +1,37 @@
+#
+儲存遊戲
+載入遊戲
+Quick Save
+Quick Load
+離開遊戲
+Audio Controls
+Purchase Units
+Toggle Animations
+Comment
+分數
+結束回合
+Toggle AI Move
+Toggle Hidden Units
+Toggle Hexsides
+View Terrain
+Toggle Supply
+Toggle Weather
+Toggle Unit Strengths
+Next Unit
+Go To Unit
+Toggle Strat Map
+Toggle Air View
+Replacements
+Elite Replacements
+Upgrade Unit
+Disband Unit
+Name Unit
+Supply Unit
+取消移動
+Mount
+Embark
+Repair
+Special
+Debark
+Place Units
+Dismount

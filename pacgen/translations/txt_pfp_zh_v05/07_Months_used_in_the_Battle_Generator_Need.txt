@@ -1,0 +1,25 @@
+#note: dummy is just that... it isn't used, so ignore	
+Dummy
+一
+二
+三
+四
+五
+六
+七
+八
+九
+十
+冬
+臘
+Fleet
+高砲
+ASW
+海軍空
+Special Ops
+Ground Units
+Submarines
+Fighters / Bombers
+Heavy Guns
+Infrastructure
+Press Corps

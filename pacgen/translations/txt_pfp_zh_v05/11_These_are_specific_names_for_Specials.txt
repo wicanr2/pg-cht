@@ -1,0 +1,1069 @@
+#
+Submerge
+Surface
+Open Carrier Deck
+Place on CAP
+Take plane off CAP
+Pol Infantry
+Pol Cavalry
+LoC Infantry
+Nor Infantry
+游擊隊
+Phi Infantry
+DuI Infantry
+DuI RNEI
+SAf Infantry
+Ira Infantry
+Pan Infantry
+Peruvian Infantry
+Venezuelan Infantry
+Ecuadorian Infantry
+Colombian Infantry
+Mon Cavalry
+Jpn Hohei 1937
+Jpn Hohei HW 1937
+Chi Engineers 1937
+Chi HW 1937
+Chi Infantry 1937
+Chi Cavalry
+Jpn Kihei
+Jpn Teishin Dan 1937
+Jpn Engineers 1937
+Ger Wehr Inf 1939
+Fin Infantry
+Ita Paratroopers 1939
+Fin Ski Infantry
+Ita Paratroopers 1944
+Ita Infantry 1939
+Ita Infantry 1939
+Fra Infantry
+Rus Regular Infantry
+Rus Paratroopers
+Rus Bridge Engineers
+Rus Cavalry
+Rus Conscript Infantry
+Ger Pioneer Infantry
+Ger Bridge Engineers
+UnK Infantry 1939
+UnK HW Infantry 1939
+UnK Bridge Engineers
+UnK Paratroopers 1939
+Ind Infantry 1940
+Ind Cavalry
+UnK E.African Infantry
+UnK W.African Infantry
+Jpn Hohei 1940
+Jpn Hohei HW 1940
+Jpn Teishin Dan 1940
+Ger LuftW FJ 1940
+Ger Wehr HW 1940
+Jpn Imperial Guard
+Jpn Senpaku Kohei
+Yugoslav Infantry
+Greek Infantry
+Rumanian Infantry
+Hungarian Infantry
+Bulgarian Infantry
+VFr Infantry
+Madagascar Infantry
+Papuan Infantry
+New Guinea Infantry
+New Guinea Constabulary
+Fiji Infantry
+Fiji Guerrillas
+Malaysian Infantry
+Aua Commandos
+Can Infantry 1941
+Aua Engineers
+Aua HW 1941
+Aua Militia
+Aua Infantry 1941
+USA Kroegel's Raiders
+USA Paratroopers 1941
+USA Phi Scout
+美騎兵
+美民兵
+Jpn Burma Indep. Army
+USA Seabees
+USA Paramarines 1941
+USA Marines 1941
+USMC Defense Forces
+USMC Engineers 1941
+USA Engineers 1941
+USA Infantry 1941
+HKg Vol.Def. Infantry
+Jpn Indian Nat'l Army
+USMC Raiders
+NZe Militia
+NZe Engineers
+NZe HW 1942
+NZe Infantry 1942
+Rus Guards Infantry
+Rus Guards Cavalry
+Fra FFr Mtn Infantry
+Fra FFr Infantry
+Ger LuftW FJ 1943
+Jpn Hohei 1943
+Jpn Hohei HW 1943
+USA Infantry HW 1943
+Ger Wehr HW 1943
+Pol FPO Infantry
+Pol FPO Paratroopers
+UnK Paratroopers 1943
+USMC Engineers 1943
+USMC Engineers 1943
+USA Paratroopers 1943
+Ger Wehr Infantry 1943
+Ind Gurkhas
+Ind HW 1943
+Ind Infantry 1943
+UnK Infantry 1943
+UnK HW Infantry 1943
+Jpn Engineers 1943
+USA Marines 1943
+USA Infantry 1943
+USA Engineers 1943
+USA Rangers 1943
+Jpn Teishin Dan 1943
+UnK Burmese Infantry
+UnK Kachin Raiders
+UnK Commandos
+Chi Infantry 1944
+Ita HW 1944
+Can Engineers
+Chi HW 1944
+Can Infantry 1944
+Chi Engineers 1944
+Ita Infantry 1944
+Jpn AT Engineers
+Can HW 1944
+Can Commandos
+Aua HW 1944
+Aua Infantry 1944
+Jpn Giyugun
+Jpn Fukuryu
+Jpn Kempeitai
+Ger Volkssturm
+Pol TK3
+Pol 7TP
+Mon BT-5
+Jpn Type 94
+Jpn Type 95 Ha-Go
+Ger PzIA
+Ger PzIB
+Ger PzIIA
+Rus T-35
+Rus OT-130
+Rus T-38
+Chi VCL M1931(b)
+Chi L3/35(i)
+Chi PzIA
+Chi Vickers 6-Ton B
+Rus T-26
+Chi T-26
+Ger PzIID
+Aua Mk I A10
+Ita M13/40
+Ger Pz 35(t)
+Ger Pz 38(t)A
+Fra Lr H35
+Fra AMC 35
+Fra D1 1G
+Fra S35
+Fra B1-bis
+Fra B1-bis
+Jpn Type 97 Chi-Ha
+Ger PzIIIE
+Rus BT-5
+Rus BT-7
+Rus T-28M1
+Rus KV-1/39
+Ind Matilda II
+Ger PzIIF
+Ger PzIVD
+Ger PzIIIG
+UnK Matilda I
+UnK Matilda II
+UnK Mk I A9
+Fra CL AMX R40
+VFr D1 1G
+VFr CL AMX R40
+MK II Ind. Pattern
+SAf Mk III
+SAf Matilda II
+UnK Mk III A13
+Ger Pz38(t)F
+Ger PzIIIH
+Rus T34/40
+Rus KV-2
+Ita L6/40
+UnK Crdr I
+Rus KV-1/41
+Ger PzIIIJ
+Rus T-60
+UnK M3 Stuart
+Rus T-70
+UnK Grant
+Rus T-34/41
+Ger Pz38(t)G
+UnK Crdr II
+USA M3Stuart
+USA M2A4
+Aua Matilda IV
+Jpn Type 1 Chi-He
+USA M3a1 Lee
+Ita M14/41
+Jpn Type 98 Ke-Ni
+NZe M3 Stuart
+NZe Sherman
+NZe Valentine Mk III
+NZe Valentine Mk II
+Rus KV-1/42
+UnK Crdr III
+Ger PzIVF2
+Ger PzIVG
+Jpn Type 2 Ka-Mi
+Ger Tiger I
+UnK Church III
+Can Church III
+Ger PzIIIN
+Jpn Type 2 Ho-I
+UnK Church IV
+Rus T-34/43
+UnK Sherman
+Can Church IV
+UnK M5 Stuart
+Aua Matilda Frog
+Aua AC I Sentinel
+Aua AC III Sentinel
+Fra FFr M5
+Fra FFr M4A1
+Pol FPO M5 Stuart
+POL FPO M5 Stuart
+Aua Valentine Mk III
+Aua Grant
+Aua Sherman
+Ger PzIVH
+USA Sherman Badger
+USA M5A1 with E7-7
+USA M4A1 Sherman
+Can M4A1 Sherman
+Ger Panther D
+USA M5 Stuart
+Ger Panther A
+Ita M15/42
+Chi M-3 Stuart
+UnK Crom IV
+Chi M-3a1 Lee
+USA M4A3 Sherman
+Chi M-4 Sherman
+Rus IS-2
+UnK Church VI
+Ger Panther G
+Rus T-34/85
+UnK Sh Firefly
+USA Sherman 105
+Can Church VII
+USA Sherman DD
+UnK Church VII
+Ger Tiger II
+UnK Crom VII
+UnK ChAua A30
+UnK Comet
+Ger PzIVJ
+Jpn Type 3 Chi-Nu
+Can Sherman Badger
+USA M26 Pershing
+USA M4A3E8 Sherman
+USA M24 Chaffee
+USA M4A3E2
+USA LVT(A)-1
+USA LVT(A)-4 Mariana
+USA LVT(A)-1/M24
+Jpn Type 92 Osaka
+Chi BA-10
+Chi PSW 222
+Jpn Type 93 Sumida
+Ger PSW 231/6r
+Rus BA-10
+Ger PSW 222/4r
+Ita AB-40
+UnK Daimler SC
+Ita AB-41
+Rus BA-64
+USA M20 Scout
+Ger PSW 232/8r
+USMC Raiders & Dogs
+UnK AEC I
+USA M8 Greyhound
+Fra FFr M8 LAC
+Fra FFr M20 LAC
+UnK Humber SC
+Pol FPO M8 LAC
+Ger PSW 233/8r
+UnK AEC II
+Ger Lynx
+Ger PSW 234/2-8r
+UnK AEC III
+Ger PSW 234/1-8r
+USA Helicopter
+37mm ATG
+Jpn RA 97
+Chi 3.7 PaK35/36
+Fin 37mm ATG
+Ger 3.7 PaK35/36
+Ita 47mm ATG
+Fra 25mm ATG
+Fra 47mm ATG
+Fra 75mm ATG
+Rus 45mm ATG
+Rus 76mm ATG
+Ger PzJager IB
+UnK 2 Pdr ATG
+VFr 47mm ATG
+Ger 8.8 FK18 ATG
+Aua 2 Pdr ATG
+Jpn Type 1 47mm
+Rus 57mm ATG
+Ger 5 PaK38
+USA 37mm ATG
+Ita Sem M-42
+Aua 6 Pdr ATG
+Ger Marder II
+Ger 7.5 PaK40
+Ger StuGIIIF
+Ger Marder IIIH
+UnK 6 Pdr ATG
+Ita 90mm Breda
+NZe 6 Pdr ATG
+Ita Sem L-47
+Ger StuGIIIF/8
+Ger StuGIIIG
+Pol FPO 6 Pdr ATG
+Ind 6 Pdr ATG
+Jpn Ho-Ni 1
+Ger Nashorn
+Ger Marder IIIM
+UnK 17 Pdr ATG
+Ger JPz Elefant
+Fra FFr 57mm ATG
+Rus SU-152 AT
+Can M10 Wolverine
+Ita Sem M-41M
+USA M10 Wolverine
+USA 57mm ATG
+USA 3" ATG
+Rus SU-85
+Ger JagdPz IV/48
+Rus ISU-122
+Rus ISU-152 AT
+Ger Hetzer
+UnK Achilles
+Ger 8.8 Pak43/41
+Ger JagdPanther
+Ger JagdPz IV/70
+UnK Archer
+Jpn 88mm
+Rus SU-100
+Ger JagdTiger
+USA M18 Hellcat
+Ger JagdPanzer 38
+USA M36 Jackson
+Nor 75mm Gun
+75mm Gun
+Jpn Meiji 38 Imp.75
+Jpn 94 Mtn Gun 75mm
+Chi Rockets
+Jpn Ho-Ni 3
+Chi 122mm Gun
+Chi 105mm Howitzer
+Chi 75mm Howitzer
+Chi 150mm Howitzer
+Ger 7.5 leFk 16nA
+Jpn Type 91 105mm
+Ita 105mm Gun
+Ita 75mm Gun
+Fin 105mm Gun
+Fra 75mm Gun
+Fra 105mm Gun
+Fra 155mm Gun
+Rus 15.2cm Gun
+Rus 12.2cm Gun
+Ind 25Pdr Gun
+Ger 10.5 leFH18
+Ger StugIIIb
+Ger 15 sFH 18
+UnK 25 Pdr Gun
+Ger sIG IB
+UnK 6" Gun
+VFr 75mm Gun
+Aua 25 Pdr Gun
+Jpn Ho-Ni 2
+Ger Nebelwerfer
+USA 75mm Pack How
+USA 75mm Gun
+Rus Katyusha BM13
+Aua Baby 25 Pdr
+HKg 25 Pdr Gun
+HKg 5.5" Gun
+Ita 155mm Gun
+Jpn 20cm Rocket
+Ita Sem M-40
+Ger 17 K18
+Ger sIG II
+Jpn 4 Ho-Ro 150mm
+NZe 25 Pdr Gun
+UnK 5.5" Gun
+UnK M7 Priest
+Ger Stu H42
+USA M3 GMC
+Fra FFr 75mm Gun
+Pol FPO 6" Gun
+Pol FPO 25 Pdr
+Jpn 45cm Rocket
+Rus Katyusha BM31
+Ger sIG 38(t)M
+UnK 7.2" Gun
+Rus SU-152
+USA M7
+Ger Hummel
+Ger Wespe
+USA 105mm How
+Fra FFr 105mm Gun
+Ita Sem M-42M
+USA M8 HMC
+Ger Stug IV
+Rus ISU-152
+USA M12 GMC
+UnK Sexton
+UnK Crom VI
+USA 155mm Gun
+Jpn 120mm Gun
+Can Sexton
+USA 8" Gun
+USA M4A3 (105)
+USA 57mm Recoilless
+USA 75mm Recoilless
+USA T93 HMC
+USA T92 HMC
+Jpn 20mm
+Jpn Sa-To
+Chi 20mm AA
+Ger SdKfz 10/4
+Rus z20mm SPAA
+USA M15A1
+Ger SdKfz 7/1
+Aua 20mm SPAA
+Jpn So-Ki
+UnK 20mm SPAA
+Ger FlaKPz 38(t)
+Ger 37 FlaKPz IV
+USA M16
+USA M19
+Ger Wirbelwind
+Jpn 75mm Model 88
+Chi 37mm AD
+Chi 40mm AD
+Chi 75mm AD
+Ger FlaK38(4)
+Ger 8.8 FlaK 18
+Rus 7.6cm AD
+Ind 40mm AD
+Ger 3.7 FlaK 36
+UnK 40mm AD
+Fra 40mm AD
+UnK 3" AD
+Ger SdKfz 6/2
+VFr 40mm AD
+Aua 40mm AD
+Aua 3" AD
+Ita 75mm SPAD
+USA 3" AD
+NZe 40mm AD
+NZe 3" AD
+Jpn 10cm Model 98
+Jpn 105mm Type 14
+UnK 40mm SPAD
+USA 90mm AD
+USA 40mm AD
+Ger Ostwind I
+Jpn 120mm Type 10
+Mk I SP
+Mk II SP
+Mk II Fort
+Strongpoint
+Fort
+Mk I Fort
+Jpn Ki-21 Sally
+Jpn Kawanishi H6K
+Fra Amiot 143
+Ger Ju88A
+Jpn Nakajima Ki-49
+Ger DO17z
+Ger HE111 H2
+UnK Stir MkI
+Ita P108 Bi
+Ita CA309
+Ger DO217e
+UnK Lancaster
+USA PBY Catalina
+USA B-17F Flying Fort
+Ger HE177a
+USA B-24D Liberator
+Jpn Kawanishi H8K
+USA B-17G Flying Fort
+Rus I1-4
+Ger JU188a
+Rus PE-8
+USA B-29 Super Fortress
+Jpn Mitsubishi Ki-6
+Jpn Kamikaze
+USA B-32 Dominator
+LAm Almirante Lynch
+LAm Serrano
+DuI Van Ghent
+LAm Vouga
+Jpn Momi
+Jpn Asashio
+Ger Z
+UnK J
+Rus Storozhevoi
+Rus Leningrad
+UnK K
+UnK Amazon
+UnK Tribal
+Ita Turbine
+Ita Leone
+Ita Mirabello
+Fra Chacal
+Fra Le Fantasque
+Fra Mogador
+Fra L'Adroit
+Fra Le Hardi
+DuI Tjerk Hiddes
+Jpn Kagero
+Fra FFr Le Fantasque
+VFr Le Fantasque
+VFr Mogador
+VFr L'Adroit
+VFr Le Hardi
+Aua Tribal
+Aua Admiralty V
+Aua Scott
+Jpn Mutsuki
+UnK Ca
+Can A-I
+Aua Q
+Can Ca
+USA Benham
+Can Tribal
+USA Sims
+USA Bagley
+USA Somers
+USA Clemson
+USA Farragut
+USA Porter
+Jpn Fubuki
+Fra FFr Chacal
+USA Fletcher
+Jpn Akizuki
+Jpn Shimakaze
+UnK Battle (1st Group)
+USA Sumner
+UnK Weapon
+UnK Battle (2nd Group)
+USA Gearing
+UnK Hunt
+USA GMT
+USA TE
+USA FMR
+Jpn Ukuru
+USA TEV
+Jpn Ataka
+Chi Yung Sui
+Chi Ming Cheun
+Chi Hsien Ning
+UnK Sandpiper
+USA Panay
+Jpn Seta
+Jpn Tomozuru
+Ita Spica
+Ger T
+USA Elco
+USA Elco 1944
+Jpn Shinyo
+USA Vosper
+LAm Almirante Latorre
+Jpn Fuso
+Jpn Nagato
+Jpn Kongo
+Ger Deutschland
+Rus Revoluciya
+Rus Marat
+Rus Parizhskaya Komm
+UnK Monitor
+UnK Hood
+UnK Renown
+UnK Nelson
+UnK Queen Elizabeth
+UnK Royal Sovereign
+Jpn Ise
+Ger Scharnhorst
+Ita Doria
+Ita Cavour
+Ger Hipper
+Fra Dunkerque
+Fra Courbet
+Fra Bretagne
+Ita Littorio
+VFr Dunkerque
+Ger Bismarck
+UnK King George V
+USA California
+USA New Mexico
+USA Pennsylvania
+USA Nevada
+USA Texas
+USA Wyoming
+USA Maryland
+Jpn Yamato
+USA North Carolina
+USA South Dakota
+Fra FFr Courbet
+USA Iowa
+Fra FFr Bretagne
+UnK Richelieu
+Jpn Yamato Battlecruiser
+USA Montana
+Jpn Super Yamato
+USA Alaska
+Rus Arkhangelsk
+Truck
+Jpn Bicycle
+Jpn Pack Animals
+Jpn Isuzu 97 Truck
+Chi Henshel 33
+Chi Pack Animals
+Ger Opel 6700
+UnK Pack Animals
+Ita Fiat Truck
+UnK Bren Ca
+UnK 3 Tn Lorry
+Fra Truck
+Rus Truck
+Ger SPW 251/1
+Ind 3 Tn Lorry
+Ind Pack Animals
+Aua 2 1/2 Ton Truck
+Ger SPW 250/1
+USA M2 Halftrack
+USA GM Truck
+NZe 2 1/2 Ton Truck
+Fra FFr GM Truck
+Fra FFR M2 Halftrack
+Jpn Ho-Ha 1 Halftrack
+Pol FPO Truck
+Pol FPO Bren Carrier
+Can GM Truck
+Can Ram Kg
+UnK Ram Kg
+Chi 2 1/2 Ton Truck
+空運輸
+Jpn Glider
+Rus Tupolev TB-3
+UnK C-47
+Jpn Tachikawa Ki-54
+Ger Ju52ge
+Ita Sm 82
+Aua Dakota
+USA DC-3
+USA CG-13A
+運輸
+UnK LSI(L)
+Jpn Transport
+USA Gilliam Atk Transport
+USA LVT-2 Water Buffalo
+Jpn Suki 4x4 Amphibious
+USA LVT-4 Water Buffalo
+USA LVT-3 Bushmaster
+Jpn Hosho
+Jpn Kaga
+UnK Courageous
+UnK Furious
+Jpn Ryujo
+UnK Argus
+UnK Eagle
+Unk Hermes
+UnK Ark Royal
+Jpn Akagi
+Jpn Soryu
+UnK Illustrious
+Jpn Zuiho
+Jpn Shokaku
+UnK Indomitable
+USA Lexington
+USA Wasp
+USA Yorktown
+Jpn Hiyo
+Jpn Ryuho
+USA Essex
+USA Independence
+Jpn Chitose
+Jpn Taiho
+UnK Implacable
+Jpn Unryu
+Jpn Shinano
+UnK Colossus
+UnK Majestic
+USA Midway
+UnK Centaur
+Jpn Ibuki
+Jpn Taiyo
+UnK Attacker
+UnK Ameer
+USA Bogue
+UnK Avenger
+USA Sangamon
+USA Casablanca
+Jpn Kaiyo
+UnK Vindex
+Jpn Shinyo
+UnK Campania
+Jpn Kamakura
+USA Commencement B
+LAm Blanco Encalada
+LAm Chacobuco
+LAm O'Higgins
+Chi Ying Swei
+LAm Almirante Grau
+UnK Kent
+UnK London
+UnK Norfolk
+UnK Exeter
+Rus Kirov
+Rus Krasnyi Kavaz
+Rus Profintern
+UnK York
+Jpn Furutaka
+Jpn Tone
+Ita San Giorgio
+Ita Zara
+Ita Bolzano
+Ita Trento
+Fra Duquesne
+Fra Suffren
+Fra Algerie
+Fra Emile Bertin
+Jpn Mogami
+Jpn Aoba
+Jpn Takao
+VFr Algerie
+Rus Maxim Gorkiy
+Jpn Myoko
+Aua London
+Aua Kent
+USA Portland
+USA Northampton
+USA Wichita
+USA Pensacola
+USA New Orleans
+USA Baltimore
+Fra FFr Duquesne
+Fra FFr Suffren
+Fra FFr Emile Bertin
+Jpn Hirado
+Jpn Kuma
+DuI Sumatra
+Jpn Nagara
+DuI De Ruyter
+Jpn Naka
+Jpn Yubari
+Chi Ning Hai
+Ger Emden
+Ger Leipzig
+Ger K
+Ger Nurnberg
+Ger Auxillary
+UnK Leander
+UnK Carlisle
+UnK Caledon
+UnK D
+UnK Southampton
+DuI Tromp
+Ita Capitani Romani
+Ita Condottieri
+UnK Dido
+UnK Edinburgh
+UnK Fiji
+Fra Duguay Trouin
+Fra Jeanne D'Arc
+Fra La Galissonniere
+Jpn Katori
+VFr Duguay Trouin
+NZe Leander
+Aua Birmingham
+Aua Perth
+USA Brooklyn
+USA Omaha
+USA Atlanta
+Jpn Kitakami
+USA Cleveland
+Fra FFr Duguay Troui
+Jpn Oyodo
+Fra FFr Jeanne D'Arc
+NZe Fiji
+Fra FFr La Galissonni
+Fra FFr La Fantasque
+Rus Murmansk
+Can Fiji
+Jpn 1944 Katori
+LAm Capitan O'Brien
+DuI KXIV
+LAm R
+Jpn Vickers L
+Jpn Kaidai
+Jpn Junsen
+Rus Series XIIIbis
+Rus Series Vbis-2
+Ita Adua
+Ita Calvi
+Ita Brin
+Ita Balilla
+Ita Marconi
+Ita Bragadin
+Ita Foca
+Fra Argonaute
+Fra Requin
+Fra Sirene
+Fra Redoubtable
+Fra Aurore
+Ger UBoat Type IXC
+Fra FFr Saphir
+Fra FFr Minerve
+VFr Requin
+VFr Sirene
+Ita Cagni
+VFr Circe
+VFr Minerve
+VFr Redoubtable
+UnK T
+USA Salmon
+USA Shark
+USA S
+USA Seadragon
+USA Tambor
+USA Gato
+USA Improved Gato
+Ita Romolo
+Jpn Kaichu
+Jpn Sen-Taka
+Jpn Sen-Taka-Sho
+Jpn C
+Jpn B
+USA Argonaut
+Jpn D
+Jpn Sen-Toku
+Jpn A-C
+Jpn Kaiten
+Jpn Kairyu
+Jpn D 1945
+Pol PZL P11C
+Pol PZL P24g
+LoC F-DXX1
+LoC CR42
+LoC PZL P24
+Nor F-DXXIII
+Phi P-40
+Ira
+Jpn Kawasaki Ki-10
+Jpn Nakajima Ki-27
+UnK Hur I
+Chi Gloster Gladiato
+Chi I-16
+Chi I-15
+UnK Gladiator
+UnK Spit I
+SAf P-40 Warhawk
+UnK P-40 Warhawk
+Fra MS 406
+Jpn Mitsubishi Ki-5
+Ger BF109e
+Rus I-16
+DuI F2A Buffalo
+UnK F2A Buffalo
+Fra CHk75A-1
+Fra D520S
+Fra HFII
+UnK Spit II
+Ita Re2000/F1
+Ger BF109f
+Ger FW 109a
+Aua Wirraway
+Aua Hudson
+Aua Kittyhawk
+Chi P-40 Flying Tiger
+Jpn Nakajima Ki-43
+Rus MiG-3
+Rus La-3
+Rus YaK-1
+UnK Spit VB
+Jpn Kawasaki Ki-45
+Rus YaK-1M
+USA P-36A Mohawk
+USA P39 Airacobra
+USA P-40 Warhawk
+USMC F4F Wildcat
+USA Hudson
+Jpn Nakajima A6M2
+UnK Spit IX
+Ita Ma C202/F
+Ger BF109g
+Aua Boomerang
+Ita Centauro
+Jpn Nakajima Ki43II
+Jpn Nakajima J1N1
+USA P-38 Lightning
+Rus P-63 Kingcobra
+Rus YaK-9M
+USMC F6F Hellcat
+Aua Spit II
+Ita Re2005/S
+Jpn Nakajima Ki-44
+USA P-47B Thunderbolt
+USA P51B Mustang
+USMC F4U Corsair
+NZe Corsair
+Ita Ma C205/O
+Jpn Kawasaki Ki-61
+Rus YaK-7B
+USA P-38J Lightning
+Fra FFr P47D Thunderbolt
+USA P47D Thunderbolt
+LAm P-47D Thunderbolt
+Rus P-47D Thunderbolt
+UnK P-47D Thunderbolt
+Jpn Mitsubishi J2M
+Ger HE219
+USA P-61 Black Widow
+Chi P-40
+Ger FW 109d9
+USA P51D Mustang
+Rus YaK-9
+Jpn Kawanishi N1K2
+Jpn Nakajima Ki-84
+USA P-51H Mustang
+Rus La-7
+USA P-59A Airacomet
+Ger BF109k
+USA F82G Twin Mustang
+USA P-47N Thunderbolt
+Aua CA-15
+UnK Spit XVII
+UnK deHavilland Hornet
+Ger Komet
+Ger HE162
+Ger ME262A1
+Ger DO335
+UnK Meteor III
+Ger ME163B
+Jpn Kawasaki Ki-100
+Jpn Mitsubishi J8M
+Jpn Nakajima Kikka
+Jpn Mitsubishi A5M
+Jpn Mitsubishi A6M
+UnK Sea Gladiator
+UnK Fairey Fulmar
+UnK Sea Hurricane
+UnK Martlet
+USA F4F Wildcat
+UnK Seafire
+UnK Wildcat
+UnK Gannet
+USA FM2 Wildcat
+USA F6F Hellcat
+Jpn Mitsubishi A6M5
+UnK Fairey Firefly
+UnK Corsair
+USA F4U Corsair
+USA F4-1 Fireball
+USA F7F Tigercat
+USA F8F Bearcat
+USA FH-1 Phantom
+UnK Sea Hornet
+Pol PZL P23b
+Pol PZL P37b
+DuI Marin B-10B
+SAf A-17A
+Ira SM.79 B
+UnK Blen MkI
+UnK Vildebeast
+Rus Tupolev SB-2
+Chi Martin B-10B
+Ita SM.79 B
+Jpn Kawasaki Ki-32
+UnK Blen MkIV
+Fra Potez 63
+Ger JU87B
+Jpn Kawasaki Ki-48
+Jpn Mitsubishi Ki-4
+Ger BF110C
+VFr LeO 451
+Ita BA65
+UnK BeauFighter
+UnK Beaufort
+UnK Vengeance
+Ger JU87D
+Fra Bloch 174
+Rus PE-2
+UnK Mosq VI
+Ger BF110d
+Ger JU87R
+Rus I1-2
+USA B-18A Bolo
+USA B-26C Marauder
+USA A-20 Havoc
+Ger BF110e
+USMC SBD Dauntless
+Aua Beaufort
+USA B-25B Mitchell
+Aua BeauFighter
+Aua Boston
+UnK Hur IID
+Rus I1-2M3
+Ger ME210c
+NZe TBF Avenger
+UnK Typhoon IB
+Ger ME410a
+USMC SB2C HellDiver
+Aua Mosq VI
+Can Swordfish Mk IV
+Can Mosq VI
+Rus Rupolev Tu-2
+Ger FW190g
+Ger FW190f
+Ger BF110g
+USA B-25H Mitchell
+UnK Hur IV
+Chi Tupolev Tu-2
+USA A-26 Invader
+Jpn Yokosuka P1Y
+Rus I1-10
+Jpn Yokosuka MXY7
+Jpn Nakajima Kikka
+Jpn Mitsubishi G3M
+UnK Swordfish Mk I
+UnK Albacore
+Jpn Mitsubishi G4M
+Jpn Aichi D3A Val
+Jpn Nakajima B5N
+USA SBD Dauntless
+USA TBD Devastator
+USA TBF Avenger
+UnK Barracuda
+USA TBM Avenger
+UnK Swordfish MkIII
+Jpn Yokosuka D4Y
+USA SB2C HellDiver
+Jpn Nakajima B6N
+Jpn Aichi B7A
+Jpn Yokosuka E14Y

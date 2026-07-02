@@ -1,0 +1,38 @@
+#
+Inland City
+Coastal City
+Dirt Road
+Paved Road
+´¸®Ô
+´ËªL
+Kunai
+¥¿³WÂOªL
+Dense Jungle
+Palm Trees
+Bamboo
+¾ðÆX
+Paved Road
+Agriculture
+Rice Paddy-In Season
+Rice Paddy-Drained
+¨Fºz
+Oasis
+ªh¿A
+¥C³®
+Volcanic
+Hill
+¤s¯ß
+Â_±V
+ªe¬y
+®üÅy
+Pier
+Seawall
+Tetrahedron
+ÁG¥Û
+Coast
+Deep Ocean
+Jungle Path
+Dirt Airfield
+Paved Airfield
+­n¶ë
+Oilfield

@@ -1,0 +1,12 @@
+#
+¶}©l¼@¥»
+Decrease Experience
+Increase Experience
+Decrease Prestige
+Increase Prestige
+Set Axis to Human
+Set Allies to Human
+Set Axis to PBEM
+Set Allies to PBEM
+Set Axis to Computer
+Set Allies to Computer
