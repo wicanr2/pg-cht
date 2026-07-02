@@ -1,0 +1,931 @@
+{
+  "stats": {
+    "total_lines": 3461,
+    "en_zh_diff": 116,
+    "fits": 92,
+    "toolong": 24,
+    "unchanged": 3024
+  },
+  "patches": [
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 68,
+      "orig_len": 8,
+      "en": "Infantry",
+      "zh": "步兵",
+      "zh_bytes_hex": "a842a74c",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 78,
+      "orig_len": 4,
+      "en": "Tank",
+      "zh": "戰車",
+      "zh_bytes_hex": "bed4a8ae",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 84,
+      "orig_len": 5,
+      "en": "Recon",
+      "zh": "偵察",
+      "zh_bytes_hex": "b0bbb9ee",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 91,
+      "orig_len": 9,
+      "en": "Anti-tank",
+      "zh": "反戰車",
+      "zh_bytes_hex": "a4cfbed4a8ae",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 102,
+      "orig_len": 9,
+      "en": "Artillery",
+      "zh": "火砲",
+      "zh_bytes_hex": "a4f5afa5",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 117,
+      "orig_len": 11,
+      "en": "Air Defense",
+      "zh": "防空",
+      "zh_bytes_hex": "a8beaac5",
+      "pad_spaces": 7
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 143,
+      "orig_len": 9,
+      "en": "Destroyer",
+      "zh": "驅逐艦",
+      "zh_bytes_hex": "c558b376c4a5",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 154,
+      "orig_len": 10,
+      "en": "Battleship",
+      "zh": "戰列艦",
+      "zh_bytes_hex": "bed4a643c4a5",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 175,
+      "orig_len": 13,
+      "en": "Heavy Cruiser",
+      "zh": "重巡洋艦",
+      "zh_bytes_hex": "adaba8b5ac76c4a5",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 190,
+      "orig_len": 13,
+      "en": "Light Cruiser",
+      "zh": "輕巡洋艦",
+      "zh_bytes_hex": "bbb4a8b5ac76c4a5",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 205,
+      "orig_len": 9,
+      "en": "Submarine",
+      "zh": "潛艇",
+      "zh_bytes_hex": "bce7b8a5",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 216,
+      "orig_len": 7,
+      "en": "Fighter",
+      "zh": "戰鬥機",
+      "zh_bytes_hex": "bed4b0abbef7",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 237,
+      "orig_len": 12,
+      "en": "Level Bomber",
+      "zh": "水平轟炸機",
+      "zh_bytes_hex": "a4f4a5adc546acb5bef7",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 251,
+      "orig_len": 13,
+      "en": "Air Transport",
+      "zh": "空中運輸",
+      "zh_bytes_hex": "aac5a4a4b942bfe9",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 0,
+      "title": "The list of Classes, for the Glossary and Purchase screens",
+      "abs_offset": 266,
+      "orig_len": 13,
+      "en": "Sea Transport",
+      "zh": "海洋運輸",
+      "zh_bytes_hex": "aefcac76b942bfe9",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 362,
+      "orig_len": 5,
+      "en": "Clear",
+      "zh": "晴朗",
+      "zh_bytes_hex": "b4b8aed4",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 369,
+      "orig_len": 6,
+      "en": "Forest",
+      "zh": "森林",
+      "zh_bytes_hex": "b4cbaa4c",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 384,
+      "orig_len": 14,
+      "en": "Regular Jungle",
+      "zh": "正規叢林",
+      "zh_bytes_hex": "a5bfb357c24faa4c",
+      "pad_spaces": 6
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 434,
+      "orig_len": 6,
+      "en": "Bocage",
+      "zh": "樹籬",
+      "zh_bytes_hex": "bef0c658",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 509,
+      "orig_len": 6,
+      "en": "Desert",
+      "zh": "沙漠",
+      "zh_bytes_hex": "a846ba7a",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 524,
+      "orig_len": 5,
+      "en": "Swamp",
+      "zh": "沼澤",
+      "zh_bytes_hex": "aa68bf41",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 531,
+      "orig_len": 5,
+      "en": "Rough",
+      "zh": "丘陵",
+      "zh_bytes_hex": "a543b3ae",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 554,
+      "orig_len": 8,
+      "en": "Mountain",
+      "zh": "山脈",
+      "zh_bytes_hex": "a473afdf",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 564,
+      "orig_len": 10,
+      "en": "Escarpment",
+      "zh": "斷崖",
+      "zh_bytes_hex": "c25fb156",
+      "pad_spaces": 6
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 576,
+      "orig_len": 5,
+      "en": "River",
+      "zh": "河流",
+      "zh_bytes_hex": "aa65ac79",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 583,
+      "orig_len": 5,
+      "en": "Beach",
+      "zh": "海灘",
+      "zh_bytes_hex": "aefcc579",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 618,
+      "orig_len": 4,
+      "en": "Reef",
+      "zh": "礁石",
+      "zh_bytes_hex": "c147a5db",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 1,
+      "title": "List of terrain types",
+      "abs_offset": 687,
+      "orig_len": 13,
+      "en": "Fortification",
+      "zh": "要塞",
+      "zh_bytes_hex": "ad6eb6eb",
+      "pad_spaces": 9
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 964,
+      "orig_len": 9,
+      "en": "Australia",
+      "zh": "澳洲",
+      "zh_bytes_hex": "bf44ac77",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1001,
+      "orig_len": 6,
+      "en": "Canada",
+      "zh": "加拿大",
+      "zh_bytes_hex": "a55baeb3a46a",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1009,
+      "orig_len": 5,
+      "en": "China",
+      "zh": "中國",
+      "zh_bytes_hex": "a4a4b0ea",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1052,
+      "orig_len": 6,
+      "en": "France",
+      "zh": "法國",
+      "zh_bytes_hex": "aa6bb0ea",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1060,
+      "orig_len": 7,
+      "en": "Germany",
+      "zh": "德國",
+      "zh_bytes_hex": "bc77b0ea",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1080,
+      "orig_len": 5,
+      "en": "India",
+      "zh": "印度",
+      "zh_bytes_hex": "a64cabd7",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1100,
+      "orig_len": 5,
+      "en": "Japan",
+      "zh": "日本",
+      "zh_bytes_hex": "a4e9a5bb",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1147,
+      "orig_len": 11,
+      "en": "New Zealand",
+      "zh": "紐西蘭",
+      "zh_bytes_hex": "afc3a6e8c4f5",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1181,
+      "orig_len": 6,
+      "en": "Poland",
+      "zh": "波蘭",
+      "zh_bytes_hex": "aa69c4f5",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 3,
+      "title": "Nationality Names, used in various screens",
+      "abs_offset": 1199,
+      "orig_len": 6,
+      "en": "Russia",
+      "zh": "俄羅斯",
+      "zh_bytes_hex": "ab58c3b9b4b5",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 5,
+      "title": "Weather Conditions",
+      "abs_offset": 1408,
+      "orig_len": 6,
+      "en": "Cloudy",
+      "zh": "陰",
+      "zh_bytes_hex": "b3b1",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 5,
+      "title": "Weather Conditions",
+      "abs_offset": 1416,
+      "orig_len": 4,
+      "en": "Rain",
+      "zh": "雨",
+      "zh_bytes_hex": "ab42",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 5,
+      "title": "Weather Conditions",
+      "abs_offset": 1422,
+      "orig_len": 4,
+      "en": "Snow",
+      "zh": "雪",
+      "zh_bytes_hex": "b3b7",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 7,
+      "title": "Months used in the Battle Generator.  Need to be short strings. ",
+      "abs_offset": 1804,
+      "orig_len": 9,
+      "en": "Naval Air",
+      "zh": "海軍空中",
+      "zh_bytes_hex": "aefcad78aac5a4a4",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 8,
+      "title": "Specials ... displayed in various locations, mainly Purchase and Go To Unit",
+      "abs_offset": 2024,
+      "orig_len": 9,
+      "en": "Paratroop",
+      "zh": "傘兵",
+      "zh_bytes_hex": "b3caa74c",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 8,
+      "title": "Specials ... displayed in various locations, mainly Purchase and Go To Unit",
+      "abs_offset": 2070,
+      "orig_len": 14,
+      "en": "Torpedo Bomber",
+      "zh": "魚雷轟炸機",
+      "zh_bytes_hex": "b3bdb970c546acb5bef7",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 8,
+      "title": "Specials ... displayed in various locations, mainly Purchase and Go To Unit",
+      "abs_offset": 2147,
+      "orig_len": 6,
+      "en": "No Buy",
+      "zh": "否購買",
+      "zh_bytes_hex": "a75fc1cab652",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 10,
+      "title": "Main Game text for buttons and menus",
+      "abs_offset": 2370,
+      "orig_len": 9,
+      "en": "Save Game",
+      "zh": "儲存遊戲",
+      "zh_bytes_hex": "c078a673b943c0b8",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 10,
+      "title": "Main Game text for buttons and menus",
+      "abs_offset": 2381,
+      "orig_len": 9,
+      "en": "Load Game",
+      "zh": "載入遊戲",
+      "zh_bytes_hex": "b8fca44ab943c0b8",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 10,
+      "title": "Main Game text for buttons and menus",
+      "abs_offset": 2416,
+      "orig_len": 9,
+      "en": "Quit Game",
+      "zh": "離開遊戲",
+      "zh_bytes_hex": "c2f7b67db943c0b8",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 10,
+      "title": "Main Game text for buttons and menus",
+      "abs_offset": 2487,
+      "orig_len": 5,
+      "en": "Score",
+      "zh": "分數",
+      "zh_bytes_hex": "a4c0bcc6",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 10,
+      "title": "Main Game text for buttons and menus",
+      "abs_offset": 2494,
+      "orig_len": 8,
+      "en": "End Turn",
+      "zh": "結束回合",
+      "zh_bytes_hex": "b5b2a7f4a65ea658",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 10,
+      "title": "Main Game text for buttons and menus",
+      "abs_offset": 2770,
+      "orig_len": 11,
+      "en": "Cancel Move",
+      "zh": "取消移動",
+      "zh_bytes_hex": "a8faaef8b2beb0ca",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 11,
+      "title": "These are specific names for Specials",
+      "abs_offset": 3020,
+      "orig_len": 9,
+      "en": "Partisans",
+      "zh": "游擊隊",
+      "zh_bytes_hex": "b4e5c0bbb6a4",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 11,
+      "title": "These are specific names for Specials",
+      "abs_offset": 4348,
+      "orig_len": 11,
+      "en": "USA Cavalry",
+      "zh": "美國騎兵",
+      "zh_bytes_hex": "acfcb0eac34da74c",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 11,
+      "title": "These are specific names for Specials",
+      "abs_offset": 4361,
+      "orig_len": 11,
+      "en": "USA Militia",
+      "zh": "美國民兵",
+      "zh_bytes_hex": "acfcb0eaa5c1a74c",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 11,
+      "title": "These are specific names for Specials",
+      "abs_offset": 13088,
+      "orig_len": 13,
+      "en": "Air Transport",
+      "zh": "空中運輸",
+      "zh_bytes_hex": "aac5a4a4b942bfe9",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 11,
+      "title": "These are specific names for Specials",
+      "abs_offset": 13221,
+      "orig_len": 9,
+      "en": "Transport",
+      "zh": "運輸",
+      "zh_bytes_hex": "b942bfe9",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 13,
+      "title": "Player ID text, 10 items.  Only first 2 need localizing",
+      "abs_offset": 19402,
+      "orig_len": 4,
+      "en": "Axis",
+      "zh": "軸心",
+      "zh_bytes_hex": "b662a4df",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 13,
+      "title": "Player ID text, 10 items.  Only first 2 need localizing",
+      "abs_offset": 19408,
+      "orig_len": 6,
+      "en": "Allies",
+      "zh": "盟軍",
+      "zh_bytes_hex": "b7f9ad78",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 14,
+      "title": "Ground Conditions - 3 items",
+      "abs_offset": 19542,
+      "orig_len": 4,
+      "en": "Snow",
+      "zh": "雪",
+      "zh_bytes_hex": "b3b7",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 15,
+      "title": "Game State Text - 8 items",
+      "abs_offset": 19583,
+      "orig_len": 8,
+      "en": "Scenario",
+      "zh": "劇本",
+      "zh_bytes_hex": "bc40a5bb",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 15,
+      "title": "Game State Text - 8 items",
+      "abs_offset": 19593,
+      "orig_len": 8,
+      "en": "Campaign",
+      "zh": "戰役",
+      "zh_bytes_hex": "bed4a7d0",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 16,
+      "title": "Movement Modes - 11 items.",
+      "abs_offset": 19723,
+      "orig_len": 7,
+      "en": "Wheeled",
+      "zh": "輪型",
+      "zh_bytes_hex": "bdfcabac",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 16,
+      "title": "Movement Modes - 11 items.",
+      "abs_offset": 19787,
+      "orig_len": 10,
+      "en": "Amphibious",
+      "zh": "兩棲",
+      "zh_bytes_hex": "a8e2b4cf",
+      "pad_spaces": 6
+    },
+    {
+      "idx": 17,
+      "title": "Map Types - 3 items",
+      "abs_offset": 19839,
+      "orig_len": 4,
+      "en": "Land",
+      "zh": "陸地",
+      "zh_bytes_hex": "b3b0a661",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 17,
+      "title": "Map Types - 3 items",
+      "abs_offset": 19845,
+      "orig_len": 5,
+      "en": "Naval",
+      "zh": "海軍",
+      "zh_bytes_hex": "aefcad78",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 18,
+      "title": "Battle Generator Deploy Screen menu text - 22 items",
+      "abs_offset": 19964,
+      "orig_len": 13,
+      "en": "Save Scenario",
+      "zh": "儲存劇本",
+      "zh_bytes_hex": "c078a673bc40a5bb",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 18,
+      "title": "Battle Generator Deploy Screen menu text - 22 items",
+      "abs_offset": 19979,
+      "orig_len": 13,
+      "en": "Load Scenario",
+      "zh": "載入劇本",
+      "zh_bytes_hex": "b8fca44abc40a5bb",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 18,
+      "title": "Battle Generator Deploy Screen menu text - 22 items",
+      "abs_offset": 20126,
+      "orig_len": 8,
+      "en": "Purchase",
+      "zh": "購買",
+      "zh_bytes_hex": "c1cab652",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 19,
+      "title": "Target Types - 5 items",
+      "abs_offset": 20350,
+      "orig_len": 4,
+      "en": "Hard",
+      "zh": "困難",
+      "zh_bytes_hex": "a778c3f8",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 19,
+      "title": "Target Types - 5 items",
+      "abs_offset": 20363,
+      "orig_len": 5,
+      "en": "Naval",
+      "zh": "海軍",
+      "zh_bytes_hex": "aefcad78",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 21,
+      "title": "Transportable Type (how it can be transported) Names - 4 items",
+      "abs_offset": 20543,
+      "orig_len": 5,
+      "en": "Naval",
+      "zh": "海軍",
+      "zh_bytes_hex": "aefcad78",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 21,
+      "title": "Transportable Type (how it can be transported) Names - 4 items",
+      "abs_offset": 20550,
+      "orig_len": 10,
+      "en": "Air Mobile",
+      "zh": "空運",
+      "zh_bytes_hex": "aac5b942",
+      "pad_spaces": 6
+    },
+    {
+      "idx": 21,
+      "title": "Transportable Type (how it can be transported) Names - 4 items",
+      "abs_offset": 20562,
+      "orig_len": 8,
+      "en": "Airborne",
+      "zh": "空降",
+      "zh_bytes_hex": "aac5adb0",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 23,
+      "title": "Deployment Screen during Campaign text",
+      "abs_offset": 20680,
+      "orig_len": 8,
+      "en": "Purchase",
+      "zh": "購買",
+      "zh_bytes_hex": "c1cab652",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 27,
+      "title": "Types of Win/Loss",
+      "abs_offset": 21022,
+      "orig_len": 6,
+      "en": "Defeat",
+      "zh": "戰敗",
+      "zh_bytes_hex": "bed4b1d1",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 27,
+      "title": "Types of Win/Loss",
+      "abs_offset": 21030,
+      "orig_len": 4,
+      "en": "Draw",
+      "zh": "平手",
+      "zh_bytes_hex": "a5ada4e2",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 33,
+      "title": "Battle Generator Main Screen, hot text",
+      "abs_offset": 22257,
+      "orig_len": 13,
+      "en": "Load Scenario",
+      "zh": "載入劇本",
+      "zh_bytes_hex": "b8fca44abc40a5bb",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 34,
+      "title": "used for dialog that asks to enter values or strings",
+      "abs_offset": 22456,
+      "orig_len": 8,
+      "en": "Prestige",
+      "zh": "威望",
+      "zh_bytes_hex": "abc2b1e6",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 36,
+      "title": "Headers for unit information in Go To Unit Screen",
+      "abs_offset": 23414,
+      "orig_len": 11,
+      "en": "Hard Attack",
+      "zh": "困難攻擊",
+      "zh_bytes_hex": "a778c3f8a7f0c0bb",
+      "pad_spaces": 3
+    },
+    {
+      "idx": 36,
+      "title": "Headers for unit information in Go To Unit Screen",
+      "abs_offset": 23427,
+      "orig_len": 10,
+      "en": "Air Attack",
+      "zh": "空中攻擊",
+      "zh_bytes_hex": "aac5a4a4a7f0c0bb",
+      "pad_spaces": 2
+    },
+    {
+      "idx": 36,
+      "title": "Headers for unit information in Go To Unit Screen",
+      "abs_offset": 23439,
+      "orig_len": 12,
+      "en": "Naval Attack",
+      "zh": "海軍攻擊",
+      "zh_bytes_hex": "aefcad78a7f0c0bb",
+      "pad_spaces": 4
+    },
+    {
+      "idx": 36,
+      "title": "Headers for unit information in Go To Unit Screen",
+      "abs_offset": 23481,
+      "orig_len": 11,
+      "en": "Air Defense",
+      "zh": "防空",
+      "zh_bytes_hex": "a8beaac5",
+      "pad_spaces": 7
+    },
+    {
+      "idx": 41,
+      "title": "Options Screen",
+      "abs_offset": 23917,
+      "orig_len": 14,
+      "en": "Start Scenario",
+      "zh": "開始劇本",
+      "zh_bytes_hex": "b67da96cbc40a5bb",
+      "pad_spaces": 6
+    },
+    {
+      "idx": 44,
+      "title": "Inter-turn Messages (\"Turn 3/13\")",
+      "abs_offset": 24313,
+      "orig_len": 4,
+      "en": "Turn",
+      "zh": "回合",
+      "zh_bytes_hex": "a65ea658",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 49,
+      "title": "Scenario Selection Screen - (\"Start Guadacanal\")",
+      "abs_offset": 24742,
+      "orig_len": 5,
+      "en": "Start",
+      "zh": "開始",
+      "zh_bytes_hex": "b67da96c",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 50,
+      "title": "Purchase Screen Text",
+      "abs_offset": 25028,
+      "orig_len": 4,
+      "en": "Land",
+      "zh": "陸地",
+      "zh_bytes_hex": "b3b0a661",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 51,
+      "title": "Battle Generator, on set prestige screen (filling buckets out)",
+      "abs_offset": 25921,
+      "orig_len": 17,
+      "en": "Scenario Prestige",
+      "zh": "劇本威望",
+      "zh_bytes_hex": "bc40a5bbabc2b1e6",
+      "pad_spaces": 9
+    },
+    {
+      "idx": 60,
+      "title": "Load/Save Screen",
+      "abs_offset": 27456,
+      "orig_len": 4,
+      "en": "Load",
+      "zh": "載入",
+      "zh_bytes_hex": "b8fca44a",
+      "pad_spaces": 0
+    },
+    {
+      "idx": 60,
+      "title": "Load/Save Screen",
+      "abs_offset": 27462,
+      "orig_len": 9,
+      "en": "Save Game",
+      "zh": "儲存遊戲",
+      "zh_bytes_hex": "c078a673b943c0b8",
+      "pad_spaces": 1
+    },
+    {
+      "idx": 61,
+      "title": "Main Menu",
+      "abs_offset": 27574,
+      "orig_len": 14,
+      "en": "Start Campaign",
+      "zh": "開始戰役",
+      "zh_bytes_hex": "b67da96cbed4a7d0",
+      "pad_spaces": 6
+    },
+    {
+      "idx": 61,
+      "title": "Main Menu",
+      "abs_offset": 27590,
+      "orig_len": 13,
+      "en": "Play Scenario",
+      "zh": "開始劇本",
+      "zh_bytes_hex": "b67da96cbc40a5bb",
+      "pad_spaces": 5
+    },
+    {
+      "idx": 61,
+      "title": "Main Menu",
+      "abs_offset": 27665,
+      "orig_len": 4,
+      "en": "Quit",
+      "zh": "離開",
+      "zh_bytes_hex": "c2f7b67d",
+      "pad_spaces": 0
+    }
+  ]
+}
