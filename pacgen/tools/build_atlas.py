@@ -42,8 +42,15 @@ def is_cjk(c):
     o = ord(c)
     return (0x4E00 <= o <= 0x9FFF) or (0x3400 <= o <= 0x4DBF) or (0xF900 <= o <= 0xFAFF) or (0x3000 <= o <= 0x303F) or (0xFF00 <= o <= 0xFFEF)
 
+# strings hardcoded in patchers (not in the TSV/JSON sources) — must be in atlas
+EXTRA_STRINGS = ["選擇軸心戰役", "選擇盟軍戰役", "開始"]
+
 def gather_chars():
     chars = set()
+    # 0) hardcoded strings (campaign selection screen, EXE test signals)
+    for s in EXTRA_STRINGS:
+        for c in s:
+            if is_cjk(c): chars.add(c)
     # 1) pfp_patches.json zh values (UI, already Big5-patched)
     pj = json.load(open(os.path.join(ROOT, "translations/pfp_patches.json")))
     def walk(o):
@@ -105,31 +112,51 @@ def main():
     if no_big5:
         print("  NOT-big5 (need fallback):", "".join(no_big5))
 
-    # build atlas blob + custom-code map + proof
-    # dense index = position in big5-sorted order; char -> custom (lead,trail)
-    atlas = bytearray()
+    # build atlas as a drawGlyph-compatible mini-TFONT + custom-code map + proof
+    #   TFONT layout: [16B header][count*4 offset table][glyph data]
+    #   header = version(4) count(4) height(4) maxidx(4); glyph = [width u32][width*H px]
+    #   offset[i] is FILE-RELATIVE (from atlas start) — drawGlyph does font_base+offset[i].
+    n = len(entries)
     tsv = ["dense\tlead\ttrail\tbig5_lead\tbig5_trail\tchar\tcodepoint"]
     charmap = {}          # char -> [lead, trail]  (the re-encoder consumes this)
     proof_imgs = []
+    glyph_blobs = []
     for i, (b5lead, b5trail, ch) in enumerate(entries):
         px, img = render(ch)
         lead, trail = dense_to_code(i)
-        atlas += struct.pack("<I", H) + px         # width=16, then 16*16 px
+        glyph_blobs.append(struct.pack("<I", H) + px)   # width=16, then 16*16 px
         tsv.append(f"{i}\t{lead:02x}\t{trail:02x}\t{b5lead:02x}\t{b5trail:02x}\t{ch}\tU+{ord(ch):04X}")
         charmap[ch] = [lead, trail]
         proof_imgs.append(img)
 
-    maxlead = LEAD0 + (len(entries)-1)//TRAILW
-    open(os.path.join(OUT, "atlas.bin"), "wb").write(bytes(atlas))
+    table_start = 0x10 + n*4
+    offsets = []
+    cur = table_start
+    for g in glyph_blobs:
+        offsets.append(cur); cur += len(g)
+    atlas = bytearray()
+    atlas += struct.pack("<I", 0x00002e31)          # version tag "1." (matches TFONT1)
+    atlas += struct.pack("<I", n)                   # glyph count
+    atlas += struct.pack("<I", H)                   # height = 16  -> drawGlyph reads [font+8]
+    atlas += struct.pack("<I", n-1)                 # max index
+    for o in offsets:
+        atlas += struct.pack("<I", o)
+    for g in glyph_blobs:
+        atlas += g
+
+    maxlead = LEAD0 + (n-1)//TRAILW
+    open(os.path.join(OUT, "atlas_font.dat"), "wb").write(bytes(atlas))
     open(os.path.join(OUT, "code_map.tsv"), "w", encoding="utf-8").write("\n".join(tsv)+"\n")
     json.dump(charmap, open(os.path.join(OUT, "charmap.json"), "w"), ensure_ascii=False)
-    json.dump({"count": len(entries), "height": H, "glyph_width": H,
+    json.dump({"count": n, "height": H, "glyph_width": H,
                "glyph_stride": 4 + H*H, "not_big5": no_big5,
+               "atlas_font_size": len(atlas), "table_start": table_start,
                "encoding": "custom-dense-2byte",
                "LEAD0": LEAD0, "TRAIL0": TRAIL0, "TRAILW": TRAILW,
                "lead_range": [LEAD0, maxlead], "trail_range": [TRAIL0, TRAIL0+TRAILW-1],
                "hook_formula": "dense = (lead-%d)*%d + (trail-%d)" % (LEAD0, TRAILW, TRAIL0)},
               open(os.path.join(OUT, "atlas_index.json"), "w"), ensure_ascii=False, indent=1)
+    print(f"atlas_font.dat {len(atlas)}B (TFONT fmt, {n} glyphs, height {H})")
     print(f"custom-dense encoding: lead 0x{LEAD0:02x}-0x{maxlead:02x}, trail 0x{TRAIL0:02x}-0x{TRAIL0+TRAILW-1:02x}")
 
     # proof montage: 32 cols
@@ -138,8 +165,7 @@ def main():
     for i, im in enumerate(proof_imgs):
         sheet.paste(im, ((i % cols)*H, (i//cols)*H))
     sheet.resize((cols*H*2, rows*H*2), Image.NEAREST).save(os.path.join(OUT, "proof.png"))
-    print(f"atlas.bin {len(atlas)}B ({len(entries)} glyphs, stride {4+H*H}) -> {OUT}")
-    print(f"proof.png {cols}x{rows} montage")
+    print(f"proof.png {cols}x{rows} montage -> {OUT}")
 
 if __name__ == "__main__":
     main()
