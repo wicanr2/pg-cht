@@ -29,6 +29,10 @@ python3 "$REPO/tools/font_rebuild.py" "$GAME/TFONT1.DAT" "$WORKDIR/TFONT1.DAT" 1
 echo "== TXT.PFP UI (117+2 custom-code patches) =="
 python3 "$REPO/tools/apply_2byte_pfp.py" "$GAME/data/TXT.PFP" "$REPO/translations/pfp_patches_2b.json" "$WORKDIR/data/TXT.PFP" "$CM" | tail -1
 
+echo "== PACEQUIP unit names (glossary matches, custom codes) =="
+rm -f "$WORKDIR/data/PACEQUIP.TXT"
+python3 "$REPO/tools/apply_2byte_equip.py" "$GAME/data/PACEQUIP.TXT" "$WORKDIR/data/PACEQUIP.TXT" "$CM" | tail -1
+
 echo "== scenario TIT/DES (free-form whole-file, custom codes) =="
 miss=0
 for f in "$REPO"/translations/scen_zh/*.TIT "$REPO"/translations/scen_zh/*.DES; do
