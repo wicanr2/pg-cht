@@ -10,7 +10,7 @@
 - [快速開始](#快速開始) — [Linux (wine)](#linuxwine-11) / [Windows 10/11](#windows-10--11) 兩路啟動
 - [心得專欄](#心得專欄) — [`docs/`](docs/) 6 篇文章索引
 - [技術資料](#技術資料) — 翻譯工具 + string dump + wine 啟動配方
-- [進度](#進度) — v0.1-v0.6 CHT + AppImage 三層雷解 + Plan B 造字中文顯示成功 (亂碼根因與解法)
+- [進度](#進度) — v0.1-v0.6 CHT + AppImage 三層雷解 + v0.8 2-byte 繪字引擎(閉源 EXE 實機顯示中文)
 - [相關](#相關) / [授權](#授權)
 
 **深入閱讀路徑**:先看 [`docs/00-序.md`](docs/00-序.md) hero letter → 想直接玩跳 [`docs/01-wine-啟動配方.md`](docs/01-wine-啟動配方.md) / [`docs/02-modern-windows.md`](docs/02-modern-windows.md) → 想懂遊戲檔案結構讀 [`docs/03-遊戲檔案結構.md`](docs/03-遊戲檔案結構.md) / [`docs/04-裝備檔解析.md`](docs/04-裝備檔解析.md) → 想懂譯名為什麼這樣翻讀 [`docs/05-中文化依據.md`](docs/05-中文化依據.md)
@@ -112,26 +112,28 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 
 v0.3-v0.6 的 Big5 patch **資料層寫進去了,但畫面上是亂碼**。根因:遊戲用自訂 `TFONT1.DAT` **8×8 bitmap font**、**零 GDI 繪字** (查 import 無 TextOut/CreateFont),wine 字型代換無效;8×8 格子物理上塞不下可讀中文。詳見 [`docs/08-tfont-re.md`](docs/08-tfont-re.md)。
 
-**🎯 Plan B:single-byte 造字 + font 加高 — 中文顯示成功 ✅ (實機驗證)**
+**🎯 v0.8 — 2-byte CJK 繪字引擎:閉源 EXE 實機顯示可讀中文 ✅**
 
-不拉畫布、不 patch 繪字管線,只改 font 檔 + 字串,讓遊戲顯示清晰中文。**主選單 v1.1 改造字碼後實機顯示「開始」兩字**(見 [`docs/planb-cjk-SUCCESS-zoom.png`](docs/planb-cjk-SUCCESS-zoom.png))—— 遊戲畫面**第一次顯示可讀中文**。
+先前判定「8×8 硬牆」的前提(glyph 永遠 8×8)被推翻:靜態 RE 發現繪字管線的字高是 runtime 從 font header `[font+8]` 讀的,非硬編。於是 **font 升到 16×16 + 一段 2-byte hook**,讓 PACGEN.EXE 顯示任意中文。實機驗證(隔離 Xvfb):
 
-三個關鍵發現(實機):
-1. **繪字管線讀 font header height** (`0x08`) — 改 header 8→16 字變高,確認非硬編 → **改 font 檔即可,不碰 EXE**
-2. glyph 補到 16 高後 ASCII 正常顯示 (不 crash 不破壞)
-3. 中文 16×16 glyph 塞未用 byte slot + 字串改 single-byte 造字碼 → 中文走 font byte code,**不走 Big5**
+- 主選單按鈕 label:**開始戰役 / 開始劇本 / 離開**(未翻的 Information Screen / Multiplay 仍正常英文 —— hook 對自訂碼畫中文、ASCII 原樣通過)
+- 劇本選擇畫面:標題(舊金山 / 中途島 / 塔拉瓦 / 菲律賓 1945 …)+ 左上多行簡報「假想情境:1944 年日軍聯合艦隊突破夏威夷防線…」**全中文清晰**(見 [`docs/2byte-hook-SUCCESS-scenario.png`](docs/2byte-hook-SUCCESS-scenario.png))
 
-為何可行:選單 23 字 / 全 UI 150 字 < font 可用 slot 數。工具 `tools/font_rebuild.py` + `tools/poc_cjk.py`,完整方法見 [`docs/10-planb-cjk-success.md`](docs/10-planb-cjk-success.md)。
+引擎(全靜態 RE + binary patch,原版 EXE 僅被動 5 個 byte):
 
-**A1 拉高畫布 (rule 81) — 另一條更完整但更重的路(未完成)**
+1. **繪字管線 RE**:`drawString@0x428312` 逐 byte 迴圈、`drawGlyph@0x42817f` 查表+blit、字高 `[font+8]` memory-read
+2. **自訂 dense 2-byte 編碼**(非裸 Big5):`dense=(lead-0x81)*94+(trail-0xA1)`,兩 byte 皆 ≥0x80、hook 純算術無查表
+3. **atlas 做成 drawGlyph 相容 mini-TFONT**(531 字 16×16)→ hook 復用原 blit,不重寫像素搬移
+4. **追加 `.cjk` PE 節**(98B stub + atlas),繪字迴圈起點覆寫成 `jmp stub`,一處涵蓋 37 個 drawString 呼叫點
 
-若要 24×24 更清晰 + 底圖同步放大,可拉高整個畫布。靜態偵察可靠(SetDisplayMode 單點 `0x40cdf8`);但工程遠大於 Plan B(需 RE present 機制 + 底圖 blit ×2 + 座標映射)。方法論見 [`docs/09-a1-hires-canvas-roadmap.md`](docs/09-a1-hires-canvas-roadmap.md) + skill [`retro-directdraw-hires-cjk`](../skills/retro-directdraw-hires-cjk/SKILL.md)。**Plan B 已夠讓選單中文化,A1 是 nice-to-have。**
+完整方法見 [`docs/11-2byte-engine.md`](docs/11-2byte-engine.md)。pipeline:`build_atlas` → `reencode_patches`/`reencode_file` → `build_hooked_exe`(nasm stub + PE 節手術)→ `font_rebuild` → `apply_2byte_pfp`;一鍵 `tools/build_localized.sh`。
 
 **目前實際狀態**
 
-- ✅ **資料層**:33 劇本 TIT/DES + 119 條 UI + 40 條裝備名 (已 Big5 patch)
-- ✅ **顯示層突破**:Plan B POC 證明「中文能在遊戲畫面顯示」(font 加高 + 造字碼);v0.8 做 150 字 atlas + 字串重映射,選單就是可讀中文
-- ✅ 現代環境跑通 (wine 三層雷解) + AppImage + Windows zip + 完整中文文件
+- ✅ **引擎**:2-byte hook + 531 字 atlas,選單 / 劇本標題 / 選擇畫面簡報實機中文
+- ✅ **資料層**:33 劇本 TIT/DES + 119 條 UI 已轉自訂碼套用
+- 🔨 **待做**:word-wrap 模組第二 hook(戰鬥內對話)、裝備名 proper noun 翻譯、baseline 微調、打包
+- ✅ 現代環境跑通 (wine 三層雷解) + 完整中文文件
 
 ## 相關
 
