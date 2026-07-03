@@ -106,9 +106,21 @@ for m in re.finditer(rb'\x68\x00\x00\x00\x01', exe):  # push 0x1000000
 3. 繪字 loop patch:認新 glyph 高 + Big5 lead byte(0x81-0xFE)偵測 → 2-byte lookup;ASCII 走原路徑
 4. 座標:font 24×24 畫在已放大的高解析畫布
 
-兩條整合路徑:
+三條整合路徑:
 - **A(rule 81 標準)**:back buffer 本身拉到高解析、底圖 blit nearest ×2、font 直接 24×24。工程大。
 - **B(font 半尺寸)**:font 在原 back buffer 畫 12×12,經放大 ×2 → 24×24 顯示。省力但 UI 一行字數變少、排版會擠。
+- **C(不動畫布,只加高 font + 2-byte hook)—— 最輕,已在 Pacific General 實證 ✅**:
+  完全不碰 DirectDraw/present。只要繪字管線的字高是 **memory-read**(`[font+8]` 之類)就把它從 8 升到 16,
+  中文 16×16(不到 24×24 但已清晰可讀)。省掉 A1 全部的 present RE / 底圖 blit / 座標映射。步驟:
+  1. **確認字高 memory-read**:反組譯 `drawGlyph` 找 `mov reg,[font+8]` 當 blit row 數 → 改 font header 即生效,EXE 不動。
+  2. **atlas 做成與原 `drawGlyph` 相容的 mini-TFONT**(header height=16 + offset table + `[width][px]` glyph)→
+     hook 偵測 lead byte 後**直接 call 原 drawGlyph 傳 `font=atlas, ch=dense`**,復用原 blit,不自己重寫像素搬移。
+  3. **自訂 dense 2-byte 編碼**(非裸 Big5):`dense=(lead-LEAD0)*W+(trail-TRAIL0)`,兩 byte 皆 ≥0x80、
+     hook 純算術**無查表** → 塞得進任何小 code cave。字串本來就從 glossary 重產,重編碼零成本。
+  4. **無 code cave 就追加 PE 節**:`.text` 常無 ≥16B 空段;新增一個 `.cjk`(CODE|EXEC|READ)裝 stub+atlas,
+     繪字迴圈起點覆寫成 `jmp stub`。固定 base EXE(preferred base)→ 絕對立即數免 reloc。
+  5. **stub 邏輯**:重讀字元;lead(如 0x81-0x86)→ 算 dense、call drawGlyph(atlas)、`esi+=2`;否則走原 ASCII 路徑 `esi+=1`;都跳回迴圈終止測試。一處 hook 涵蓋該 drawString 的全部呼叫點。
+  **何時選 C 而非 A**:只要「中文可讀」是目標、底圖不需放大,C 的工程量是 A 的零頭(無 present RE)。多行 word-wrap 文字走另一個模組時需各自加同樣的 hook。
 
 ## 關鍵陷阱(RE 紀律)
 
@@ -134,7 +146,14 @@ for m in re.finditer(rb'\x68\x00\x00\x00\x01', exe):  # push 0x1000000
 
 ## Reference case
 
-- **Pacific General (SSI/Mindscape 1997)** — 本 skill 方法論來源,**進行中**。
-  - **已靜態確認(可靠)**:`TFONT1.DAT` 8×8 格式(`pacgen/docs/08-tfont-re.md`)、SetDisplayMode 單點靜態定位 VA `0x40cdf8`(`09-a1-hires-canvas-roadmap.md`)、解析度常數 capstone 掃描可枚舉。
-  - **待乾淨環境定案(先前結論已作廢)**:改 mode 是否 crash、present 機制(Blt vs Lock+copy)、放大手法、font 24×24。先前在不穩環境得出的「present stretch」具體結論已從路線圖移除,需重做。
+- **Pacific General (SSI/Mindscape 1997)** — 本 skill 方法論來源。**路徑 C(不動畫布 + 2-byte hook)已實機成功** ✅
+  - **繪字管線 RE(靜態,可靠)**:`drawString@0x428312` 逐 byte 迴圈、`drawGlyph@0x42817f` 查表+blit、
+    字高 `[font+8]` **memory-read**(改 font 檔即 16px,EXE 不動)、hook 點 `0x428322`、`.text` 無 code cave。
+    完整見 `pacgen/docs/11-2byte-engine.md`。
+  - **落地**:自訂 dense 2-byte 編碼 + atlas 做成 drawGlyph 相容 mini-TFONT(531 字)+ 追加 `.cjk` PE 節(98B stub)
+    + 繪字迴圈起點 `jmp stub`。實機:主選單「開始戰役/開始劇本/離開」、劇本標題與選擇畫面簡報全中文清晰
+    (`pacgen/docs/2byte-hook-SUCCESS-scenario.png`)。原版 EXE 僅被動 5 byte。
+  - **A1 拉高畫布**仍是「要底圖同步放大 / 24×24 更清晰」時的選項,但**中文可讀的最低成本是路徑 C**,不必先做 A1。
+    A1 的 present 機制須在乾淨環境當場動態驗(先前不穩環境的「present stretch」結論已作廢)。
+  - **待做**:word-wrap 模組(自走 byte、直接 call drawGlyph)第二 hook → 多行簡報/對話框中文。
 - 配套:rule `81-retro-cjk-hires-canvas`、skill `panzer-general-wine`、`retro-game-remake`、字型烘製 `build_cjk_font.py`。
