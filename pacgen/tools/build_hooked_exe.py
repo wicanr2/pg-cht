@@ -43,9 +43,11 @@ FILE_ALIGN   = 0x200
 CJK_RVA      = 0x203000       # new section RVA (VA 0x603000); == old SizeOfImage
 STUB1_OFF    = 0x000
 STUB2_OFF    = 0x200
+XLAT_OFF     = 0x300         # 256-byte custom xlat (0x00->transparent, 0xff->text color)
 ATLAS_OFF    = 0x400
 STUB1_VA     = IMAGE_BASE + CJK_RVA + STUB1_OFF   # 0x603000
 STUB2_VA     = IMAGE_BASE + CJK_RVA + STUB2_OFF   # 0x603200
+XLAT_VA      = IMAGE_BASE + CJK_RVA + XLAT_OFF    # 0x603300
 ATLAS_VA     = IMAGE_BASE + CJK_RVA + ATLAS_OFF   # 0x603400
 
 LEAD0, TRAIL0, TRAILW = 0x81, 0xA1, 94
@@ -129,10 +131,14 @@ org {STUB2_VA:#x}
     movzx edx, dl
     sub edx, {TRAIL0:#x}
     add ebx, edx                  ; ebx = dense
-    mov dl, [eax+ecx+{GRID_COLOR:#x}]      ; color byte
+    mov dl, [eax+ecx+{GRID_COLOR:#x}]      ; grid color byte
     mov [{WW_COLOR_SET:#x}], dl
-    ; drawGlyph(dest, x=[ebp-0x1c], y=[ebp-0x10], font=atlas, ch=dense, xlat)
-    push {WW_XLAT:#x}
+    ; custom xlat: copy game text color (game xlat[0xff]) into XLAT_BUF[0xff];
+    ; XLAT_BUF is prefilled 0xff so 0x00 bg -> 0xff -> drawGlyph skips (transparent).
+    mov dl, [{WW_XLAT + 0xff:#x}]           ; game xlat[0xff] = current text color
+    mov [{XLAT_VA + 0xff:#x}], dl
+    ; drawGlyph(dest, x=[ebp-0x1c], y=[ebp-0x10], font=atlas, ch=dense, xlat=custom)
+    push {XLAT_VA:#x}
     push ebx
     push {ATLAS_VA:#x}
     mov eax, [ebp-0x10]
@@ -179,6 +185,7 @@ def build(exe_in, atlas_path, exe_out, scratch, ww_hook=True):
     sect[STUB1_OFF:STUB1_OFF+len(stub1)] = stub1
     if stub2:
         sect[STUB2_OFF:STUB2_OFF+len(stub2)] = stub2
+        sect[XLAT_OFF:XLAT_OFF+256] = b"\xff" * 256   # custom xlat: default transparent
     sect += atlas
     vsize = len(sect)
     raw_off = len(d)
