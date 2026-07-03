@@ -40,7 +40,9 @@ def dense_to_code(i):
 
 def is_cjk(c):
     o = ord(c)
-    return (0x4E00 <= o <= 0x9FFF) or (0x3400 <= o <= 0x4DBF) or (0xF900 <= o <= 0xFAFF) or (0x3000 <= o <= 0x303F) or (0xFF00 <= o <= 0xFFEF)
+    return (0x4E00 <= o <= 0x9FFF) or (0x3400 <= o <= 0x4DBF) or (0xF900 <= o <= 0xFAFF) \
+        or (0x3000 <= o <= 0x303F) or (0xFF00 <= o <= 0xFFEF) \
+        or (0x2010 <= o <= 0x2027)   # General Punctuation: dashes — quotes '' "" ellipsis …
 
 # strings hardcoded in patchers (not in the TSV/JSON sources) — must be in atlas
 EXTRA_STRINGS = ["選擇軸心戰役", "選擇盟軍戰役", "開始"]
