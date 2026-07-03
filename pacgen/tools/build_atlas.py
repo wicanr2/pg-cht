@@ -72,6 +72,12 @@ def gather_chars():
     for fn in ["translations/scenario_titles.tsv", "translations/scenario_briefings_zh.tsv"]:
         for c in open(os.path.join(ROOT, fn), encoding="utf-8").read():
             if is_cjk(c): chars.add(c)
+    # 4) in-battle word-wrap briefings (campaign narrative)
+    bpath = os.path.join(ROOT, "translations/briefings_zh.json")
+    if os.path.exists(bpath):
+        for b in json.load(open(bpath, encoding="utf-8")):
+            for c in b["zh"]:
+                if is_cjk(c): chars.add(c)
     return chars
 
 def big5(c):
