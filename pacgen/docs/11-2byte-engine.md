@@ -115,10 +115,40 @@ tools/xvfb_launch_shot.sh   隔離 Xvfb :95 全螢幕啟動 + 截圖(不用 expl
 
 隔離 Xvfb `:95`(絕不碰使用者 `:1`)、fresh hardlink workdir、原版 checksum 全程守恆。啟動配方關鍵:**直接 `wine PACGEN.EXE` 全螢幕**,不用 `explorer /desktop`(後者讓 DDraw 不落在可截圖的 framebuffer)。主選單 hover 頂左按鈕,label bar 顯示「開始戰役」四字 16×16 清晰中文(`2byte-hook-SUCCESS-label.png`)。
 
+## 實機覆蓋(drawString 路徑,已驗證)
+
+| 畫面 | 內容 | 狀態 |
+|---|---|---|
+| 主選單按鈕 | 開始戰役 / 開始劇本 / 離開(未翻的維持英文) | ✅ |
+| 劇本選擇畫面標題 | 舊金山 / 中途島 / 塔拉瓦 / 菲律賓 1945 … | ✅ |
+| 劇本選擇畫面簡報框 | 多行「假想情境:1944 年日軍聯合艦隊…」 | ✅(drawString 逐行,非 word-wrap) |
+| 畫面標題列 | 「select 舊金山 1944」(EXE 英文 + 中文標題混排) | ✅ |
+| 裝備名(PACEQUIP glossary 命中) | 7 個單位名 | ✅ |
+
+**重要**:劇本選擇畫面的多行簡報框**由 drawString 逐行畫**(若走未 hook 的 word-wrap,自訂碼會變亂碼——實機是正確中文,故確認走 drawString)。
+
+## word-wrap 模組 RE(第二繪字路徑,設計完成、待戰鬥內驗證)
+
+部分對話(戰鬥內任務簡報 dialog、文字輸入框)走另一個 word-wrap 模組(VA `0x4ab000`–`0x4af800`),**不經 drawString**。靜態 RE(見 `docs/12-wordwrap-re.md`)確認它是**兩段式 grid pipeline**:
+
+1. **FILL+MEASURE `0x4ab976`**:逐 byte 讀原字串、做斷行、把 char/color 寫進 2D grid `0x4e1a60`/`0x4e1ae0`(row stride 258)。
+2. **RENDER `0x4abf46`**:讀 grid 逐 cell `call drawGlyph@0x4ac36b`。主 CJK 目標迴圈 `0x4ac2e9`。
+
+**已確認安全**:字元 byte 全 zero-extend(無 `movsx`);控制碼比較全 `<0x81`(equality),lead byte `0x81-0x86` 前向不衝突。
+
+**已知風險(未 hook 前就存在)**:overflow 時的 backtrack 斷詞搜尋(`0x4abd6d`)找空格斷行;連續 CJK 無空格 → 可能走 "word too long" 錯誤路徑,除非 caller 設 hard-wrap flag(bit3 `[ebp+0x14]`,`0x4abd5e` test)。緩解:劇本文字加手動 `\n` 讓每行不 overflow。
+
+**hook 設計(兩個 5-byte jmp,乾淨指令邊界)**:
+- FILL `0x4abc93`(file `0xab093`,覆寫 `8B 45 E4 25 FF`):lead byte 時寫 2 byte 進 grid、col+2、src+2。
+- RENDER `0x4ac2e9`(file `0xab6e9`,覆寫 `33 C0 8A 45 F4`):grid cell 是 lead 時讀下一 cell、算 dense、`call drawGlyph(atlas)`、col+2;否則 fall through 原 ASCII 路徑。
+
+**為何未併入出貨 build**:此路徑的畫面(戰鬥內任務簡報)在 headless Xvfb 下無法可靠導航抵達驗證。依「不出貨未驗證的 binary patch」紀律,設計備妥但**待有實機(人工 playthrough 或可驅動至戰鬥)驗證後再啟用**。屆時把上述兩個 stub 併入 `build_hooked_exe.py` 的 `.cjk` 節(同 drawString hook 手法)。
+
 ## 待做
 
-- **P4**:word-wrap 模組(0x4ab000–0x4af800)第二 hook → 劇本簡報/對話框中文。
-- **P5**:PACEQUIP + 劇本 TIT/DES 轉碼套用;ASCII baseline 對齊 CJK(vpos);排版溢出檢查;打包。
+- **word-wrap hook**:實機驗證後啟用(設計已備,見上)。
+- **打包**:AppImage(wine bundle,比照 v0.1)+ Windows zip。
+- **內容**:裝備 proper noun 全譯、剩餘 UI 字串(Information Screen / Multiplay / Battle Generator …)。
 
 ## 產出檔案(靜態,可靠)
 
