@@ -44,9 +44,12 @@ echo "== scenario TIT/DES (free-form whole-file, custom codes) =="
 miss=0
 for f in "$REPO"/translations/scen_zh/*.TIT "$REPO"/translations/scen_zh/*.DES; do
   base=$(basename "$f")
+  # DES briefings are word-wrapped by the game (FILL loop unhooked -> mismeasures
+  # CJK width and spills the box); pre-break at ~250px. Titles (.TIT) stay single-line.
+  case "$base" in *.DES) WRAP="--wrap-px=250";; *) WRAP="";; esac
   # break hardlink on the target then write transcoded
   if [ -e "$WORKDIR/scen/$base" ]; then rm -f "$WORKDIR/scen/$base"; fi
-  python3 "$REPO/tools/reencode_file.py" "$f" "$WORKDIR/scen/$base" "$CM" | grep -q MISSING && { python3 "$REPO/tools/reencode_file.py" "$f" "$WORKDIR/scen/$base" "$CM"; miss=1; }
+  python3 "$REPO/tools/reencode_file.py" "$f" "$WORKDIR/scen/$base" "$CM" $WRAP | grep -q MISSING && { python3 "$REPO/tools/reencode_file.py" "$f" "$WORKDIR/scen/$base" "$CM" $WRAP; miss=1; }
 done
 [ "$miss" = 0 ] && echo "  all scenario TIT/DES transcoded, no atlas gaps"
 

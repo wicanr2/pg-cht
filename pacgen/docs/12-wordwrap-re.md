@@ -57,6 +57,10 @@ overflow 時 `0x4abd6d`–`0x4abe06` 逐 byte 往回找空格斷行。連續 CJK
 
 實作時併入 `build_hooked_exe.py` 的 `.cjk` 節(同 drawString hook,nasm 組 stub、絕對立即數免 reloc)。
 
-## 狀態
+## 狀態(2026-07-09 更新)
 
-RE 完成、hook 設計備妥、安全性靜態確認。**未併入出貨 build**:此模組畫的畫面(戰鬥內簡報)在 headless Xvfb 無法可靠導航抵達,依「不出貨未驗證 binary patch」紀律,待實機驗證後啟用。
+- **RENDER hook(STUB2 @0x4ac2e9)已併入出貨 build 並實機驗證**:戰役首關任務簡報中文乾淨(見 `11-2byte-engine.md`)。
+- **FILL hook(@0x4abc93)未實作**,改用**預斷行**規避:FILL 迴圈仍以原生位元組字寬量測換行,對 16px CJK 嚴重低估 → 每行塞太多字、RENDER 以 16px 畫出就溢出對話框右框。解法是在來源預先插 `\n`(FILL 認 `\n`@0x4aba7e 斷行,且不走連續 CJK 無空格會出錯的 backtrack 路徑):
+  - in-battle 簡報(`briefings_zh.json`):手動 `\n`,`apply_2byte_briefings.py`。
+  - 劇本 `.DES`(劇本選擇畫面簡報,窄框內文區 ≈262px):`reencode_file.py --wrap-px=250` 依顯示寬度(CJK=16px/ASCII=8px)自動插 `\n`,只在全形字或空格後斷、不切 ASCII 字(如 1944)。33 個 DES 實測 wrap 後最大行寬 248px < 262px。
+- 若日後要真正的動態 reflow(免預斷行),再實作 FILL hook(設計見上);但連續 CJK 的 backtrack 風險使「預斷行」仍是較穩的選擇。
