@@ -84,6 +84,7 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 
 - 太平洋元帥裝備表含完整戰鬥數值(成本/移動/射程/各攻防值/類型),取自遊戲附帶的 `data/REPORT.TXT`;譯名採「型號代碼+中文」混合格式(見 [`docs/05-中文化依據.md`](docs/05-中文化依據.md))。
 - PG/AG 裝備數值格式為 30-byte 二進位(欄位語意與太平洋元帥共用 5D 引擎);中文名為各自繁中化版遊戲內實際名稱。
+- **跨作品一致性核對**:[equipment-crossgame-consistency.md](docs/knowledge-base/equipment-crossgame-consistency.md) — 152 筆三作同單位譯名不一致的對照與建議統一名(含 27 筆實質錯誤:AG 反戰車砲漏「反」9 筆、挪威誤作荷蘭、自走↔碉堡撞名等);建議名皆 ≤20 bytes 可直接套 PG/AG。
 
 ## 進度
 
