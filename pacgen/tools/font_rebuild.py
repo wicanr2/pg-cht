@@ -44,7 +44,9 @@ def rebuild(data, H, vpos='top'):
             continue
         # px 是 w×h,重排成 w×H
         rows = [px[r*w:(r+1)*w] for r in range(h)]
-        blank = bytes(w)
+        # 補列必須用背景值 0xff(drawGlyph 視 xlat[0xff]=0xff 為透明);
+        # 用 0x00 會被當前景色 → 每個空格/字上方多出實心色塊(白盒)。
+        blank = b'\xff' * w
         pad = H - h
         if vpos == 'top':
             newrows = rows + [blank]*pad

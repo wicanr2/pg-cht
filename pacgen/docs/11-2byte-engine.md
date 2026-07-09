@@ -144,11 +144,46 @@ tools/xvfb_launch_shot.sh   隔離 Xvfb :95 全螢幕啟動 + 截圖(不用 expl
 
 **為何未併入出貨 build**:此路徑的畫面(戰鬥內任務簡報)在 headless Xvfb 下無法可靠導航抵達驗證。依「不出貨未驗證的 binary patch」紀律,設計備妥但**待有實機(人工 playthrough 或可驅動至戰鬥)驗證後再啟用**。屆時把上述兩個 stub 併入 `build_hooked_exe.py` 的 `.cjk` 節(同 drawString hook 手法)。
 
+## 白底 / 中文消失 bug — 根因與修正(2026-07-09,已實機驗證解決)
+
+先前「引擎通、中文顯示,但 word-wrap 白底 + 某些畫面標題消失」的 xlat 調色問題,經反組譯 `drawGlyph` 與靜態比對原生字型後**定位到兩個各自獨立的 bug**,皆已修正並實機驗證(隔離 Xvfb `:95`,選單 / 劇本標題 / 劇本簡報 / 天氣回合面板 / 戰鬥地圖標題 / 工具列標籤 / **戰役首關 word-wrap 任務簡報**全部乾淨,見 `docs/screenshots/2byte-whitebg-FIXED-*.png`)。
+
+### drawGlyph 的真實透明機制(靜態,已核對)
+
+`drawGlyph`(`0x42817f`)的 blit 有**兩條路徑**,由 `0x4282c0 cmp [ebp+0x1c],0`(xlat 是否 NULL)決定:
+
+| xlat | 路徑 | 行為 |
+|---|---|---|
+| **NULL** | `0x4282c6` `rep movsw/movsb` | **不透明 raw copy**,原封寫入每個 glyph 像素(含背景) |
+| **非 NULL** | `0x4282e8` | 逐像素 `al=xlat[pixel]; cmp al,0xff; je skip; mov [edi],al` → **`xlat[pixel]==0xff` 視為透明** |
+
+### 關鍵事實:原生字型的像素慣例(先前假設反了)
+
+靜態讀 `TFONT1.DAT` glyph(如數字「1」)確認:**原生字型 前景(筆畫)= 像素 0x00、背景 = 像素 0xff**。所有 caller 都設 `xlat[0x00] = 文字色`、`xlat[0xff] = 0xff`(背景透明)。runtime dump(`/proc/pid/mem`,以 python Popen 當 wine 祖先繞過 ptrace_scope=1)實測某 caller xlat:`[0x00]=0x03`(色)、`[0xff]=0xff`(透明)——完全吻合。
+
+> word-wrap 字型另用 前景像素 = 0x01(遊戲把色寫進 `xlat[0x01]`,見 `0x4ac327 mov [0x5e5b61],al`);`0x46477b` 只回傳字型指標(`[0x4f87b8]`),不碰顏色。
+
+### Bug 1:atlas 像素慣例顛倒(白底 + 中文消失主因)
+
+`build_atlas.py` 原本把 glyph 烤成 **前景 0xff / 背景 0x00**(與原生**相反**)。經 caller 的 xlat 時:前景 0xff → `xlat[0xff]=0xff` → **透明消失**;背景 0x00 → `xlat[0x00]=色` → **不透明變盒**。**修正:atlas 改成 前景 0x00 / 背景 0xff,與原生一致** → 純 pass-through caller xlat 即渲染成與遊戲原生文字完全相同(正確色、透明背景),drawString / word-wrap 兩路徑通用。
+
+- **STUB1(drawString)**:直接 `push [ebp+0x1c]`(caller xlat)pass-through,無需自訂 xlat。
+- **STUB2(word-wrap)**:其字型前景為 0x01 而非 0x00,故建私有 `XLAT_BUF`:`[0x00]=該 cell 的 grid color byte`(atlas 前景)、`[0xff]=0xff`(prefill,背景透明);`.cjk` 節須 writable(每字寫 `XLAT_BUF[0x00]`,runtime 寫入已實測生效)。
+
+### Bug 2:font_rebuild 補列用了前景值(空格 / 字上方色塊)
+
+`font_rebuild.py` 把字高 8→16 時,補列 `blank = bytes(w)` 產生 **0x00(前景)**,應為 **0xff(背景/透明)**。導致每個空格 glyph(原本全 0xff)上半變 0x00 實心色塊 = 白盒。**修正:`blank = b'\xff' * w`**。
+
+### 落地檔案
+
+- `tools/build_atlas.py`:glyph 前景 0x00 / 背景 0xff(match 原生 TFONT1)。
+- `tools/font_rebuild.py`:補列用 0xff。
+- `tools/build_hooked_exe.py`:STUB1 pass-through、STUB2 寫 `XLAT_BUF[0x00]=grid color`、`.cjk` 節 `0xE0000020`(writable)、`XLAT_BUF` prefill 0xff。
+
 ## 待做
 
-- **word-wrap hook**:實機驗證後啟用(設計已備,見上)。
-- **打包**:AppImage(wine bundle,比照 v0.1)+ Windows zip。
-- **內容**:裝備 proper noun 全譯、剩餘 UI 字串(Information Screen / Multiplay / Battle Generator …)。
+- **打包**:AppImage(wine bundle,比照 v0.1)+ Windows zip(套上本次修正)。
+- **內容**:裝備 proper noun 全譯、剩餘 UI 字串(Information Screen / Multiplay / Battle Generator …)、更多劇本 / 戰役簡報翻譯。
 
 ## 產出檔案(靜態,可靠)
 

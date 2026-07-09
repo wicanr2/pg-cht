@@ -14,9 +14,19 @@ re-reads grid[line*258+col]; 0 -> end-of-line 0x4ac38a; lead 0x81-0x86 -> read
 next cell as trail, dense, set color, drawGlyph(font=atlas), col+=2, loop;
 else fall through to original ASCII draw at 0x4ac30d.
 
-Layout of .cjk (VA 0x603000): STUB1 @0x603000, STUB2 @0x603200, atlas @0x603400.
-Fixed-base EXE -> absolute immediates need no relocations. Game font & atlas
-both use 0xff foreground, so drawGlyph's xlat colors CJK identically.
+Layout of .cjk (VA 0x603000): STUB1 @0x603000, XLAT_BUF @0x603300, STUB2 @0x603200,
+atlas @0x603400. Fixed-base EXE -> absolute immediates need no relocations.
+
+xlat handling (drawGlyph writes xlat[pixel] unless it is 0xff = transparent). The atlas
+uses the NATIVE TFONT1 convention: glyph strokes (fg) = pixel 0x00, empty (bg) = 0xff.
+Every game caller sets xlat[0x00] = text color and leaves xlat[0xff] = 0xff, so the
+atlas renders like the game's own text through any caller's xlat.
+  * drawString path: pass the caller's xlat straight through (fg 0x00 -> xlat[0x00] =
+    color, bg 0xff -> transparent). No private xlat needed.
+  * word-wrap path: its font uses fg pixel 0x01 (game writes color into xlat[0x01]),
+    not 0x00, so STUB2 builds a private XLAT_BUF with [0x00] = the per-cell grid color
+    (atlas fg) and [0xff] = 0xff (prefill, transparent bg). The .cjk section is writable
+    because STUB2 rewrites XLAT_BUF[0x00] on every glyph.
 """
 import struct, subprocess, os, sys
 
@@ -74,9 +84,13 @@ org {STUB1_VA:#x}
     imul ebx, ebx, {TRAILW}
     movzx eax, byte [esi+1]
     sub eax, {TRAIL0:#x}
-    add eax, ebx
-    push dword [ebp+0x1c]
-    push eax
+    add eax, ebx                    ; eax = dense
+    ; The atlas now uses the native font convention (fg pixel 0x00, bg pixel 0xff),
+    ; so passing the caller's own xlat straight through renders CJK exactly like the
+    ; game's own text: fg 0x00 -> xlat[0x00] = text color, bg 0xff -> xlat[0xff] = 0xff
+    ; = transparent. Works for every drawString caller, no fixup / private xlat needed.
+    push dword [ebp+0x1c]           ; xlat (caller's, pass-through)
+    push eax                        ; ch = dense
     push {ATLAS_VA:#x}
     push dword [ebp+0x10]
     push edi
@@ -131,13 +145,11 @@ org {STUB2_VA:#x}
     movzx edx, dl
     sub edx, {TRAIL0:#x}
     add ebx, edx                  ; ebx = dense
-    mov dl, [eax+ecx+{GRID_COLOR:#x}]      ; grid color byte
-    mov [{WW_COLOR_SET:#x}], dl
-    ; custom xlat: copy game text color (game xlat[0xff]) into XLAT_BUF[0xff];
-    ; XLAT_BUF is prefilled 0xff so 0x00 bg -> 0xff -> drawGlyph skips (transparent).
-    mov dl, [{WW_XLAT + 0xff:#x}]           ; game xlat[0xff] = current text color
-    mov [{XLAT_VA + 0xff:#x}], dl
-    ; drawGlyph(dest, x=[ebp-0x1c], y=[ebp-0x10], font=atlas, ch=dense, xlat=custom)
+    mov dl, [eax+ecx+{GRID_COLOR:#x}]      ; grid color byte = text palette index
+    ; The atlas fg pixel is 0x00 and bg is 0xff. Map atlas fg -> this glyph's color via
+    ; XLAT_BUF[0x00]; XLAT_BUF[0xff] stays 0xff (prefill) so atlas bg 0xff -> transparent.
+    mov [{XLAT_VA:#x}], dl
+    ; drawGlyph(dest, x=[ebp-0x1c], y=[ebp-0x10], font=atlas, ch=dense, xlat=XLAT_BUF)
     push {XLAT_VA:#x}
     push ebx
     push {ATLAS_VA:#x}
@@ -185,7 +197,7 @@ def build(exe_in, atlas_path, exe_out, scratch, ww_hook=True):
     sect[STUB1_OFF:STUB1_OFF+len(stub1)] = stub1
     if stub2:
         sect[STUB2_OFF:STUB2_OFF+len(stub2)] = stub2
-        sect[XLAT_OFF:XLAT_OFF+256] = b"\xff" * 256   # custom xlat: default transparent
+    sect[XLAT_OFF:XLAT_OFF+256] = b"\xff" * 256   # custom xlat: bg->transparent (both stubs use it)
     sect += atlas
     vsize = len(sect)
     raw_off = len(d)
@@ -195,8 +207,10 @@ def build(exe_in, atlas_path, exe_out, scratch, ww_hook=True):
 
     hdr_off = sect_table + nsec * 40
     assert hdr_off + 40 <= struct.unpack('<I', d[opt+60:opt+64])[0], "no header room"
+    # CODE|EXEC|READ|WRITE (0xE0000020): stubs write the current text color into
+    # the custom xlat buffer each glyph, so the section must be writable.
     new_hdr = b".cjk".ljust(8, b"\0") + struct.pack('<IIII', vsize, CJK_RVA, raw_size, raw_off) \
-              + struct.pack('<IIHHI', 0, 0, 0, 0, 0x60000020)
+              + struct.pack('<IIHHI', 0, 0, 0, 0, 0xE0000020)
     d[hdr_off:hdr_off+40] = new_hdr
     struct.pack_into('<H', d, coff+2, nsec + 1)
     new_size_of_image = CJK_RVA + ((vsize + SECT_ALIGN - 1) & ~(SECT_ALIGN - 1))

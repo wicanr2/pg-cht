@@ -6,7 +6,7 @@ set -eu
 WORKDIR="${1:-/home/anr2/pg2b}"
 REPO="/home/anr2/game/Panzer_General/pg-cht/pacgen"
 GAME="/home/anr2/game/Panzer_General/太平洋元帥/Pacific General"
-SCRATCH="/tmp/claude-1000/-home-anr2-game-Panzer-General/ceeecd4f-eb7c-42d4-98aa-015f0963c4c3/scratchpad"
+SCRATCH="${SCRATCH:-/tmp/pacgen-build-scratch}"; mkdir -p "$SCRATCH/hook"
 CM="$REPO/build/atlas/charmap.json"
 
 echo "== regenerate atlas + reencode UI patches =="

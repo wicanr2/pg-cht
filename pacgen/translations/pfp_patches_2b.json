@@ -15,7 +15,7 @@
       "orig_len": 8,
       "en": "Infantry",
       "zh": "步兵",
-      "zh_bytes_hex": "82d182c0",
+      "zh_bytes_hex": "82d682c4",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -26,7 +26,7 @@
       "orig_len": 4,
       "en": "Tank",
       "zh": "戰車",
-      "zh_bytes_hex": "86a182dc",
+      "zh_bytes_hex": "86b482e1",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -37,7 +37,7 @@
       "orig_len": 5,
       "en": "Recon",
       "zh": "偵察",
-      "zh_bytes_hex": "84ac85d2",
+      "zh_bytes_hex": "84b785e2",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -48,7 +48,7 @@
       "orig_len": 9,
       "en": "Anti-tank",
       "zh": "反戰車",
-      "zh_bytes_hex": "81cb86a182dc",
+      "zh_bytes_hex": "81cc86b482e1",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -59,7 +59,7 @@
       "orig_len": 9,
       "en": "Artillery",
       "zh": "火砲",
-      "zh_bytes_hex": "81d883f8",
+      "zh_bytes_hex": "81d984a4",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -70,7 +70,7 @@
       "orig_len": 2,
       "en": "AA",
       "zh": "防",
-      "zh_bytes_hex": "82df",
+      "zh_bytes_hex": "82e4",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -81,7 +81,7 @@
       "orig_len": 11,
       "en": "Air Defense",
       "zh": "防空",
-      "zh_bytes_hex": "82df83a8",
+      "zh_bytes_hex": "82e483ae",
       "pad_spaces": 7,
       "encoding": "custom-dense-2byte"
     },
@@ -92,7 +92,7 @@
       "orig_len": 9,
       "en": "Destroyer",
       "zh": "驅逐艦",
-      "zh_bytes_hex": "86d784d186d0",
+      "zh_bytes_hex": "86eb84dd86e4",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -103,7 +103,7 @@
       "orig_len": 10,
       "en": "Battleship",
       "zh": "戰列艦",
-      "zh_bytes_hex": "86a181fd86d0",
+      "zh_bytes_hex": "86b482a386e4",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -114,7 +114,7 @@
       "orig_len": 7,
       "en": "Carrier",
       "zh": "航母",
-      "zh_bytes_hex": "84a181f0",
+      "zh_bytes_hex": "84ab81f3",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -125,7 +125,7 @@
       "orig_len": 13,
       "en": "Heavy Cruiser",
       "zh": "重巡洋艦",
-      "zh_bytes_hex": "83d882dd83c786d0",
+      "zh_bytes_hex": "83e182e283cf86e4",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -136,7 +136,7 @@
       "orig_len": 13,
       "en": "Light Cruiser",
       "zh": "輕巡洋艦",
-      "zh_bytes_hex": "85e282dd83c786d0",
+      "zh_bytes_hex": "85f382e283cf86e4",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -147,7 +147,7 @@
       "orig_len": 9,
       "en": "Submarine",
       "zh": "潛艇",
-      "zh_bytes_hex": "85f285bc",
+      "zh_bytes_hex": "86a585cb",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -158,7 +158,7 @@
       "orig_len": 7,
       "en": "Fighter",
       "zh": "戰鬥機",
-      "zh_bytes_hex": "86a184a886a4",
+      "zh_bytes_hex": "86b484b386b7",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -169,7 +169,7 @@
       "orig_len": 12,
       "en": "Level Bomber",
       "zh": "水平轟炸機",
-      "zh_bytes_hex": "81d781eb86d583cb86a4",
+      "zh_bytes_hex": "81d881ed86e983d386b7",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -180,7 +180,7 @@
       "orig_len": 13,
       "en": "Air Transport",
       "zh": "空運輸",
-      "zh_bytes_hex": "83a885c686aa",
+      "zh_bytes_hex": "83ae85d686bd",
       "pad_spaces": 7,
       "encoding": "custom-dense-2byte"
     },
@@ -191,7 +191,7 @@
       "orig_len": 13,
       "en": "Sea Transport",
       "zh": "海洋運輸",
-      "zh_bytes_hex": "83f183c785c686aa",
+      "zh_bytes_hex": "83fb83cf85d686bd",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -202,7 +202,7 @@
       "orig_len": 5,
       "en": "Clear",
       "zh": "晴朗",
-      "zh_bytes_hex": "84ec83eb",
+      "zh_bytes_hex": "84fa83f5",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -213,7 +213,7 @@
       "orig_len": 6,
       "en": "Forest",
       "zh": "森林",
-      "zh_bytes_hex": "84ee82f9",
+      "zh_bytes_hex": "84fc83a1",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -224,7 +224,7 @@
       "orig_len": 14,
       "en": "Regular Jungle",
       "zh": "正規叢林",
-      "zh_bytes_hex": "81ef84cf86bd82f9",
+      "zh_bytes_hex": "81f284db86d183a1",
       "pad_spaces": 6,
       "encoding": "custom-dense-2byte"
     },
@@ -235,7 +235,7 @@
       "orig_len": 6,
       "en": "Bocage",
       "zh": "樹籬",
-      "zh_bytes_hex": "86a386dd",
+      "zh_bytes_hex": "86b686f1",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -246,7 +246,7 @@
       "orig_len": 6,
       "en": "Desert",
       "zh": "沙漠",
-      "zh_bytes_hex": "82d285d7",
+      "zh_bytes_hex": "82d785e8",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -257,7 +257,7 @@
       "orig_len": 5,
       "en": "Swamp",
       "zh": "沼澤",
-      "zh_bytes_hex": "82fd86a5",
+      "zh_bytes_hex": "83a586b8",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -268,7 +268,7 @@
       "orig_len": 5,
       "en": "Rough",
       "zh": "丘陵",
-      "zh_bytes_hex": "81d984d7",
+      "zh_bytes_hex": "81da84e3",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -279,7 +279,7 @@
       "orig_len": 8,
       "en": "Mountain",
       "zh": "山脈",
-      "zh_bytes_hex": "81bb83fe",
+      "zh_bytes_hex": "81bc84aa",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -290,7 +290,7 @@
       "orig_len": 10,
       "en": "Escarpment",
       "zh": "斷崖",
-      "zh_bytes_hex": "86bf84b9",
+      "zh_bytes_hex": "86d384c5",
       "pad_spaces": 6,
       "encoding": "custom-dense-2byte"
     },
@@ -301,7 +301,7 @@
       "orig_len": 5,
       "en": "River",
       "zh": "河流",
-      "zh_bytes_hex": "82fc83c9",
+      "zh_bytes_hex": "83a483d1",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -312,7 +312,7 @@
       "orig_len": 5,
       "en": "Beach",
       "zh": "海灘",
-      "zh_bytes_hex": "83f186d8",
+      "zh_bytes_hex": "83fb86ec",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -323,7 +323,7 @@
       "orig_len": 4,
       "en": "Reef",
       "zh": "礁石",
-      "zh_bytes_hex": "86b781f6",
+      "zh_bytes_hex": "86cb81f9",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -334,7 +334,7 @@
       "orig_len": 13,
       "en": "Fortification",
       "zh": "要塞",
-      "zh_bytes_hex": "83d485ab",
+      "zh_bytes_hex": "83dc85ba",
       "pad_spaces": 9,
       "encoding": "custom-dense-2byte"
     },
@@ -345,7 +345,7 @@
       "orig_len": 3,
       "en": "USA",
       "zh": "美",
-      "zh_bytes_hex": "83d0",
+      "zh_bytes_hex": "83d8",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -356,7 +356,7 @@
       "orig_len": 9,
       "en": "Australia",
       "zh": "澳洲",
-      "zh_bytes_hex": "86a683c8",
+      "zh_bytes_hex": "86b983d0",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -367,7 +367,7 @@
       "orig_len": 6,
       "en": "Canada",
       "zh": "加拿大",
-      "zh_bytes_hex": "81dc83e881b8",
+      "zh_bytes_hex": "81dd83f281b9",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -378,7 +378,7 @@
       "orig_len": 5,
       "en": "China",
       "zh": "中國",
-      "zh_bytes_hex": "81bf84b4",
+      "zh_bytes_hex": "81c084c0",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -389,7 +389,7 @@
       "orig_len": 6,
       "en": "France",
       "zh": "法國",
-      "zh_bytes_hex": "83a184b4",
+      "zh_bytes_hex": "83a784c0",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -400,7 +400,7 @@
       "orig_len": 7,
       "en": "Germany",
       "zh": "德國",
-      "zh_bytes_hex": "85ec84b4",
+      "zh_bytes_hex": "85fd84c0",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -411,7 +411,7 @@
       "orig_len": 5,
       "en": "India",
       "zh": "印度",
-      "zh_bytes_hex": "81fe83bc",
+      "zh_bytes_hex": "82a483c3",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -422,7 +422,7 @@
       "orig_len": 5,
       "en": "Italy",
       "zh": "義",
-      "zh_bytes_hex": "85b8",
+      "zh_bytes_hex": "85c7",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -433,7 +433,7 @@
       "orig_len": 5,
       "en": "Japan",
       "zh": "日本",
-      "zh_bytes_hex": "81d481ed",
+      "zh_bytes_hex": "81d581f0",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -444,7 +444,7 @@
       "orig_len": 11,
       "en": "New Zealand",
       "zh": "紐西蘭",
-      "zh_bytes_hex": "83fb82b886d4",
+      "zh_bytes_hex": "84a782bc86e8",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -455,7 +455,7 @@
       "orig_len": 6,
       "en": "Poland",
       "zh": "波蘭",
-      "zh_bytes_hex": "82fe86d4",
+      "zh_bytes_hex": "83a686e8",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -466,7 +466,7 @@
       "orig_len": 6,
       "en": "Russia",
       "zh": "俄羅斯",
-      "zh_bytes_hex": "83b486ca84eb",
+      "zh_bytes_hex": "83ba86de84f9",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -477,7 +477,7 @@
       "orig_len": 3,
       "en": "USA",
       "zh": "美",
-      "zh_bytes_hex": "83d0",
+      "zh_bytes_hex": "83d8",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -488,7 +488,7 @@
       "orig_len": 4,
       "en": "Fair",
       "zh": "晴朗",
-      "zh_bytes_hex": "84ec83eb",
+      "zh_bytes_hex": "84fa83f5",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -499,7 +499,7 @@
       "orig_len": 6,
       "en": "Cloudy",
       "zh": "陰",
-      "zh_bytes_hex": "84d9",
+      "zh_bytes_hex": "84e5",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -510,7 +510,7 @@
       "orig_len": 4,
       "en": "Rain",
       "zh": "雨",
-      "zh_bytes_hex": "83b1",
+      "zh_bytes_hex": "83b7",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -521,7 +521,7 @@
       "orig_len": 4,
       "en": "Snow",
       "zh": "雪",
-      "zh_bytes_hex": "84db",
+      "zh_bytes_hex": "84e7",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -532,7 +532,7 @@
       "orig_len": 3,
       "en": "Jan",
       "zh": "一",
-      "zh_bytes_hex": "81aa",
+      "zh_bytes_hex": "81ab",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -543,7 +543,7 @@
       "orig_len": 3,
       "en": "Feb",
       "zh": "二",
-      "zh_bytes_hex": "81ae",
+      "zh_bytes_hex": "81af",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -554,7 +554,7 @@
       "orig_len": 3,
       "en": "Mar",
       "zh": "三",
-      "zh_bytes_hex": "81b3",
+      "zh_bytes_hex": "81b4",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -565,7 +565,7 @@
       "orig_len": 3,
       "en": "Apr",
       "zh": "四",
-      "zh_bytes_hex": "81e6",
+      "zh_bytes_hex": "81e7",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -576,7 +576,7 @@
       "orig_len": 3,
       "en": "May",
       "zh": "五",
-      "zh_bytes_hex": "81c2",
+      "zh_bytes_hex": "81c3",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -587,7 +587,7 @@
       "orig_len": 3,
       "en": "Jun",
       "zh": "六",
-      "zh_bytes_hex": "81c6",
+      "zh_bytes_hex": "81c7",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -598,7 +598,7 @@
       "orig_len": 3,
       "en": "Jul",
       "zh": "七",
-      "zh_bytes_hex": "81ab",
+      "zh_bytes_hex": "81ac",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -609,7 +609,7 @@
       "orig_len": 3,
       "en": "Aug",
       "zh": "八",
-      "zh_bytes_hex": "81b0",
+      "zh_bytes_hex": "81b1",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -620,7 +620,7 @@
       "orig_len": 3,
       "en": "Sep",
       "zh": "九",
-      "zh_bytes_hex": "81ac",
+      "zh_bytes_hex": "81ad",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -631,7 +631,7 @@
       "orig_len": 3,
       "en": "Oct",
       "zh": "十",
-      "zh_bytes_hex": "81b2",
+      "zh_bytes_hex": "81b3",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -642,7 +642,7 @@
       "orig_len": 3,
       "en": "Nov",
       "zh": "冬",
-      "zh_bytes_hex": "81db",
+      "zh_bytes_hex": "81dc",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -653,7 +653,7 @@
       "orig_len": 3,
       "en": "Dec",
       "zh": "臘",
-      "zh_bytes_hex": "86cb",
+      "zh_bytes_hex": "86df",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -664,7 +664,7 @@
       "orig_len": 4,
       "en": "Flak",
       "zh": "高砲",
-      "zh_bytes_hex": "84a783f8",
+      "zh_bytes_hex": "84b284a4",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -675,7 +675,7 @@
       "orig_len": 9,
       "en": "Naval Air",
       "zh": "海軍空",
-      "zh_bytes_hex": "83f183d683a8",
+      "zh_bytes_hex": "83fb83df83ae",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -686,7 +686,7 @@
       "orig_len": 9,
       "en": "Paratroop",
       "zh": "傘兵",
-      "zh_bytes_hex": "84de82c0",
+      "zh_bytes_hex": "84eb82c4",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -697,7 +697,7 @@
       "orig_len": 14,
       "en": "Torpedo Bomber",
       "zh": "魚雷轟炸機",
-      "zh_bytes_hex": "84dc85cb86d583cb86a4",
+      "zh_bytes_hex": "84e885db86e983d386b7",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -708,7 +708,7 @@
       "orig_len": 6,
       "en": "No Buy",
       "zh": "否購買",
-      "zh_bytes_hex": "82c286ba84fe",
+      "zh_bytes_hex": "82c686ce85ae",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -719,7 +719,7 @@
       "orig_len": 9,
       "en": "Save Game",
       "zh": "儲存遊戲",
-      "zh_bytes_hex": "86b082aa85c786b1",
+      "zh_bytes_hex": "86c482ae85d786c5",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -730,7 +730,7 @@
       "orig_len": 9,
       "en": "Load Game",
       "zh": "載入遊戲",
-      "zh_bytes_hex": "85c581af85c786b1",
+      "zh_bytes_hex": "85d581b085d786c5",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -741,7 +741,7 @@
       "orig_len": 9,
       "en": "Quit Game",
       "zh": "離開遊戲",
-      "zh_bytes_hex": "86c585a485c786b1",
+      "zh_bytes_hex": "86d985b285d786c5",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -752,7 +752,7 @@
       "orig_len": 5,
       "en": "Score",
       "zh": "分數",
-      "zh_bytes_hex": "81c785ef",
+      "zh_bytes_hex": "81c886a2",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -763,7 +763,7 @@
       "orig_len": 8,
       "en": "End Turn",
       "zh": "結束回合",
-      "zh_bytes_hex": "84f882d082a582a3",
+      "zh_bytes_hex": "85a882d582a982a7",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -774,7 +774,7 @@
       "orig_len": 11,
       "en": "Cancel Move",
       "zh": "取消移動",
-      "zh_bytes_hex": "82e783f084c684b1",
+      "zh_bytes_hex": "82ec83fa84d284bc",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -785,7 +785,7 @@
       "orig_len": 9,
       "en": "Partisans",
       "zh": "游擊隊",
-      "zh_bytes_hex": "84f286b285a6",
+      "zh_bytes_hex": "85a286c685b4",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -796,7 +796,7 @@
       "orig_len": 11,
       "en": "USA Cavalry",
       "zh": "美騎兵",
-      "zh_bytes_hex": "83d086c882c0",
+      "zh_bytes_hex": "83d886dc82c4",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -807,7 +807,7 @@
       "orig_len": 11,
       "en": "USA Militia",
       "zh": "美民兵",
-      "zh_bytes_hex": "83d081f182c0",
+      "zh_bytes_hex": "83d881f482c4",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -818,7 +818,7 @@
       "orig_len": 13,
       "en": "Air Transport",
       "zh": "空運輸",
-      "zh_bytes_hex": "83a885c686aa",
+      "zh_bytes_hex": "83ae85d686bd",
       "pad_spaces": 7,
       "encoding": "custom-dense-2byte"
     },
@@ -829,7 +829,7 @@
       "orig_len": 9,
       "en": "Transport",
       "zh": "運輸",
-      "zh_bytes_hex": "85c686aa",
+      "zh_bytes_hex": "85d686bd",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -840,7 +840,7 @@
       "orig_len": 4,
       "en": "Axis",
       "zh": "軸心",
-      "zh_bytes_hex": "85a281d0",
+      "zh_bytes_hex": "85b081d1",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -851,7 +851,7 @@
       "orig_len": 6,
       "en": "Allies",
       "zh": "盟軍",
-      "zh_bytes_hex": "85b583d6",
+      "zh_bytes_hex": "85c483df",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -862,7 +862,7 @@
       "orig_len": 3,
       "en": "Dry",
       "zh": "乾",
-      "zh_bytes_hex": "84a9",
+      "zh_bytes_hex": "84b4",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -873,7 +873,7 @@
       "orig_len": 3,
       "en": "Mud",
       "zh": "泥",
-      "zh_bytes_hex": "82fb",
+      "zh_bytes_hex": "83a3",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -884,7 +884,7 @@
       "orig_len": 4,
       "en": "Snow",
       "zh": "雪",
-      "zh_bytes_hex": "84db",
+      "zh_bytes_hex": "84e7",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -895,7 +895,7 @@
       "orig_len": 8,
       "en": "Scenario",
       "zh": "劇本",
-      "zh_bytes_hex": "85e781ed",
+      "zh_bytes_hex": "85f881f0",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -906,7 +906,7 @@
       "orig_len": 8,
       "en": "Campaign",
       "zh": "戰役",
-      "zh_bytes_hex": "86a182c8",
+      "zh_bytes_hex": "86b482cc",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -917,7 +917,7 @@
       "orig_len": 7,
       "en": "Wheeled",
       "zh": "輪型",
-      "zh_bytes_hex": "85fb83b8",
+      "zh_bytes_hex": "86af83bf",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -928,7 +928,7 @@
       "orig_len": 3,
       "en": "Leg",
       "zh": "腳",
-      "zh_bytes_hex": "85bb",
+      "zh_bytes_hex": "85ca",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -939,7 +939,7 @@
       "orig_len": 3,
       "en": "Air",
       "zh": "空",
-      "zh_bytes_hex": "83a8",
+      "zh_bytes_hex": "83ae",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -950,7 +950,7 @@
       "orig_len": 10,
       "en": "Amphibious",
       "zh": "兩棲",
-      "zh_bytes_hex": "82e584ef",
+      "zh_bytes_hex": "82ea84fd",
       "pad_spaces": 6,
       "encoding": "custom-dense-2byte"
     },
@@ -961,7 +961,7 @@
       "orig_len": 4,
       "en": "Land",
       "zh": "陸地",
-      "zh_bytes_hex": "84d882a6",
+      "zh_bytes_hex": "84e482aa",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -972,7 +972,7 @@
       "orig_len": 5,
       "en": "Naval",
       "zh": "海軍",
-      "zh_bytes_hex": "83f183d6",
+      "zh_bytes_hex": "83fb83df",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -983,7 +983,7 @@
       "orig_len": 13,
       "en": "Save Scenario",
       "zh": "儲存劇本",
-      "zh_bytes_hex": "86b082aa85e781ed",
+      "zh_bytes_hex": "86c482ae85f881f0",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -994,7 +994,7 @@
       "orig_len": 13,
       "en": "Load Scenario",
       "zh": "載入劇本",
-      "zh_bytes_hex": "85c581af85e781ed",
+      "zh_bytes_hex": "85d581b085f881f0",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -1005,7 +1005,7 @@
       "orig_len": 8,
       "en": "Purchase",
       "zh": "購買",
-      "zh_bytes_hex": "86ba84fe",
+      "zh_bytes_hex": "86ce85ae",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -1016,7 +1016,7 @@
       "orig_len": 4,
       "en": "Hard",
       "zh": "困難",
-      "zh_bytes_hex": "82c486ce",
+      "zh_bytes_hex": "82c886e2",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -1027,7 +1027,7 @@
       "orig_len": 5,
       "en": "Naval",
       "zh": "海軍",
-      "zh_bytes_hex": "83f183d6",
+      "zh_bytes_hex": "83fb83df",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -1038,7 +1038,7 @@
       "orig_len": 5,
       "en": "Naval",
       "zh": "海軍",
-      "zh_bytes_hex": "83f183d6",
+      "zh_bytes_hex": "83fb83df",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -1049,7 +1049,7 @@
       "orig_len": 10,
       "en": "Air Mobile",
       "zh": "空運",
-      "zh_bytes_hex": "83a885c6",
+      "zh_bytes_hex": "83ae85d6",
       "pad_spaces": 6,
       "encoding": "custom-dense-2byte"
     },
@@ -1060,7 +1060,7 @@
       "orig_len": 8,
       "en": "Airborne",
       "zh": "空降",
-      "zh_bytes_hex": "83a883d9",
+      "zh_bytes_hex": "83ae83e2",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -1071,7 +1071,7 @@
       "orig_len": 3,
       "en": "Air",
       "zh": "空",
-      "zh_bytes_hex": "83a8",
+      "zh_bytes_hex": "83ae",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -1082,7 +1082,7 @@
       "orig_len": 8,
       "en": "Purchase",
       "zh": "購買",
-      "zh_bytes_hex": "86ba84fe",
+      "zh_bytes_hex": "86ce85ae",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -1093,7 +1093,7 @@
       "orig_len": 6,
       "en": "Defeat",
       "zh": "戰敗",
-      "zh_bytes_hex": "86a184c1",
+      "zh_bytes_hex": "86b484cd",
       "pad_spaces": 2,
       "encoding": "custom-dense-2byte"
     },
@@ -1104,7 +1104,7 @@
       "orig_len": 4,
       "en": "Draw",
       "zh": "平手",
-      "zh_bytes_hex": "81eb81d1",
+      "zh_bytes_hex": "81ed81d2",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -1115,7 +1115,7 @@
       "orig_len": 13,
       "en": "Load Scenario",
       "zh": "載入劇本",
-      "zh_bytes_hex": "85c581af85e781ed",
+      "zh_bytes_hex": "85d581b085f881f0",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -1126,7 +1126,7 @@
       "orig_len": 8,
       "en": "Prestige",
       "zh": "威望",
-      "zh_bytes_hex": "83ba84c2",
+      "zh_bytes_hex": "83c184ce",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -1137,7 +1137,7 @@
       "orig_len": 11,
       "en": "Hard Attack",
       "zh": "困難攻擊",
-      "zh_bytes_hex": "82c486ce82cf86b2",
+      "zh_bytes_hex": "82c886e282d386c6",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -1148,7 +1148,7 @@
       "orig_len": 10,
       "en": "Air Attack",
       "zh": "空攻擊",
-      "zh_bytes_hex": "83a882cf86b2",
+      "zh_bytes_hex": "83ae82d386c6",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -1159,7 +1159,7 @@
       "orig_len": 12,
       "en": "Naval Attack",
       "zh": "海軍攻擊",
-      "zh_bytes_hex": "83f183d682cf86b2",
+      "zh_bytes_hex": "83fb83df82d386c6",
       "pad_spaces": 4,
       "encoding": "custom-dense-2byte"
     },
@@ -1170,7 +1170,7 @@
       "orig_len": 11,
       "en": "Air Defense",
       "zh": "防空",
-      "zh_bytes_hex": "82df83a8",
+      "zh_bytes_hex": "82e483ae",
       "pad_spaces": 7,
       "encoding": "custom-dense-2byte"
     },
@@ -1181,7 +1181,7 @@
       "orig_len": 14,
       "en": "Start Scenario",
       "zh": "開始劇本",
-      "zh_bytes_hex": "85a482eb85e781ed",
+      "zh_bytes_hex": "85b282f085f881f0",
       "pad_spaces": 6,
       "encoding": "custom-dense-2byte"
     },
@@ -1192,7 +1192,7 @@
       "orig_len": 4,
       "en": "Turn",
       "zh": "回合",
-      "zh_bytes_hex": "82a582a3",
+      "zh_bytes_hex": "82a982a7",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -1203,7 +1203,7 @@
       "orig_len": 9,
       "en": "Next Turn",
       "zh": "下回合",
-      "zh_bytes_hex": "81b482a582a3",
+      "zh_bytes_hex": "81b582a982a7",
       "pad_spaces": 3,
       "encoding": "custom-dense-2byte"
     },
@@ -1214,7 +1214,7 @@
       "orig_len": 5,
       "en": "Start",
       "zh": "開始",
-      "zh_bytes_hex": "85a482eb",
+      "zh_bytes_hex": "85b282f0",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -1225,7 +1225,7 @@
       "orig_len": 4,
       "en": "Land",
       "zh": "陸地",
-      "zh_bytes_hex": "84d882a6",
+      "zh_bytes_hex": "84e482aa",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -1236,7 +1236,7 @@
       "orig_len": 17,
       "en": "Scenario Prestige",
       "zh": "劇本威望",
-      "zh_bytes_hex": "85e781ed83ba84c2",
+      "zh_bytes_hex": "85f881f083c184ce",
       "pad_spaces": 9,
       "encoding": "custom-dense-2byte"
     },
@@ -1247,7 +1247,7 @@
       "orig_len": 4,
       "en": "Load",
       "zh": "載入",
-      "zh_bytes_hex": "85c581af",
+      "zh_bytes_hex": "85d581b0",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     },
@@ -1258,7 +1258,7 @@
       "orig_len": 9,
       "en": "Save Game",
       "zh": "儲存遊戲",
-      "zh_bytes_hex": "86b082aa85c786b1",
+      "zh_bytes_hex": "86c482ae85d786c5",
       "pad_spaces": 1,
       "encoding": "custom-dense-2byte"
     },
@@ -1269,7 +1269,7 @@
       "orig_len": 14,
       "en": "Start Campaign",
       "zh": "開始戰役",
-      "zh_bytes_hex": "85a482eb86a182c8",
+      "zh_bytes_hex": "85b282f086b482cc",
       "pad_spaces": 6,
       "encoding": "custom-dense-2byte"
     },
@@ -1280,7 +1280,7 @@
       "orig_len": 13,
       "en": "Play Scenario",
       "zh": "開始劇本",
-      "zh_bytes_hex": "85a482eb85e781ed",
+      "zh_bytes_hex": "85b282f085f881f0",
       "pad_spaces": 5,
       "encoding": "custom-dense-2byte"
     },
@@ -1291,7 +1291,7 @@
       "orig_len": 4,
       "en": "Quit",
       "zh": "離開",
-      "zh_bytes_hex": "86c585a4",
+      "zh_bytes_hex": "86d985b2",
       "pad_spaces": 0,
       "encoding": "custom-dense-2byte"
     }

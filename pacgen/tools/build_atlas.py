@@ -97,10 +97,15 @@ def render(ch):
     w = bb[2]-bb[0]; h = bb[3]-bb[1]
     x = (H-w)//2 - bb[0]; y = (H-h)//2 - bb[1]
     d.text((x, y), ch, fill=255, font=fnt)
+    # Match the native TFONT1.DAT convention: glyph strokes (fg) = pixel 0x00,
+    # empty area (bg) = pixel 0xff. drawGlyph blits xlat[pixel] and treats xlat[pixel]
+    # == 0xff as transparent; every caller sets xlat[0x00] = text color and leaves
+    # xlat[0xff] = 0xff, so an atlas that uses fg=0x00/bg=0xff renders exactly like the
+    # game's own text (correct color, transparent bg) through any caller's xlat.
     px = bytearray()
     for r in range(H):
         for c in range(H):
-            px.append(0xff if img.getpixel((c, r)) > 96 else 0x00)
+            px.append(0x00 if img.getpixel((c, r)) > 96 else 0xff)
     return bytes(px), img
 
 def main():
