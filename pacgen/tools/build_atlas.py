@@ -78,6 +78,17 @@ def gather_chars():
         for b in json.load(open(bpath, encoding="utf-8")):
             for c in b["zh"]:
                 if is_cjk(c): chars.add(c)
+    # 5) Big5 unit names this copy of PacGen already ships with (步兵/騎兵/游擊隊…);
+    #    apply_2byte_equip transcodes them to dense codes, so the atlas must contain them.
+    peq = "/home/anr2/game/Panzer_General/太平洋元帥/Pacific General/data/PACEQUIP.TXT"
+    if os.path.exists(peq):
+        for rec in open(peq, "rb").read().split(b"\r\n"):
+            if any(b >= 0x80 for b in rec):
+                try:
+                    for c in rec.rstrip(b"\x00 ").decode("big5"):
+                        if is_cjk(c): chars.add(c)
+                except Exception:
+                    pass
     return chars
 
 def big5(c):

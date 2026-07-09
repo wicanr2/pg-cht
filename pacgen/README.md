@@ -73,6 +73,18 @@ wine explorer /desktop=PACGEN,640x480 PACGEN.EXE
 - `docs/wine-launch.md` — wine 啟動一手筆記（含 CD-check 靜態分析）
 - `CONTEXT.md` — 譯名與檔案結構收斂
 
+## 知識庫:三部曲中文化資料 dump
+
+將 Panzer General / Allied General / Pacific General 三部曲的中文化**任務簡報**與**裝備數值+譯名**整理成可查閱的對照表(供譯名考據、校對、玩家查閱):
+
+| 資料 | 太平洋元帥 (PacGen) | 裝甲元帥 (PG) | 盟軍元帥 (AG) |
+|---|---|---|---|
+| **任務簡報**(英中對照) | [briefings-pacific-general.md](docs/knowledge-base/briefings-pacific-general.md) — 33 劇本標題+簡報 | [briefings-panzer-general.md](docs/knowledge-base/briefings-panzer-general.md) — 177 BDB / 410 段 | [briefings-allied-general.md](docs/knowledge-base/briefings-allied-general.md) — portable 版未含簡報 |
+| **裝備數值+譯名** | [equipment-pacific-general.md](docs/knowledge-base/equipment-pacific-general.md) — 812 單位全數值(REPORT.TXT) | [equipment-panzer-general.md](docs/knowledge-base/equipment-panzer-general.md) — 438 筆英中對照 | [equipment-allied-general.md](docs/knowledge-base/equipment-allied-general.md) — 438 筆英中對照 |
+
+- 太平洋元帥裝備表含完整戰鬥數值(成本/移動/射程/各攻防值/類型),取自遊戲附帶的 `data/REPORT.TXT`;譯名採「型號代碼+中文」混合格式(見 [`docs/05-中文化依據.md`](docs/05-中文化依據.md))。
+- PG/AG 裝備數值格式為 30-byte 二進位(欄位語意與太平洋元帥共用 5D 引擎);中文名為各自繁中化版遊戲內實際名稱。
+
 ## 進度
 
 **v0.1 完成 (2026-07-02)** — AppImage + Windows zip 已可用。

@@ -1,35 +1,739 @@
-english	chinese	category	notes
-Infantry	步兵	unit_equip
-Cavalry	騎兵	unit_equip
-Engineers	工兵	unit_equip
-Paratroopers	傘兵	unit_equip
-Partisans	游擊隊	unit_equip
-Marines	陸戰隊	unit_equip
-Commandos	突擊兵	unit_equip
-Regular Infantry	正規步兵	unit_equip
-Conscript Infantry	徵召步兵	unit_equip
-Pioneer Infantry	工程步兵	unit_equip
-Ski Infantry	滑雪步兵	unit_equip
-Recon	偵察	unit_equip
-Truck	卡車	unit_equip
-Grant	格蘭特	unit_equip	M3 Grant 戰車
-Tribal	部落級	ship_class	Tribal-class destroyer
-Fiji	斐濟級	ship_class	Fiji-class cruiser
-Doria	多里亞	ship_name	Andrea Doria 義戰列艦
-Aquila	鷹級	ship_class	義大利 Aquila 航空母艦
-Graf Zeppelin	齊柏林伯爵	ship_name	德國航母
-Matilda IV	瑪蒂達 IV	unit_equip
-Matilda Frog	瑪蒂達噴火	unit_equip
-Valentine Mk III	Valentine III	unit_equip
-Valentine Mk VI	Valentine VI	unit_equip
-Hohei 1936	日步兵 1936	unit_equip	日文 步兵
-Hohei HW 1936	日重步 1936	unit_equip	Heavy Weapons
-Kihei	日騎兵	unit_equip	日文 騎兵
-Teishin Dan 1936	日傘兵 1936	unit_equip	挺進團 = 空降師
-Wehr Inf 1936	德步兵 1936	unit_equip	Wehrmacht Infantry
-Infantry 1936	步兵 1936	unit_equip
-Infantry 1939	步兵 1939	unit_equip
-Infantry HW 1936	重步兵 1936	unit_equip
-Paratroopers 1936	傘兵 1936	unit_equip
-Paratroopers 1944	傘兵 1944	unit_equip
-Engineers 1936	工兵 1936	unit_equip
+english	chinese
+10" Coastal Battery	10吋 海岸砲台
+10.5 leFH18	10.5 輕榴彈炮
+105mm Gun	105mm 加農砲
+105mm How	105mm 榴彈砲
+105mm Type 14	105mm 14式加農砲
+10cm Model 98	10cm 98式高射砲
+12" Coastal Battery	12吋 海岸砲台
+12" Coastal Mortar	12吋 海岸臼砲
+12.2cm Gun	12.2cm 加農砲
+120mm Gun	120mm 加農砲
+120mm Type 10	120mm 10式加農砲
+122mm Gun	122mm 加農砲
+15 sFH 18	15 重榴彈砲
+15.2cm Gun	15.2cm 加農砲
+150mm Howitzer	150mm 榴彈砲
+155mm Gun	155mm 加農砲
+16" Coastal Battery	16吋 海岸砲台
+17 K18	17 加農砲
+17 Pdr ATG	17磅 反戰車砲
+2 1/2 Ton Truck	2.5噸卡車
+2 Pdr ATG	2磅 反戰車砲
+20cm Rocket	20cm 火箭
+20mm	20mm 機砲
+20mm AA	20mm 高射砲
+20mm SPAA	20mm 自走高射砲
+25 Pdr Gun	25磅 加農砲
+25mm ATG	25mm 反戰車砲
+3 Tn Lorry	3噸卡車
+3" AD	3吋 防空砲
+3" ATG	3吋 反戰車砲
+3" Coastal Battery	3吋 海岸砲台
+3.7 FlaK 36	37mm高射炮
+3.7 PaK35/36	3.7反戰車砲35/36
+37 FlaKPz IV	家具車式防空戰車
+37mm ATG	37mm 反戰車砲
+4 Ho-Ro 150mm	4式 Ho-Ro 150mm自走砲
+40mm AD	40mm 防空砲
+40mm SPAD	40mm 自走防空砲
+45cm Rocket	45cm 火箭
+45mm ATG	45mm 反戰車砲
+47mm ATG	47mm 反戰車砲
+5 PaK38	50mm反戰車砲
+5" Coastal Battery	5吋 海岸砲台
+5.5" Gun	5.5吋 加農砲
+57mm ATG	57mm 反戰車砲
+57mm Recoilless	57mm 無後座力砲
+6 Pdr ATG	6磅 反戰車砲
+6" Coastal Battery	6吋 海岸砲台
+6" Gun	6吋 加農砲
+7.2" Gun	7.2吋 加農砲
+7.5 PaK40	7.5反戰車砲40
+7.5 leFk 16nA	7.5 步兵砲
+7.6cm AD	7.6cm 防空砲
+7.6cm Artillery	7.6cm 火砲
+75mm AD	75mm 防空砲
+75mm ATG	75mm 反戰車砲
+75mm Artillery	75mm 火砲
+75mm Gun	75mm 加農砲
+75mm Model 88	75mm 88式高射砲
+75mm Pack How	75mm 馱載榴彈砲
+75mm Recoilless	75mm 無後座力砲
+75mm SPAD	75mm 自走防空砲
+76mm ATG	76mm 反戰車砲
+7TP	7TP 輕戰車
+8" Coastal Battery	8吋 海岸砲台
+8" Gun	8吋 加農砲
+8.8 FK18 ATG	88mm反戰車砲
+8.8 FlaK 18	88mm高射砲
+8.8 Pak43/41	88反戰車砲43/41
+88mm	88mm 加農砲
+90mm AD	90mm 防空砲
+90mm Breda	90mm 布雷達防空砲
+94 Mtn Gun 75mm	75mm 94式山砲
+A-17A	A-17A 遊牧民
+A-20 Havoc	A-20 浩劫
+A-26 Invader	A-26 入侵者
+A-C Midget	A-C 甲標的
+A-I	A-I 潛艇
+A5M Claude	A5M 克勞德
+A6M Zero	A6M 零式
+A6M2 Zero	A6M2 零式
+AB-40	AB-40 偵查車
+AB-41	AB-41 偵查車
+AC I Sentinel	AC I 哨兵式戰車
+AC III Sentinel	AC III 哨兵式戰車
+AEC I	AEC I 裝甲車
+AEC II	AEC II 裝甲車
+AEC III	AEC III 裝甲車
+AMC 35	AMC 35 騎兵戰車
+AT Kamikazes	反戰車特攻隊
+Achilles	阿基里斯號
+Adua	阿杜阿號潛艇
+Agano	阿賀野
+Air Transport	空運機
+Akagi	赤城
+Alaska	阿拉斯加號
+Albacore	長鰭鮪式
+Algerie	阿爾及利亞號
+Amazon	亞馬遜號
+Amiot 143	Amiot 143 轟炸機
+Aoba	青葉
+Aoba 1944	青葉 1944
+Archer	射手式驅逐戰車
+Argonaute	阿爾戈瑙特號潛艇
+Ark Royal	皇家方舟號
+Arkhangelsk	阿爾漢格爾斯克號
+Asashio	朝潮
+Asashio 1944	朝潮 1944
+Assault Infantry	突擊步兵
+Atlanta	亞特蘭大號
+Atlanta 1944	亞特蘭大號 1944
+Attacker	攻擊者號
+Aurore	曙光號潛艇
+B	B 型堡壘
+B-17F Flying Fort	B-17F 空中堡壘
+B-17G Flying Fort	B-17G 空中堡壘
+B-18A Bolo	B-18A 波洛
+B-24D Liberator	B-24D 解放者
+B-25B Mitchell	B-25B 米切爾
+B-25H Mitchell	B-25H 米切爾
+B-26C Marauder	B-26C 掠奪者
+B-29 Super Fortress	B-29 超級空中堡壘
+B1-bis	B1-bis 重戰車
+B5N Kate	B5N 九七艦攻
+B6N	B6N 天山
+B7A Grace	B7A 流星
+BA-10	BA-10 輕裝甲車
+BA-64	BA-64 輕裝甲車
+BA65	BA65 攻擊機
+BF109e	BF109e 戰機
+BF109f	BF109f 戰機
+BF109g	BF109g 戰機
+BF109k	BF109k 戰機
+BF110e	BF110e 重戰機
+BT-5	BT-5 快速戰車
+BT-7	BT-7 快速戰車
+Baby 25 Pdr	袖珍25磅砲
+Balilla	巴利拉號潛艇
+Baltimore	巴爾的摩號重巡洋艦
+Bargut Cavalry	巴爾虎騎兵
+Barracuda	梭魚式
+Battle	戰鬥式
+Bearn	貝亞恩號航空母艦
+BeauFighter	英俊戰士式
+Beaufort	博福特式
+Bicycle Infantry	腳踏車步兵
+Birmingham	伯明罕號輕巡洋艦
+Birmingham 1945	伯明罕號 1945
+Bismarck	俾斯麥號戰列艦
+Blen MkI	Blen MkI 布倫海姆式
+Bloch 174	Bloch 174 偵察機
+Block House	碉堡
+Bogue	博格號護航航空母艦
+Boomerang	迴力鏢式
+Bren Ca	Bren Ca 布倫運輸車
+Bretagne	布列塔尼號戰列艦
+Brin	布林號潛艇
+Brooklyn	布魯克林號輕巡洋艦
+Brooklyn 1944	布魯克林號 1944
+Bunker	地堡
+Burma Indep. Army	緬甸獨立軍
+Burmese Infantry	緬甸步兵
+C	C 型
+C-47	C-47 運輸機
+CA-15	CA-15 戰鬥機
+CA310 Libeccio	CA310 西南風
+CG-13A	CG-13A 滑翔機
+CHk75A-1	CHk75A-1 鷹式
+CL AMX R40	CL AMX R40 輕戰車
+CR42	CR42 獵鷹式
+Ca	Ca 型
+Cagni	卡尼號潛艇
+Caledon	卡利登號輕巡洋艦
+California	加利福尼亞號戰列艦
+Calvi	卡爾維號潛艇
+Campania	坎帕尼亞號護航航空母艦
+Capitani Romani	羅馬統帥號輕巡洋艦
+Casablanca	卡薩布蘭卡號護航航空母艦
+Cavour	加富爾號戰列艦
+Centaur	半人馬號輕巡洋艦
+Centauro	Centauro 人馬座
+Challenger A30	Challenger A30 挑戰者
+Church III	Church III 邱吉爾
+Church VI	Church VI 邱吉爾
+Church VII	Church VII 邱吉爾
+Cleveland	克利夫蘭號輕巡洋艦
+Cleveland 1943	克利夫蘭號 1943
+Comet	Comet 彗星
+Commencement Bay	康門斯灣號護航航空母艦
+Communication HQ	通信總部
+Condottieri	康多提耶里號輕巡洋艦
+Corsair	Corsair 海盜式
+Crdr II	Crdr II 十字軍
+Crdr III	Crdr III 十字軍
+Crom IV	Crom IV 克倫威爾
+Crom VI	Crom VI 克倫威爾
+Crom VII	Crom VII 克倫威爾
+D1 1G	D1 1G 輕戰車
+D3A Val	D3A 九九艦爆
+D4Y Judy	D4Y 彗星
+D520S	D520S 地瓦丁
+DC-3	DC-3 運輸機
+DO 217N	DO 217N 夜間戰鬥機
+DO17z	飛行鉛筆 DO17z
+DO217e	DO217e 轟炸機
+DO335	天箭 DO335
+Daimler SC	Daimler SC 戴姆勒裝甲車
+Dakota	Dakota 達科塔式
+De Ruyter	德魯伊特號輕巡洋艦
+Deutschland	德意志號裝甲艦
+Dido	狄多號輕巡洋艦
+Dunkerque	敦克爾克號戰列艦
+E.African Infantry	東非步兵
+Eagle	鷹號航空母艦
+Edinburgh	愛丁堡號輕巡洋艦
+Emden	埃姆登號輕巡洋艦
+Engineers 1943	工兵 1943
+Engineers 1944	工兵 1944
+Essex	埃塞克斯號航空母艦
+F-DXX1	F-DXX1 福克
+F2A Buffalo	F2A 水牛
+F4-1 Fireball	F4-1 火球
+F4F Wildcat	F4F 野貓
+F4U Corsair	F4U 海盜
+F6F Hellcat	F6F 地獄貓
+F7F Tigercat	F7F 虎貓
+F82G Twin Mustang	F82G 雙野馬
+F8F Bearcat	F8F 熊貓
+FFr Bretagne	FFr Bretagne 布列塔尼號戰列艦
+FFr Chacal	FFr Chacal 豺狼號驅逐艦
+FFr Jeanne D'Arc	FFr Jeanne D'Arc 貞德號輕巡洋艦
+FFr Le Fantasque	FFr Le Fantasque 幻想號驅逐艦
+FFr Minerve	法 密涅瓦
+FFr Mtn Infantry	自法山地步兵
+FFr Saphir	法 藍寶石
+FFr Suffren	法 絮弗倫
+FH-1 Phantom	FH-1 幽靈
+FM2 Wildcat	FM2 野貓
+FPO Paratroopers	波軍傘兵
+FW 190a	百舌鳥 FW190a
+FW 190d9	百舌鳥 FW190d9
+FW190f	百舌鳥 FW190f
+Fairey Firefly	費爾雷 螢火蟲
+Fairey Fulmar	Fairey 富馬式
+Fiat Truck	飛雅特卡車
+Field Fortification	野戰防禦工事
+Field Works	野戰工事
+Fiji Guerrillas	斐濟游擊隊
+FlaK38(4)	20mm 四聯裝高射砲
+FlaKPz 38(t)	防空戰車38(t)
+Foca	海豹
+Fukuryu	伏龍
+Fuso	扶桑
+Fuso 1944	扶桑 1944
+G3M Nell	G3M 九六式陸攻
+G4M Betty	G4M 一式陸攻
+GM Truck	GM 卡車
+Gato	加托
+Gearing	基靈
+Giyugun	義勇軍
+Glider	滑翔機
+Gloster Gladiator	格洛斯特 格鬥士
+Grumman FF1	格魯曼 FF1 雙翼戰鬥機
+Guards Cavalry	近衛騎兵
+Guards Infantry	近衛步兵
+Gurkhas	廓爾喀兵
+H6K Mavis	H6K 九七式飛行艇
+H8K Emily	H8K 二式飛行艇
+HE111 H2	He111 H2 轟炸機
+HE162	沙羅曼蛇 HE162
+HE177a	獅鷲 HE177a
+HE219	夜梟 HE219
+HW 1936	重武 1936
+HW 1944	重武 1944
+Haskell Class Transport	哈斯克爾級運輸艦
+Helicopter	直升機
+Henshel 33	亨舍爾33卡車
+Hetzer	追獵者
+Hipper	希佩爾
+Ho-Ha 1 Halftrack	Ho-Ha 1 半履帶裝甲車
+Ho-Ni 1	Ho-Ni 1 自走砲
+Ho-Ni 2	Ho-Ni 2 自走砲
+Ho-Ni 3	Ho-Ni 3 驅逐戰車
+Hohei 1940	步兵 1940
+Hohei 1943	步兵 1943
+Hohei HW 1940	重武步兵 1940
+Hohei HW 1943	重武步兵 1943
+Hood	胡德號
+Hosho	鳳翔
+Humber SC	亨伯裝甲車
+Hummel	大黃蜂
+Hur I	Hur I 颶風
+Hur IID	Hur IID 颶風
+Hur IV	Hur IV 颶風
+I-15	波利卡爾波夫 I-15
+I-16	波利卡爾波夫 I-16
+II-10	伊留申 II-10
+II-2M3	伊留申 II-2M3
+IL-4	伊留申 IL-4
+IS-2	IS-2 史達林
+ISU-122	ISU-122 突擊砲
+ISU-152	ISU-152 自走砲
+ISU-152 AT	ISU-152 AT 反戰車自走砲
+Il-2	伊留申 Il-2
+Imperial Guard	近衛師團
+Implacable	不屈號
+Improved Gato	改良型加托
+Independence	獨立號
+Indian Nat'l Army	印度國民軍
+Infantry 1944	步兵 1944
+Iowa	愛荷華號
+Ise	伊勢
+Isuzu 97 Truck	五十鈴97式卡車
+J	J型機
+J1N1-S Irving	J1N1-S 月光
+J2M Jack	J2M 雷電
+J8M	J8M 秋水
+JPz Elefant	象式
+JU 88G	JU 88G 夜間戰鬥機
+JU188a	復仇者 Ju188a
+JU87D	斯圖卡 JU87D
+JU87R	斯圖卡 JU87R
+JagdPanther	獵豹
+JagdPanzer 38	38式驅逐戰車
+JagdPz IV/48	四號驅逐戰車48
+JagdPz IV/70	四號驅逐戰車70
+JagdTiger	獵虎
+Jeanne D'Arc	貞德號
+Ju52ge	Ju52ge 鋼鐵安妮
+Ju88A	斯圖卡 Ju88A
+Junsen	巡潛型潛艦
+Junyo	隼鷹
+KV-1/39	KV-1/39 重戰車
+KV-1/41	KV-1/41 重戰車
+KV-1/42	KV-1/42 重戰車
+KV-2	KV-2 重戰車
+KXIV	K-14潛艦
+Kachin Raiders	克欽突擊隊
+Kaga	加賀
+Kagero	陽炎
+Kaichu	海中型潛艦
+Kaidai	海大型潛艦
+Kairyu	海龍
+Kaiten	回天
+Kamikaze	神風
+Katori	香取
+Katyusha BM13	喀秋莎 BM13
+Katyusha BM31	喀秋莎 BM31
+Kawasaki Ki-10 Perry	川崎 Ki-10 九五式戰鬥機
+Kawasaki Ki-45 KAIc	川崎 Ki-45 KAIc 屠龍
+Kempeitai	憲兵隊
+Kent	肯特號
+Ki-100	Ki-100 五式戰鬥機
+Ki-21 Sally	Ki-21 九七式重爆
+Ki-43 Oscar	Ki-43 隼
+Ki-44 Tojo	Ki-44 鍾馗
+Ki-45 Nick	Ki-45 屠龍
+Ki-46III Dinah	Ki-46III 百式司偵
+Ki-49 Helen	Ki-49 吞龍
+Ki-51 Sonia	Ki-51 直協襲擊機
+Ki-54	Ki-54 高等練習機
+Ki-61 Tony	Ki-61 飛燕
+Ki-67 Flying Dragon	Ki-67 飛龍
+Ki-84 Frank	Ki-84 疾風
+Ki43II Oscar	Ki43II 隼
+Kikka	橘花
+King George V	喬治五世號
+Kirov	基洛夫號
+Kittyhawk	小鷹式
+Komet	彗星
+Kongo	金剛
+Kongo 1944	金剛 1944
+Kroegel's Raiders	克羅格爾突擊隊
+Kuma	球磨
+L'Adroit	阿德魯瓦號
+L3/35	L3/35 超輕戰車
+L6/40	L6/40 輕戰車
+LSI(L)	LSI(L) 大型步兵登陸艦
+LVT(A)-1	LVT(A)-1 水陸戰車
+LVT(A)-1/M24	LVT(A)-1/M24 水陸戰車
+LVT(A)-4 Mariana	LVT(A)-4 馬里亞納水陸戰車
+LVT-2 Water Buffalo	LVT-2 水牛
+LVT-3 Bushmaster	LVT-3 布希馬斯特
+LVT-4 Water Buffalo	LVT-4 水牛
+La Galissonniere	拉加利索尼埃號
+La-3	La-3 拉格戰鬥機
+La-7	La-7 拉格戰鬥機
+Lancaster	蘭卡斯特
+Le Hardi	勒阿爾迪號
+LeO 451	LeO 451 轟炸機
+Leander	利安德號
+Leander 1942	利安德號 1942
+Leipzig	萊比錫號
+Leningrad	列寧格勒號
+Lexington	列星頓號
+Littorio	利托里奧號
+London	倫敦號
+Lr H35	Lr H35 輕戰車
+LuftW FJ 1936	空軍傘兵 1936
+LuftW FJ 1943	空軍傘兵 1943
+Lynx	山貓
+M10 Wolverine	M10 狼獾
+M12 GMC	M12 GMC 自走砲
+M13/40	M13/40 戰車
+M14/41	M14/41 戰車
+M15/42	M15/42 戰車
+M15A1	M15A1 防空高射車
+M16	M16 防空高砲車
+M18 Hellcat	M18 地獄貓
+M19	M19 防空自走砲
+M2 Halftrack	M2 半履帶車
+M20 Scout	M20 偵察車
+M24 Chaffee	M24 霞飛
+M26 Pershing	M26 潘興
+M2A4	M2A4 輕戰車
+M3 GMC	M3 GMC 自走砲
+M36 Jackson	M36 傑克遜
+M3Stuart	M3 司徒
+M3a1 Lee	M3A1 李將軍
+M4A1 Sherman	M4A1 雪曼
+M4A3 (105)	M4A3 (105) 雪曼
+M4A3 Sherman	M4A3 雪曼
+M4A3E2 Jumbo	M4A3E2 巨無霸
+M4A3E8 Sherman	M4A3E8 雪曼
+M5 Stuart	M5 甜心
+M5A1 with E7-7	M5A1 甜心式(E7-7)
+M7	M7 自走砲
+M8 Greyhound	M8 灰狗
+M8 HMC	M8 HMC 自走砲
+ME262A1	飛燕 ME262A1
+ME410a	大黃蜂 ME410a
+MS 406	MS 406 戰鬥機
+Ma C202/F	Ma C202/F 雷電
+Ma C205/O	Ma C205/O 獵戶座
+Maoris	毛利步兵
+Marconi	馬可尼號
+Marder II	貂式 II
+Marder IIIH	貂式 IIIH
+Marder IIIM	貂式 IIIM
+Martin B-10B	馬丁 B-10B 轟炸機
+Martin T4M-1	馬丁 T4M-1 魚雷轟炸機
+Martlet	馬特列特
+Maru	丸型運輸船
+Maryland	馬里蘭號
+Matilda I	瑪蒂達I
+Matilda II	瑪蒂達II
+Meiji 38 Imp.75	明治38年式 75mm加農砲(改)
+Meteor III	流星III
+MiG-3	MiG-3 米格戰鬥機
+Midway	中途島號
+Militia	民兵
+Minerve	密涅瓦號
+Mk I A9	Mk I A9 巡航戰車
+Mk I IA10	Mk I IA10 巡航戰車
+Mk III A13	Mk III A13 巡航戰車
+Mogador	摩加多爾號
+Mogami	最上
+Mogami 1944	最上 1944
+Momi	樅
+Montana	蒙大拿號
+Mosq VI	蚊式VI
+Mosquito MK II	蚊式 MK II
+Murmansk	摩爾曼斯克號
+Mutsuki	睦月
+Mutsuki 1944	睦月 1944
+N1K2 George	N1K2 紫電改
+Nagato	長門
+Nakajima Ki-27 Nate	中島 Ki-27 九七式戰鬥機
+Nashorn	犀牛
+Nebelwerfer	煙霧發射器
+Nelson	納爾遜號
+Nevada	內華達號
+New Orleans	紐奧良號
+New Orleans 1944	紐奧良號 1944
+Ning Hai	寧海
+Northampton	北安普敦號
+OT-130	OT-130 火焰戰車
+Omaha	奧馬哈號
+Opel 6700	閃電卡車
+Ordnance Depot HQ	軍械補給總部
+Ostwind I	東風 I
+Oyodo	大淀
+Oyodo 1944	大淀 1944
+P-36A Mohawk	P-36A 莫霍克
+P-38 Lightning	P-38 閃電
+P-38J Lightning	P-38J 閃電
+P-40 Flying Tiger	P-40 飛虎
+P-40 Warhawk	P-40 戰鷹
+P-47B Thunderbolt	P-47B 雷霆
+P-47D Thunderbolt	P-47D 雷霆
+P-47N Thunderbolt	P-47N 雷霆
+P-51H Mustang	P-51H 野馬
+P-59A Airacomet	P-59A 空中彗星
+P-61 Black Widow	P-61 黑寡婦
+P-63 Kingcobra	P-63 眼鏡王蛇
+P108 Bi	P108 重轟炸機
+P1Y Frances	P1Y 銀河
+P39 Airacobra	P39 空中眼鏡蛇
+P47D Thunderbolt	P47D 雷霆
+P51B Mustang	P51B 野馬
+P51D Mustang	P51D 野馬
+PBY Catalina	PBY 卡塔琳娜
+PE-2	PE-2 俯衝轟炸機
+PE-8	PE-8 重轟炸機
+PSW 222	PSW 222 輕偵查車
+PSW 222/4r	輕偵查車222
+PSW 231/6r	重偵查車231
+PSW 232/8r	重裝甲車232
+PSW 233/8r	重裝甲車233
+PSW 234/1-8r	重裝甲車234/1
+PSW 234/2-8r	重裝甲車234/2
+PT Boat	PT 魚雷快艇
+PZL P11C	PZL P11C 戰鬥機
+PZL P23b	PZL P23b 輕轟炸機
+PZL P24	PZL P24 戰鬥機
+PZL P37b	PZL P37b 轟炸機
+Panther A	豹式 A
+Panther D	豹式 D
+Panther G	豹式 G
+Pennsylvania	賓夕法尼亞號
+Pensacola 1945	彭薩科拉號 1945
+Perth	伯斯號
+Phi Scout	菲律賓斥候部隊
+Pill Box	碉堡
+Porter	波特號
+Pz 35(t)	輕戰車35
+Pz38(t)G	輕戰車38G
+PzIA	一號戰車A
+PzIB	一號戰車B
+PzIID	二號戰車D
+PzIIF	二號戰車F
+PzIIIE	三號戰車E
+PzIIIH	三號戰車H
+PzIIIJ	三號戰車J
+PzIIIN	三號戰車N
+PzIVD	四號戰車D
+PzIVG	四號戰車G
+PzIVJ	四號戰車J
+PzJager IB	一號驅逐戰車B
+Q	Q級潛艇
+Queen Elizabeth	伊莉莎白女王號
+Queen Elizabeth 1943	伊莉莎白女王號 1943
+R	R級潛艇
+RA 97	RA 97 火砲
+RE 2000	RE 2000 戰鬥機
+Ram Kg	袋鼠運兵車
+Rangers 1943	遊騎兵 1943
+Re2000/F1	Re2000/F1 戰鬥機
+Re2005/S	Re2005/S 射手座戰鬥機
+Redoubtable	可畏號
+Renown	聲望號
+Requin	鯊魚號
+Revoluciya	十月革命號
+Revoluciya 1942	十月革命號 1942
+Richelieu	黎希留號
+Rockets	火箭砲
+Royal Sovereign	皇家主權號
+Ryujo	龍驤
+S	S級潛艇
+S35	S35 戰車
+SB2C HellDiver	SB2C 地獄俯衝者
+SBC Helldiver	SBC 地獄俯衝者
+SBD Dauntless	SBD 無畏
+SM.79 B	SM.79 B 轟炸機
+SPW 250/1	輕型運兵車
+SPW 251/1	中型運兵車
+SU-100	SU-100 驅逐戰車
+SU-152	SU-152 自走砲
+SU-152 AT	SU-152 AT 驅逐戰車
+SU-85	SU-85 突擊砲
+Sa-To	Sa-To 裝甲車
+Salmon	鮭魚號
+San Giorgio	聖喬治號
+Scharnhorst	沙恩霍斯特號
+SdKfz 10/4	20mm防空炮38
+SdKfz 6/2	37mm防空炮
+SdKfz 7/1	20mm防空炮
+Sea Gladiator	海鬥士
+Sea Hornet	海大黃蜂
+Sea Hurricane	海颶風
+Seabees	海蜂工兵隊
+Seadragon	海龍號
+Seafire	海噴火
+Sem L-47	Sem L-47 自走砲
+Sem M-40	Sem M-40 自走砲
+Sem M-41M	Sem M-41M 自走砲
+Sem M-42	Sem M-42 自走砲
+Sem M-42M	Sem M-42M 自走砲
+Sen-Taka	Sen-Taka 高速潛艇
+Senpaku Kohei	船舶工兵
+Series Vbis-2	Vbis-2型潛艇
+Series XIIIbis	XIIIbis型潛艇
+Sexton	司事式自走砲
+Sh Firefly	雪曼螢火蟲
+Shark	鯊魚號
+Sherman 105	雪曼 105
+Sherman Badger	雪曼獾式
+Sherman DD	雪曼 DD 兩棲戰車
+Shinano	信濃
+Shinyo	震洋
+Shokaku	翔鶴
+Sims	西姆斯號
+Sirene	海妖號
+Sm 82	Sm 82 運輸機
+So-Ki	So-Ki 裝甲軌道車
+Soldati	士兵級驅逐艦
+Somers	索默斯號
+Soryu	蒼龍
+South Dakota	南達科他號
+South Dakota 1944	南達科他號 1944
+Spica	斯皮卡號 魚雷艇
+Spit I	噴火式 I
+Spit II	噴火式 II
+Spit VB	噴火式 VB
+Spit XVII	噴火式 XVII
+Spitfire IX	噴火式 IX
+Stir MkI	斯特林式 MkI
+Strategic Transport	戰略運輸機
+Strong Point	據點
+Stu H42	突擊榴彈砲42
+StuGIIIF	三號突擊砲F
+StuGIIIF/8	三號突擊砲F/8
+StuGIIIG	三號突擊砲G
+Stug IV	四號自走砲
+StugIIIb	三號自走砲b
+Suffren	絮夫倫號 重巡洋艦
+Suki 4x4 Amphibious	Suki 4x4 兩棲車
+Sumner	薩姆納號
+Super Yamato	超大和
+Swordfish Mk I	劍魚式 Mk I
+Swordfish Mk IV	劍魚式 Mk IV
+Swordfish MkIII	劍魚式 MkIII
+T	T 驅逐艦
+T-26	T-26 輕戰車
+T-28B	T-28B 中戰車
+T-34/41	T-34/41 戰車
+T-34/43	T-34/43 戰車
+T-34/85	T-34/85 戰車
+T-35	T-35 重戰車
+T-38	T-38 水陸戰車
+T-40	T-40 輕戰車
+T-60	T-60 輕戰車
+T-70	T-70 輕戰車
+T34/40	T34/40 戰車
+T92 HMC	T92 自走砲
+T93 HMC	T93 自走砲
+TBD Devastator	TBD 破壞者
+TBF Avenger	TBF 復仇者
+TBM Avenger	TBM 復仇者
+TK3	TK3 輕戰車
+Ta-Ha	Ta-Ha 戰車
+Takao	高雄
+Takao 1944	高雄 1944
+Tambor	唐博號
+Teishin Dan 1940	挺進團 1940
+Teishin Dan 1943	挺進團 1943
+Tiger I	虎式 I
+Tiger II	虎王 II
+Tjerk Hiddes	特耶克希德斯號 驅逐艦
+Tone	利根
+Tone 1944	利根 1944
+Transport	運輸艦
+Transport HQ	運輸指揮部
+Tupolev SB-2	圖波列夫 SB-2
+Tupolev TB-3	圖波列夫 TB-3
+Tupolev Tu-2	圖波列夫 Tu-2
+Type 1 47mm	Type 1 47mm 反戰車砲
+Type 1 Chi-He	Type 1 Chi-He 中戰車
+Type 2 Ho-I	Type 2 Ho-I 砲戰車
+Type 2 Ka-Mi	Type 2 Ka-Mi 水陸戰車
+Type 3 Chi-Nu	Type 3 Chi-Nu 中戰車
+Type 91 105mm	Type 91 105mm 榴彈砲
+Type 92	Type 92 裝甲車
+Type 93 Sumida	Type 93 Sumida 裝甲車
+Type 94 Light	Type 94 輕戰車
+Type 95 Ha-Go	Type 95 Ha-Go 輕戰車
+Type 97 Chi-Ha	Type 97 Chi-Ha 中戰車
+Type 98 Ke-Ni	Type 98 Ke-Ni 輕戰車
+Typhoon IB	颱風式 IB
+UBoat Type IXC	U艇 IXC型
+USMC  Marines 1943	陸戰隊 1943
+USMC Defense Forces	陸戰隊防衛部隊
+USMC Engineers 1941	陸戰隊工兵 1941
+USMC Engineers 1943	陸戰隊工兵 1943
+USMC F4F Wildcat	陸戰隊 F4F 野貓
+USMC F4U Corsair	陸戰隊 F4U 海盜
+USMC F6F Hellcat	陸戰隊 F6F 地獄貓
+USMC Marines 1941	陸戰隊 1941
+USMC Paramarines 1941	陸戰隊傘兵 1941
+USMC Paramarines 1943	陸戰隊傘兵 1943
+USMC Raiders	陸戰隊突擊隊
+USMC Raiders & Dogs	陸戰隊突擊隊與軍犬
+USMC SB2C HellDiver	陸戰隊 SB2C 地獄俯衝者
+USMC SBD Dauntless	陸戰隊 SBD 無畏
+USMC Sherman POA	陸戰隊 M4雪曼 POA
+VCL M1931(b)	VCL M1931(b) 輕戰車
+Valentine III	瓦倫丁 III
+Valentine VI	瓦倫丁 VI
+Van Ghent	范根特號 驅逐艦
+Vengeance	復仇式
+Vickers 6-Ton B	維克斯六噸戰車 B型
+Vickers L	維克斯輕戰車
+Vildebeast	維德比斯特式
+Volkssturm	國民突擊隊
+W.African Infantry	西非步兵
+Wasp/Ranger	黃蜂號/突擊者號
+Wehr HW 1936	國防軍重武 1936
+Wehr HW 1944	國防軍重武 1944
+Wehr Infantry 1944	國防軍步兵 1944
+Wespe	黃蜂
+Wichita	威奇塔號
+Wildcat	野貓
+Wirbelwind	旋風
+Wirraway	威拉威
+YaK-1	雅克 YaK-1
+YaK-1M	雅克 YaK-1M
+YaK-7B	雅克 YaK-7B
+YaK-9M	雅克 YaK-9M
+Yamato	大和
+Ying Swei	應瑞號
+York	約克號 重巡洋艦
+Yorktown	約克鎮號
+Z	Z 驅逐艦
+Zara	扎拉號 重巡洋艦
+Zuiho	瑞鳳
+deHavilland Hornet	德哈維蘭大黃蜂式
+sIG 38(t)M	蟋蟀式自走炮38式
+sIG IB	野牛式自走炮IB
+sIG II	野牛式自走炮II
+z20mm SPAA	z20mm 自走防空砲
+Hohei 1936	步兵 1936
+Kihei	騎兵
+Grant	M3 格蘭特
+PzIVH	四號戰車 H
+Valentine Mk III	范倫泰 Mk III
+Valentine Mk VI	范倫泰 Mk VI
+Doria	多利亞號
+Fiji	斐濟號

@@ -71,13 +71,13 @@ def nasm(asm, scratch, tag):
     subprocess.run(["nasm", "-f", "bin", "-o", binf, src], check=True)
     return open(binf, "rb").read()
 
-def assemble_stub1(scratch):
+def assemble_stub1(scratch, maxlead):
     asm = f"""bits 32
 org {STUB1_VA:#x}
     movzx eax, byte [esi]
     cmp al, {LEAD0:#x}
     jb .ascii
-    cmp al, {LEAD0 + 5:#x}
+    cmp al, {maxlead:#x}
     ja .ascii
     movzx ebx, al
     sub ebx, {LEAD0:#x}
@@ -117,7 +117,7 @@ org {STUB1_VA:#x}
     assert len(stub) <= STUB2_OFF, f"stub1 {len(stub)}B exceeds {STUB2_OFF}B"
     return stub
 
-def assemble_stub2(scratch):
+def assemble_stub2(scratch, maxlead):
     # ecx = line*258, eax = col; grid char at [eax+ecx+GRID_CHAR]
     asm = f"""bits 32
 org {STUB2_VA:#x}
@@ -135,7 +135,7 @@ org {STUB2_VA:#x}
     je .endline
     cmp dl, {LEAD0:#x}
     jb .ascii
-    cmp dl, {LEAD0 + 5:#x}
+    cmp dl, {maxlead:#x}
     ja .ascii
     ; --- CJK: dense = (dl-0x81)*94 + (trail-0xA1) ---
     movzx ebx, dl
@@ -181,8 +181,14 @@ org {STUB2_VA:#x}
 def build(exe_in, atlas_path, exe_out, scratch, ww_hook=True):
     d = bytearray(open(exe_in, "rb").read())
     atlas = open(atlas_path, "rb").read()
-    stub1 = assemble_stub1(scratch)
-    stub2 = assemble_stub2(scratch) if ww_hook else b""
+    # dense codes span leads LEAD0 .. LEAD0 + (count-1)//TRAILW; the stubs must accept
+    # that whole range (a hardcoded 0x86 upper bound silently drops glyphs once the
+    # atlas grows past 6 leads = 564 chars, e.g. after adding equipment names).
+    atlas_count = struct.unpack('<I', atlas[4:8])[0]
+    maxlead = LEAD0 + (atlas_count - 1) // TRAILW
+    assert maxlead <= 0xFE, f"atlas {atlas_count} chars need lead {maxlead:#x} > 0xFE"
+    stub1 = assemble_stub1(scratch, maxlead)
+    stub2 = assemble_stub2(scratch, maxlead) if ww_hook else b""
 
     e_lfanew = struct.unpack('<I', d[0x3c:0x40])[0]
     coff = e_lfanew + 4

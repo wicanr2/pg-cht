@@ -28,19 +28,44 @@ def encode(s, charmap):
             out += bytes(charmap[ch])
     return bytes(out)
 
+def transcode_big5(rec, charmap, missing):
+    """Some records already ship as Big5 (this copy of PacGen came with Chinese base
+    unit names like 步兵/騎兵); the CJK hook only understands the custom dense codes,
+    so Big5 pairs must be transcoded too (else they render as garbage)."""
+    out = bytearray(); i = 0
+    while i < len(rec):
+        c = rec[i]
+        if c < 0x80:
+            out.append(c); i += 1; continue
+        pair = rec[i:i+2]
+        try:
+            ch = pair.decode("big5")
+        except Exception:
+            ch = None
+        if ch and ch in charmap:
+            out += bytes(charmap[ch]); i += 2
+        else:
+            missing.add(ch or f"<{c:02x}>"); out += pair; i += 2 if ch else 1
+    return bytes(out)
+
 def apply(src, dst, charmap_path):
     charmap = json.load(open(charmap_path, encoding="utf-8"))
     gl = load_glossary(charmap)
     data = open(src, "rb").read()
     recs = data.split(b"\r\n")
-    n = 0
+    n = 0; b5 = 0; missing = set()
     for i, r in enumerate(recs):
         t = r.decode("latin1").strip()
         if t in gl:
-            recs[i] = encode(gl[t], charmap)
+            recs[i] = encode(gl[t], charmap)           # English name -> glossary translation
             n += 1
+        elif any(b >= 0x80 for b in r):
+            recs[i] = transcode_big5(r, charmap, missing)  # already-Big5 name -> dense
+            b5 += 1
     open(dst, "wb").write(b"\r\n".join(recs))
-    print(f"[equip] {n} unit names -> custom 2-byte ({len(gl)} glossary entries) -> {dst}")
+    miss = f"  [MISSING {len(missing)}: {''.join(sorted(str(m) for m in missing))}]" if missing else ""
+    print(f"[equip] {n} glossary + {b5} Big5-transcoded unit names -> custom 2-byte "
+          f"({len(gl)} glossary entries) -> {dst}{miss}")
 
 if __name__ == "__main__":
     src = sys.argv[1]; dst = sys.argv[2]
