@@ -80,8 +80,8 @@ A-I	A-I 潛艇
 A5M Claude	A5M 克勞德
 A6M Zero	A6M 零式
 A6M2 Zero	A6M2 零式
-AB-40	AB-40 偵查車
-AB-41	AB-41 偵查車
+AB-40	AB-40 偵察車
+AB-41	AB-41 偵察車
 AC I Sentinel	AC I 哨兵式戰車
 AC III Sentinel	AC III 哨兵式戰車
 AEC I	AEC I 裝甲車
@@ -210,6 +210,7 @@ Dakota	Dakota 達科塔式
 De Ruyter	德魯伊特號輕巡洋艦
 Deutschland	德意志號裝甲艦
 Dido	狄多號輕巡洋艦
+Doria	多利亞號
 Dunkerque	敦克爾克號戰列艦
 E.African Infantry	東非步兵
 Eagle	鷹號航空母艦
@@ -246,6 +247,7 @@ Fairey Fulmar	Fairey 富馬式
 Fiat Truck	飛雅特卡車
 Field Fortification	野戰防禦工事
 Field Works	野戰工事
+Fiji	斐濟號
 Fiji Guerrillas	斐濟游擊隊
 FlaK38(4)	20mm 四聯裝高射砲
 FlaKPz 38(t)	防空戰車38(t)
@@ -261,6 +263,7 @@ Gearing	基靈
 Giyugun	義勇軍
 Glider	滑翔機
 Gloster Gladiator	格洛斯特 格鬥士
+Grant	M3 格蘭特
 Grumman FF1	格魯曼 FF1 雙翼戰鬥機
 Guards Cavalry	近衛騎兵
 Guards Infantry	近衛步兵
@@ -282,6 +285,7 @@ Ho-Ha 1 Halftrack	Ho-Ha 1 半履帶裝甲車
 Ho-Ni 1	Ho-Ni 1 自走砲
 Ho-Ni 2	Ho-Ni 2 自走砲
 Ho-Ni 3	Ho-Ni 3 驅逐戰車
+Hohei 1936	步兵 1936
 Hohei 1940	步兵 1940
 Hohei 1943	步兵 1943
 Hohei HW 1940	重武步兵 1940
@@ -329,18 +333,18 @@ JagdTiger	獵虎
 Jeanne D'Arc	貞德號
 Ju52ge	Ju52ge 鋼鐵安妮
 Ju88A	斯圖卡 Ju88A
-Junsen	巡潛型潛艦
+Junsen	巡潛型潛艇
 Junyo	隼鷹
 KV-1/39	KV-1/39 重戰車
 KV-1/41	KV-1/41 重戰車
 KV-1/42	KV-1/42 重戰車
 KV-2	KV-2 重戰車
-KXIV	K-14潛艦
+KXIV	K-14潛艇
 Kachin Raiders	克欽突擊隊
 Kaga	加賀
 Kagero	陽炎
-Kaichu	海中型潛艦
-Kaidai	海大型潛艦
+Kaichu	海中型潛艇
+Kaidai	海大型潛艇
 Kairyu	海龍
 Kaiten	回天
 Kamikaze	神風
@@ -364,6 +368,7 @@ Ki-61 Tony	Ki-61 飛燕
 Ki-67 Flying Dragon	Ki-67 飛龍
 Ki-84 Frank	Ki-84 疾風
 Ki43II Oscar	Ki43II 隼
+Kihei	騎兵
 Kikka	橘花
 King George V	喬治五世號
 Kirov	基洛夫號
@@ -503,9 +508,9 @@ P51D Mustang	P51D 野馬
 PBY Catalina	PBY 卡塔琳娜
 PE-2	PE-2 俯衝轟炸機
 PE-8	PE-8 重轟炸機
-PSW 222	PSW 222 輕偵查車
-PSW 222/4r	輕偵查車222
-PSW 231/6r	重偵查車231
+PSW 222	PSW 222 輕偵察車
+PSW 222/4r	輕偵察車222
+PSW 231/6r	重偵察車231
 PSW 232/8r	重裝甲車232
 PSW 233/8r	重裝甲車233
 PSW 234/1-8r	重裝甲車234/1
@@ -536,6 +541,7 @@ PzIIIJ	三號戰車J
 PzIIIN	三號戰車N
 PzIVD	四號戰車D
 PzIVG	四號戰車G
+PzIVH	四號戰車 H
 PzIVJ	四號戰車J
 PzJager IB	一號驅逐戰車B
 Q	Q級潛艇
@@ -696,6 +702,8 @@ USMC SBD Dauntless	陸戰隊 SBD 無畏
 USMC Sherman POA	陸戰隊 M4雪曼 POA
 VCL M1931(b)	VCL M1931(b) 輕戰車
 Valentine III	瓦倫丁 III
+Valentine Mk III	范倫泰 Mk III
+Valentine Mk VI	范倫泰 Mk VI
 Valentine VI	瓦倫丁 VI
 Van Ghent	范根特號 驅逐艦
 Vengeance	復仇式
@@ -729,11 +737,3 @@ sIG 38(t)M	蟋蟀式自走炮38式
 sIG IB	野牛式自走炮IB
 sIG II	野牛式自走炮II
 z20mm SPAA	z20mm 自走防空砲
-Hohei 1936	步兵 1936
-Kihei	騎兵
-Grant	M3 格蘭特
-PzIVH	四號戰車 H
-Valentine Mk III	范倫泰 Mk III
-Valentine Mk VI	范倫泰 Mk VI
-Doria	多利亞號
-Fiji	斐濟號
