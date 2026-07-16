@@ -15,6 +15,7 @@ SSI 5D General 系列三作(裝甲元帥 1994 / 盟軍將軍 1995 / 太平洋元
 - **[裝甲元帥 campaign-routes-pg.md](campaign-routes-pg.md)** — 38 劇本,抽自 `SCENARIO.TDB`
 - **[盟軍元帥 campaign-routes-ag.md](campaign-routes-ag.md)** — 39 劇本,抽自 `SCENARIO.TDB`(分支最完整)
 - **[盟軍元帥 Kursk mod kursk-mod-ag.md](kursk-mod-ag.md)** — issue #4:AG 蘇軍路線加入第 40 個劇本 Kursk 庫斯克(哈爾科夫'43→庫斯克→第聶伯河),含素材相容性、AG.EXE Table B 擴充、TDB 接線與驗證
+- **[戰役改造 playbook campaign-mod-playbook.md](campaign-mod-playbook.md)** — 從 Kursk 一役萃取的可重用方法論,面向日後大改整個戰役(測試迴圈、name→SCN 機制、加/改劇本技法、場景數硬編上限審計、踩雷、工具),標註「已證 vs 待探索」
 - **[太平洋元帥 campaign-routes-pacgen.md](campaign-routes-pacgen.md)** — 二進位 `CAMPAIGN.BIN` 解碼;分支 + 聲望 + **節點→劇本名對照全解**(日方 / 盟方兩條戰役各 13 關,經 PACGEN.EXE 劇本檔名陣列 + DEBUG.TXT 玩局紀錄交叉驗證)
 
 想做程式處理(表格 / 過濾 / 統計)→ 讀 TSV:
