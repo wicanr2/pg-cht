@@ -10,6 +10,12 @@ SSI 5D General 系列三作(裝甲元帥 1994 / 盟軍將軍 1995 / 太平洋元
 - **[盟軍將軍 ag.md](ag.md)** — 39 個劇本,按 北非 / 南歐 / 西歐 / 東線 分節
 - **[太平洋元帥 pacgen.md](pacgen.md)** — 33 個劇本,按 開戰 / 南方作戰 / 反攻 / 教學 / 架空 分節
 
+想看**戰役分支路線**(每張地圖大勝 / 小勝 / 落敗各進哪個戰場、獲得多少聲望)→ 讀:
+
+- **[裝甲元帥 campaign-routes-pg.md](campaign-routes-pg.md)** — 38 劇本,抽自 `SCENARIO.TDB`
+- **[盟軍元帥 campaign-routes-ag.md](campaign-routes-ag.md)** — 39 劇本,抽自 `SCENARIO.TDB`(分支最完整)
+- **[太平洋元帥 campaign-routes-pacgen.md](campaign-routes-pacgen.md)** — 二進位 `CAMPAIGN.BIN` 解碼;分支 + 聲望 + **節點→劇本名對照全解**(日方 / 盟方兩條戰役各 13 關,經 PACGEN.EXE 劇本檔名陣列 + DEBUG.TXT 玩局紀錄交叉驗證)
+
 想做程式處理(表格 / 過濾 / 統計)→ 讀 TSV:
 
 - [pg-scenarios.tsv](pg-scenarios.tsv) / [ag-scenarios.tsv](ag-scenarios.tsv) / [pacgen-scenarios.tsv](pacgen-scenarios.tsv)
@@ -32,5 +38,5 @@ SSI 5D General 系列三作(裝甲元帥 1994 / 盟軍將軍 1995 / 太平洋元
 ## 待補
 
 - 每個劇本的**勝負條件、關鍵單位、常見戰術**(pg-cht / ag-cht 內部已有部分,尚未彙整)
-- 劇本樹狀圖(哪個劇本贏了進哪個)
+- ~~劇本樹狀圖(哪個劇本贏了進哪個)~~ → 已補:見上方 `campaign-routes-*.md`(PG/AG/PacGen 三作皆完成;PacGen 節點→劇本名已由 PACGEN.EXE 檔名陣列 + DEBUG.TXT 交叉驗證解出)
 - 系列跨作連動(PG 1945 未打 → AG 1945;某些場景重疊)
