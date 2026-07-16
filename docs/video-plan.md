@@ -114,7 +114,7 @@ make_video.sh:
 3. **合成腳本**(參考 atlantis `make_gameplay_video.sh`):
    - [ ] `tools/video/make_pg_intro.sh`
    - [ ] `tools/video/make_ag_intro.sh`
-   - [ ] `tools/video/make_pacgen_intro.sh`
+   - [x] `tools/video/make_pacgen_intro.sh` — 已完成,45s/720p,配樂 stream/10.MUS 標題曲
 
 4. **中文字幕**(SRT format,可貼進 YouTube 上傳):
    - [ ] `docs/video/pg-subtitles.srt`
