@@ -10,6 +10,7 @@
   - **AG(盟軍元帥)**:真有兩套數值——原始裝備(SSI 原始值,= Lite)與修改數值主版(110 單位重新平衡);兩者名稱皆已統一、各自數值保留。
   - **PacGen(太平洋元帥)**:單一版,v0.2 修正 2-byte CJK 白底 bug + 對話框排版 + 裝備譯名。
 - 名稱對齊方式:純名稱欄(EQP 每筆記錄 bytes 0:20)byte 複製,保留數值欄(bytes 20:50),不改任何平衡。
+- **AG 加入 Kursk 庫斯克戰役(issue #4,2026-07-16)**:兩個 AG 變體的東線蘇軍路線都新增第 40 個劇本 Kursk(哈爾科夫'43→庫斯克→第聶伯河),地圖移自 PG、AG.EXE 擴 Table B、SCENARIO.TDB 接線。細節見 [`../../docs/scenarios/kursk-mod-ag.md`](../../docs/scenarios/kursk-mod-ag.md)。下表 4 個 AG 套件的 md5 已更新為含 Kursk 版。
 
 ## 套件清單(5 變體 × 2 格式 = 10 檔)
 
@@ -21,10 +22,10 @@
 | PG | 原始裝備 | 原始 | Windows | `PG-cht-1.2_原始裝備_20260702-wine.zip` | 17M | `a11cbad2a123a324165516fc7c229ef0` |
 | PG | 繁中化 | 原始 | AppImage | `PanzerGeneral-繁中化-x86_64.AppImage` | 397M | `0891bd59b5523b25c0f5c54d36585d63` |
 | PG | 繁中化 | 原始 | Windows | `PG-cht-1.2_繁中化_20260519-wine.zip` | 17M | `fe38a1a0d3ed7f61d83d4757483a0e6f` |
-| AG | 原始裝備 | 原始 SSI | AppImage | `AlliedGeneral-原始裝備-x86_64.AppImage` | 392M | `b0713ea9bf6c250dd52f425417e765bf` |
-| AG | 原始裝備 | 原始 SSI | Windows | `AlliedGeneral_CHT_v1.1_原始裝備_portable_20260702.zip` | 12M | `e1f4a4e20c136ea5b95b03bb7b5e9207` |
-| AG | 修改數值 | 重新平衡 | AppImage | `AlliedGeneral-修改數值-x86_64.AppImage` | 392M | `8ae8c04f3f81ac9c8fc481361a407474` |
-| AG | 修改數值 | 重新平衡 | Windows | `AlliedGeneral_CHT_v1.1_portable_20260531.zip` | 12M | `3595ddf3b60faf38bf3f86c6c6eb304e` |
+| AG | 原始裝備 | 原始 SSI | AppImage | `AlliedGeneral-原始裝備-x86_64.AppImage` | 392M | `fe1369937952dcd501b15e121e3b02f9` |
+| AG | 原始裝備 | 原始 SSI | Windows | `AlliedGeneral_CHT_v1.1_原始裝備_portable_20260702.zip` | 12M | `5ebe60c1e9888668a05bc7a477f7d1b7` |
+| AG | 修改數值 | 重新平衡 | AppImage | `AlliedGeneral-修改數值-x86_64.AppImage` | 392M | `e9655b5cf265c3d263f1e44d22f28ac0` |
+| AG | 修改數值 | 重新平衡 | Windows | `AlliedGeneral_CHT_v1.1_portable_20260531.zip` | 12M | `04efdfbe4e81a6e784e8eba5ef5feda6` |
 
 ## 內部裝備檔校驗(PANZEQUP.EQP,統一名)
 
