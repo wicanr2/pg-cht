@@ -15,20 +15,22 @@
 - **AG 原始裝備數值 = 1995 原版(已核對)**:對 `AlliedGeneral_v1.1/Allied General/DATA/PANZEQUP.EQP`(真原版,md5 `fc90b84a`)全 438 單位 **0 筆數值差異**,名稱為中文。反戰車砲射程(stat byte 12)在原始裝備=0(近戰,原版),修改數值變體=2(可打 2 格,110 筆重新平衡之一)——「德軍 AT 砲射程 2」是修改數值版特徵,非原始裝備。
 - **AG 加入 Kursk 庫斯克戰役(issue #4,2026-07-16)**:兩個 AG 變體的東線蘇軍路線都新增第 40 個劇本 Kursk(哈爾科夫'43→庫斯克→第聶伯河),地圖移自 PG、AG.EXE 擴 Table B、SCENARIO.TDB 接線。細節見 [`../../docs/scenarios/kursk-mod-ag.md`](../../docs/scenarios/kursk-mod-ag.md)。下表 4 個 AG 套件的 md5 已更新為含 Kursk 版。
 
-## 套件清單(5 變體 × 2 格式 = 10 檔)
+## 套件清單(統一命名,4 版本 × 2 平台 = 8 檔)
+
+命名方案(2026-07-17):`<遊戲>-[變體-]<平台>`。**PG 收成一包**(三份 PG EQP 數值 byte 相同、只有一套數值,無「修改數值」變體,叫兩個變體名不副實);**AG 真有兩變體**(原始裝備 / 修改數值,110 單位數值差異);PacGen 單一版。Linux=AppImage、Windows=zip(含 `.cmd`/`WING32.DLL`/`shim.dll` 等啟動檔)。
 
 | 遊戲 | 變體 | 數值 | 格式 | 檔名 | 大小 | md5 |
 |---|---|---|---|---|---|---|
 | PacGen | — | 原始 | AppImage | `PacificGeneral-x86_64.AppImage` | 715M | `0aebfc2714bfee82962833b05e00485c` |
-| PacGen | — | 原始 | Windows | `PacificGeneral_CHT_v0.2_20260709-portable.zip` | 353M | `e57a12e3080b06d3927803e22de1225e` |
-| PG | 原始裝備 | 原始 | AppImage | `PanzerGeneral-原始裝備-x86_64.AppImage` | 397M | `38acb9f2c6c6ddf56b533bcafba971e0` |
-| PG | 原始裝備 | 原始 | Windows | `PG-cht-1.2_原始裝備_20260717-windows.zip` | 17M | `6fd562e5e5d0fcf7e94cc6624baf8e97` |
-| PG | 繁中化/修改後 | 原始 | AppImage | `PanzerGeneral-繁中化-x86_64.AppImage` | 397M | `0891bd59b5523b25c0f5c54d36585d63` |
-| PG | 繁中化/修改後 | 原始 | Windows | `PG-cht-1.2_修改後裝備_20260717-windows.zip` | 17M | `a92e7611282500739195570bd487053c` |
+| PacGen | — | 原始 | Windows | `PacificGeneral-windows.zip` | 353M | `e57a12e3080b06d3927803e22de1225e` |
+| PG | — | 原始 | AppImage | `PanzerGeneral-x86_64.AppImage` | 397M | `0891bd59b5523b25c0f5c54d36585d63` |
+| PG | — | 原始 | Windows | `PanzerGeneral-windows.zip` | 17M | `6fd562e5e5d0fcf7e94cc6624baf8e97` |
 | AG | 原始裝備 | 原始 SSI | AppImage | `AlliedGeneral-原始裝備-x86_64.AppImage` | 392M | `fe1369937952dcd501b15e121e3b02f9` |
-| AG | 原始裝備 | 原始 SSI | Windows | `AlliedGeneral_CHT_v1.1_原始裝備_portable_20260702.zip` | 12M | `5ebe60c1e9888668a05bc7a477f7d1b7` |
+| AG | 原始裝備 | 原始 SSI | Windows | `AlliedGeneral-原始裝備-windows.zip` | 12M | `5ebe60c1e9888668a05bc7a477f7d1b7` |
 | AG | 修改數值 | 重新平衡 | AppImage | `AlliedGeneral-修改數值-x86_64.AppImage` | 392M | `e9655b5cf265c3d263f1e44d22f28ac0` |
-| AG | 修改數值 | 重新平衡 | Windows | `AlliedGeneral_CHT_v1.1_portable_20260531.zip` | 12M | `04efdfbe4e81a6e784e8eba5ef5feda6` |
+| AG | 修改數值 | 重新平衡 | Windows | `AlliedGeneral-修改數值-windows.zip` | 12M | `04efdfbe4e81a6e784e8eba5ef5feda6` |
+
+> **進行中(POC)**:PG 含過場影片完整版(PG95 CD 39 段 FMV,燒中文字幕)——影片播放已驗證可行;字幕 POC 與最終打包完成後會新增 PG 影片版 edition。啟動採全螢幕/borderless(不顯示 wine 虛擬桌面)。
 
 ## 內部裝備檔校驗(PANZEQUP.EQP,統一名)
 
