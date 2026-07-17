@@ -13,7 +13,7 @@
 | [裝甲元帥 (Panzer General)](#裝甲元帥-panzer-general) | 1994 | ✅ 完成 | ✅ AppImage | ✅ SFX / zip | 本文件 [裝甲元帥](#裝甲元帥-panzer-general) 章 + [WINE-FONT-SETUP.md](WINE-FONT-SETUP.md) |
 | [盟軍元帥 (Allied General)](#盟軍元帥-allied-general) | 1995 | ✅ 完成 | ✅ AppImage(2 變體) | ✅ zip(2 變體) | [docs/allied-general.md](docs/allied-general.md) |
 | [太平洋元帥 (Pacific General)](#太平洋元帥-pacific-general) | 1997 | ✅ 完成 | ✅ AppImage | ✅ zip | [pacgen/README.md](pacgen/README.md) |
-| [裝甲元帥2 (Panzer General II)](#裝甲元帥2-panzer-general-ii-開發中) | 1997 | 🔨 開發中 | 🔨 wine 實機顯示中文 | 🔨 打包中 | [pg2/README.md](pg2/README.md) |
+| [裝甲元帥2 (Panzer General II)](#裝甲元帥2-panzer-general-ii) | 1997 | ✅ 完成(beta) | ✅ AppImage | ✅ zip(含 dplayx) | [pg2/README.md](pg2/README.md) |
 
 ---
 
@@ -228,9 +228,9 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 
 ---
 
-## 裝甲元帥2 (Panzer General II) 〔開發中〕
+## 裝甲元帥2 (Panzer General II)
 
-《裝甲元帥2》(Panzer General II,SSI 1997)是 5D General 家族第四款,目標同樣是繁中化並在 Linux(AppImage)+ 現代 Windows 跑通。已完成研究、規劃、逆向工程攻堅與 **CJK 引擎建置**——**PG2 已在 wine 實機顯示正確繁體中文**;目前收尾中(劇本清單截斷修復、戰役簡報補譯、跨平台打包)。
+《裝甲元帥2》(Panzer General II,SSI 1997)是 5D General 家族第四款,全新 VC++/DirectDraw 引擎。繁中化**已完成並打包**:全部 UI / 地形 / 裝備 / 指揮官 / 302 個劇本地名 + 戰役簡報散文中文化,自建 2-byte CJK 引擎(atlas 烤進 EXE)在原生 DirectDraw 畫面即時繪字,**開機即中文**。Linux **AppImage 已實測全綠**(主選單 / 清單 / 簡報 / 可玩地圖皆中文);Windows **zip 已打包**(含 `dplayx.dll` 等必要 DLL,wine smoke 過,真機 Windows 待驗)。散布檔見 [共用資源](#共用資源) 的 dist-manifest。
 
 ### 實機截圖(wine,繁中版)
 
@@ -239,7 +239,7 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 | ![PG2 繁中版:戰役簡報全中文](pg2/evidence/pg2-campaign-briefing-cht.png) | **戰役簡報(遊戲原生畫面)** — 德軍首個戰役(西班牙內戰)的簡報整段以繁體中文顯示,配原版戰場地圖美術;經自建 word-wrap 繪字引擎即時渲染、正確斷行。 |
 | ![PG2 繁中版:戰役 / 劇本選擇清單(全中文)](pg2/evidence/pg2-campaign-list-cht.png) | **戰役 / 劇本選擇清單(遊戲原生畫面)** — 戰役選單(閃擊戰 / 保衛帝國 / 西線聖戰 / 挺進柏林)與劇本清單名皆完整顯示繁體中文;2-byte CJK 引擎在原生 DirectDraw 清單元件即時繪字,標題截斷 bug(`readScenarioTitle` 等 5 個 ctype 分類器對高位元組誤判)已修。逐字放大見 [`pg2-scenario-list-full-cht.png`](pg2/evidence/pg2-scenario-list-full-cht.png)。 |
 
-**現況**:PG2 是全新 Visual C++ / DirectDraw 引擎,與 PG1/AG 的 Borland Pascal 5D 引擎**不同源**,但畫面內點陣字與太平洋元帥同族。中文化走點陣字 **route C**(字高 8→16、2-byte 私有編碼 + 追加 `.cjk` 節 hook,已 wine PoC 綠);兩條繪字路徑(選單 / 清單的 drawStringCore、簡報多行的 word-wrap)的 2-byte hook **皆已完備**,全程 0 崩潰。採**英文(預設)槽注入中文**達成「開機即中文」(法語模式字型未載入會崩,故改走英文槽、免語言 patch)。資料檔(UI / 地形 / 裝備 / 劇本地名)與**戰役簡報散文已 100% 翻譯**(完整字集 1,579 字)、指揮官姓名庫已考證、**劇本清單標題截斷已修**(`readScenarioTitle` ctype 分類器 patch)、Windows 打包 DLL 已盤點(含 `dplayx.dll` 定案隨包)。**收尾中**:合併完整字集重建 atlas + 套全部翻譯的完整 build、ASCII/CJK 等高 polish、AppImage + Windows 打包。
+**現況**:PG2 是全新 Visual C++ / DirectDraw 引擎,與 PG1/AG 的 Borland Pascal 5D 引擎**不同源**,但畫面內點陣字與太平洋元帥同族。中文化走點陣字 **route C**(字高 8→16、2-byte 私有編碼 + 追加 `.cjk` 節 hook,已 wine PoC 綠);兩條繪字路徑(選單 / 清單的 drawStringCore、簡報多行的 word-wrap)的 2-byte hook **皆已完備**,全程 0 崩潰。採**英文(預設)槽注入中文**達成「開機即中文」(法語模式字型未載入會崩,故改走英文槽、免語言 patch)。資料檔(UI / 地形 / 裝備 / 劇本地名)與**戰役簡報散文已 100% 翻譯**(完整字集 1,582 glyph)、指揮官姓名庫已考證、**清單標題截斷已修**(5 個 ctype 分類器 patch,劇本+戰役選單皆完整)、**完整 build 已 wine 逐畫面驗證**(0 fault)、**AppImage + Windows zip 已打包**(dist-all)。**剩(非阻塞)**:ASCII/CJK 等高 polish、採購畫面實截、真機 Windows 驗證、深度遊玩測試。
 
 ### 文件索引
 

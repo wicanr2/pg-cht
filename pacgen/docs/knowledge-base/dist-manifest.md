@@ -31,6 +31,10 @@
 | AG | 修改數值 | 重新平衡 | Windows | `AlliedGeneral-修改數值-windows.zip` | 12M | `04efdfbe4e81a6e784e8eba5ef5feda6` |
 | PG 完整版 | 含影片 | 原始 | AppImage | `PanzerGeneral-完整版-x86_64.AppImage` | 469M | `960f6d2fc0592a61efecca4a7189db2c` |
 | PG 完整版 | 含影片 | 原始 | Windows | `PanzerGeneral-完整版-windows.zip` | 89M | `ff3e9983136a7ee490e0360aa9cbfa69` |
+| PG2 | — | 原始 | AppImage | `PanzerGeneral2-x86_64.AppImage` | 811M | `e4081bdbbd97ec5f6d296767571115bd` |
+| PG2 | — | 原始 | Windows | `PanzerGeneral2-windows.zip` | 437M | `fc461dff5092eb5d77b7ec25d20668a2` |
+
+> **PG2《裝甲元帥2》繁中版(2026-07-18,已完成)**:5D General 家族**第四款**,全新 VC++/DirectDraw 引擎(與 PG1/AG 不同源),非「三部曲」但同 repo。中文化走**英文(預設)槽注入中文**(開機即中文、無語言 patch)+ 自建 **2-byte CJK 引擎**(atlas 1,582 glyph 烤進 EXE `.cjk` 節、drawStringCore + word-wrap 兩繪字路徑 hook + 5 個 ctype classifier 截斷修正)。全部 UI / 地形 / 裝備 / 指揮官 / **302 個劇本地名 + 戰役簡報散文**已中文化。AppImage 沿用 **PacGen DirectDraw 配方**(gdi renderer + GrabFullscreen + `wineserver -k` + `explorer /desktop=PG2,640x480`),wine 實測全綠:主選單 / 戰役+劇本清單全中文 / 戰役簡報中文散文 / 可玩地圖 + 中文單位資訊。Windows zip 含 `dplayx.dll`(DirectX redist 原生版,230400 bytes,md5 `4c5a47e4…`,import 現代 Windows 皆可解)+ 6 個隨遊戲 DLL + `裝甲元帥2.cmd`(256COLOR 相容層)+ 使用說明。**真機 Windows 未驗**(僅 wine smoke + dplayx import 靜態確認);深度遊玩未跑。細節見 [`../../pg2/中文化規劃.md`](../../pg2/中文化規劃.md)。
 
 > **PG 含過場影片完整版(2026-07-17,已完成)**:PG95 CD 版的 39 段過場 FMV(`Movies/*.MOV`,AVI/msvideo1)包進中文化 PG,與基本版並存。**不加字幕**——POC 實測 39 段全為無聲二戰紀錄片 B-roll(無旁白/無畫面英文字),無可翻譯素材;依使用者「有英文語音才字幕」的條件不加。wine 實測全綠:影片經 MCI avivideo + 內建 `msvidc32.dll` 正常播放、啟動**不顯示 wine 虛擬桌面**(遊戲以原生視窗執行,AppRun 直接 `wine PG-cht.exe`)、中文戰役選單可玩。Windows 端影片未上真機驗證(理論可行,MS Video 1 解碼器內建於 Windows)。字幕管線已驗證(原生 292×216 + 不透明黑底粗體,不可放大),日後要加說明字幕可快速補。
 
