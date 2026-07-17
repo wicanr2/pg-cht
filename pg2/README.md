@@ -2,9 +2,9 @@
 
 5D General 家族的**第四款**(繼 PG1《裝甲元帥》、AG《盟軍元帥》、PacGen《太平洋元帥》)。目標:繁中化並在 **Linux(AppImage)+ 現代 Windows** 跑。
 
-本目錄目前為**研究 + 規劃 + RE 攻堅(兩閘門已 PoC 綠)**,尚未進實作建置。
+本目錄為**研究 + 規劃 + RE 攻堅 + CJK 引擎 POC**。**POC 已在 wine 實機讓 PG2 顯示正確中文**(劇本清單「山地戰」16×16,證據 [`evidence/pg2-cjk-scenario-list.png`](evidence/pg2-cjk-scenario-list.png)),資料檔已全譯;剩最終化(word-wrap hook + DAT 重打包 + 正式 atlas)與打包。
 
-**實作決策(2026-07-17)**:目標 exe = `PANZER2.EXE`(2D)、寄生**法語槽 + 開機直接進中文**(單 byte patch `0xa32a0` `09→0C`,wine PoC 已證)、字型走 **route C GO**(drawGlyph `0x41b033`、字高 `[font+8]`、主 hook `0x43e699`)、地名全譯、指揮官名上網查證。詳 [中文化規劃.md](中文化規劃.md) §7。
+**實作決策 / 進展**:目標 exe = `PANZER2.EXE`(2D);字型走 **route C(POC 綠)**——drawGlyph `0x41b033`、字高 `[font+8]`、主 hook `0x43e699` + glyphWidth clamp `0x41b013`、追加 `.cjk` 節;**改走英文(預設)槽注入中文**(法語模式字型未載入會崩;英文槽=預設即「一進去就中文」、免語言 patch);地名全譯、指揮官名上網查證。詳 [中文化規劃.md](中文化規劃.md) §7(§7.5 為 POC 實測)。
 
 ## 一句話結論
 
