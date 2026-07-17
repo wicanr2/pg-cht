@@ -40,7 +40,7 @@ PANZER2.EXE
 | **chatsock.dll** | 隨遊戲 | ✗ | **✔ 必須** | gamechat 靜態鏈 |
 | **english.dll** | 隨遊戲 | ✗ | **✔ 必須** | LoadLibrary 動態載;錯誤訊息字串 |
 | ddraw.dll | 系統 | ✔(相容層) | ✘(見風險) | DirectDraw;256 色全螢幕有相容問題 |
-| **dplayx.dll** | 系統(舊) | **✗ 預設無** | **⚠ 見風險** | DirectPlay,靜態 import。現代 Windows 預設不裝 |
+| **dplayx.dll** | 系統(舊) | **✗ 預設無** | **✔ 必須(僅 Windows 包)** | DirectPlay,靜態 import。**決定隨包**避免缺 DLL;AppImage 不放(wine 自帶) |
 | kernel32 / user32 / gdi32 | 系統 | ✔ | ✘ | 標準系統 |
 | comdlg32 / ole32 / winmm | 系統 | ✔ | ✘ | 標準系統 |
 | wsock32 / advapi32 / shell32 | 系統 | ✔ | ✘ | 標準系統 |
@@ -53,15 +53,17 @@ PANZER2.EXE
 
 ## 3. 必須進 zip 的檔(遊玩最小集)[已測]
 
-中文化目標 `PANZER2.EXE`(已 patch:語言 byte + `.cjk` 節 + hook)加以下 **6 個隨附 DLL**:
+中文化目標 `PANZER2.EXE`(已 patch:語言 byte + `.cjk` 節 + hook)加以下 **7 個隨附 DLL**(Windows 包):
 
 ```
 PANZER2.EXE   (中文 patch 版)
 mss32.dll  smackw32.dll  clubdll.dll  gamechat.dll  chatsock.dll  english.dll
+dplayx.dll    ← 決定隨包(現代 Windows 預設無 DirectPlay,靜態依賴缺則 EXE 不載入)
 + PANZER2.DAT(含 16px FONTFRA)、*.fra 資料檔、SCENARIO/、SOUND/ 等遊戲資料
 ```
 
-系統 DLL(kernel32/user32/gdi32/ddraw/dplayx…)**不放進包**——現代 Windows 有(dplayx 除外,見風險)。
+- 其餘系統 DLL(kernel32/user32/gdi32/ddraw/comdlg32/ole32/winmm/wsock32/advapi32/shell32/comctl32…)**不放進包**——現代 Windows 內建。
+- **AppImage(Linux)不放 `dplayx.dll`**:wine 有自帶實作,放 native 版反而可能不相容。dplayx 隨包**只針對 Windows zip**。
 
 ---
 
@@ -69,11 +71,10 @@ mss32.dll  smackw32.dll  clubdll.dll  gamechat.dll  chatsock.dll  english.dll
 
 這些不是「缺 DLL」而是「行為相容」,是「能不能在現代 Windows 跑」的真正變數,需真機驗:
 
-1. **DirectPlay(`dplayx.dll`)—— 最高風險**:`PANZER2.EXE` 靜態 import 它,但 Windows 8/10/11 **預設不裝** DirectPlay(屬「舊版元件」選用功能)。缺它 → EXE 直接起不來。對策(擇一,待實測):
-   - a) 引導使用者啟用「Windows 功能 → 舊版元件 → DirectPlay」(系統會自動裝 dplayx);
-   - b) 隨包一份 `dplayx.dll`(+ 可能的 `dpnhpast.dll` 等相依)放遊戲目錄(local DLL 優先於系統);
-   - c) 若確定不需線上/區網對戰,評估 stub dplayx(滿足 import 即可)——風險較高,需測單機功能不受影響。
-   - wine/AppImage 端無此問題(wine 自帶 dplayx 實作)。
+1. **DirectPlay(`dplayx.dll`)—— 已定案:隨 Windows 包附帶**:`PANZER2.EXE` 靜態 import 它,但 Windows 8/10/11 **預設不裝** DirectPlay(屬「舊版元件」選用功能)。缺它 → EXE 直接起不來。**決定:把 `dplayx.dll` 放進遊戲目錄一起打包**(Windows 的 DLL 搜尋順序:應用程式目錄優先於系統目錄,且 dplayx 非 KnownDLL,故 local 版會被優先載入),使用者免手動啟用舊版元件。實作待驗:
+   - **取得來源**:用與 PG2 同世代、相容的 `dplayx.dll`(如 DirectX 舊版 redist / Win98–XP 版本);確認其**自身 import**(主要 kernel32/user32/advapi32/ole32,皆現代系統有)在現代 Windows 能解析,不再拖出缺檔。
+   - **驗證**:真機起遊戲能到主選單(單機戰役),確認單機功能不受影響(對戰功能非本包目標)。
+   - **僅 Windows 包**:AppImage(Linux)**不放**此 native DLL——wine 自帶 dplayx 實作,放 native 版反而可能不相容。
 2. **DirectDraw 256 色全螢幕(`ddraw.dll`)**:PG2 是 640×480×8bpp exclusive fullscreen,與 AG/PacGen 同類議題。現代 Windows 對 8bpp 全螢幕調色盤支援不佳,且 Win10/11 已移除「256 色」相容性選項。對策(待實測):
    - dgVoodoo2 之類 DirectDraw→Direct3D 包裝(放一份 `ddraw.dll` wrapper 到遊戲目錄);或視窗化 / 相容性模式。
    - 這是「畫面正不正常」的關鍵,不是載入問題;需真機測。
@@ -108,7 +109,7 @@ PanzerGeneral2-CHT-windows.zip
 └─ Panzer General 2 CHT/
    ├─ PANZER2.EXE            ← 中文 patch 版
    ├─ mss32.dll smackw32.dll clubdll.dll gamechat.dll chatsock.dll english.dll
-   ├─ (視風險 1 決定是否附 dplayx.dll)
+   ├─ dplayx.dll             ← 隨包(已定案,避免現代 Windows 缺 DirectPlay)
    ├─ (視風險 2 決定是否附 dgVoodoo2 ddraw.dll)
    ├─ PANZER2.DAT *.fra SCENARIO/ SOUND/ SFX/ Smack/ MAP/ …(遊戲資料)
    ├─ 啟動說明.txt(DirectPlay 啟用 / 相容性設定指引)
