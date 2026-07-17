@@ -13,7 +13,7 @@
 | [裝甲元帥 (Panzer General)](#裝甲元帥-panzer-general) | 1994 | ✅ 完成 | ✅ AppImage | ✅ SFX / zip | 本文件 [裝甲元帥](#裝甲元帥-panzer-general) 章 + [WINE-FONT-SETUP.md](WINE-FONT-SETUP.md) |
 | [盟軍元帥 (Allied General)](#盟軍元帥-allied-general) | 1995 | ✅ 完成 | ✅ AppImage(2 變體) | ✅ zip(2 變體) | [docs/allied-general.md](docs/allied-general.md) |
 | [太平洋元帥 (Pacific General)](#太平洋元帥-pacific-general) | 1997 | ✅ 完成 | ✅ AppImage | ✅ zip | [pacgen/README.md](pacgen/README.md) |
-| [裝甲元帥2 (Panzer General II)](#裝甲元帥2-panzer-general-ii-開發中) | 1997 | 🔨 開發中 | 🔨 wine PoC 到主選單 | — 未開始 | [pg2/README.md](pg2/README.md) |
+| [裝甲元帥2 (Panzer General II)](#裝甲元帥2-panzer-general-ii-開發中) | 1997 | 🔨 開發中 | 🔨 wine 實機顯示中文 | 🔨 打包中 | [pg2/README.md](pg2/README.md) |
 
 ---
 
@@ -217,9 +217,19 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 
 ## 裝甲元帥2 (Panzer General II) 〔開發中〕
 
-《裝甲元帥2》(Panzer General II,SSI 1997)是 5D General 家族第四款,目標同樣是繁中化並在 Linux(AppImage)+ 現代 Windows 跑通。本章節目前為**研究 + 規劃 + 逆向工程攻堅**階段,尚未進入實作建置。
+《裝甲元帥2》(Panzer General II,SSI 1997)是 5D General 家族第四款,目標同樣是繁中化並在 Linux(AppImage)+ 現代 Windows 跑通。已完成研究、規劃、逆向工程攻堅與 **CJK 引擎建置**——**PG2 已在 wine 實機顯示正確繁體中文**;目前收尾中(劇本清單截斷修復、戰役簡報補譯、跨平台打包)。
 
-**現況**:PG2 是全新 Visual C++ / DirectDraw 引擎,與 PG1/AG 的 Borland Pascal 5D 引擎**不同源**,但畫面內點陣字與太平洋元帥同族;中文化採**寄生法語槽**(語言 ID 單 byte patch,開機直接進中文,已 wine PoC 驗證)+ 點陣字 **route C**(字高從 8 拉到 16、2-byte 私有編碼 hook,技術路徑已 PoC 綠燈);資料檔(UI / 地形 / 裝備 / 劇本地名)已 100% 完成翻譯;指揮官姓名庫已完成音譯與史實考證;Windows 打包所需 DLL 已完成盤點;**尚未開始**實際的 EXE patch 建置與封裝。
+### 實機截圖(wine,繁中版)
+
+![PG2 繁中版:自建 CJK 引擎渲染中文](pg2/evidence/pg2-briefing-wordwrap-cjk.png)
+
+*PG2 以自建 2-byte CJK 引擎在 DirectDraw 畫面渲染繁體中文(word-wrap 繪字路徑實測——一次渲染全部 UI 詞彙:國名 / 地形 / 兵種 / 指令,透明背景、正確斷行、無亂碼無白底)。*
+
+![PG2 繁中版:劇本選擇清單](pg2/evidence/pg2-cjk-scenario-list.png)
+
+*劇本選擇清單以中文顯示劇本名(「山地戰」),與原生英文名並列渲染。*
+
+**現況**:PG2 是全新 Visual C++ / DirectDraw 引擎,與 PG1/AG 的 Borland Pascal 5D 引擎**不同源**,但畫面內點陣字與太平洋元帥同族。中文化走點陣字 **route C**(字高 8→16、2-byte 私有編碼 + 追加 `.cjk` 節 hook,已 wine PoC 綠);兩條繪字路徑(選單 / 清單的 drawStringCore、簡報多行的 word-wrap)的 2-byte hook **皆已完備**,全程 0 崩潰。採**英文(預設)槽注入中文**達成「開機即中文」(法語模式字型未載入會崩,故改走英文槽、免語言 patch)。資料檔(UI / 地形 / 裝備 / 劇本地名)已 100% 翻譯、指揮官姓名庫已考證、Windows 打包 DLL 已盤點(含 `dplayx.dll` 定案隨包)。**收尾中**:劇本清單標題截斷修復、戰役簡報散文補譯、ASCII/CJK 等高 polish、AppImage + Windows 打包。
 
 ### 文件索引
 
@@ -235,7 +245,7 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 | [`pg2/翻譯/README.md`](pg2/翻譯/README.md) | 資料檔翻譯總覽、涵蓋率、待複核項目 |
 | [`pg2/翻譯/glossary.tsv`](pg2/翻譯/glossary.tsv) | 翻譯源唯一真相,2,086 筆唯一字串(UI / 地形 / 裝備 / 指揮官 / 劇本地名) |
 | [`pg2/windows-dll盤點.md`](pg2/windows-dll盤點.md) | `PANZER2.EXE` 相依 DLL 盤點,Windows 打包最小集與相容風險(DirectPlay / DirectDraw) |
-| [`pg2/evidence/`](pg2/evidence/) | wine 實測截圖:640×480×8 抵達標題畫面、DirectDraw 切模式失敗案例 |
+| [`pg2/evidence/`](pg2/evidence/) | wine 實測截圖:繁中劇本清單、簡報 word-wrap 中文渲染、atlas 字形證明、640×480×8 標題畫面 |
 
 ---
 
