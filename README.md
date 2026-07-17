@@ -191,9 +191,16 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 
 *Allied General*(SSI 1995,與 Panzer General **同引擎**)的繁體中文化。針對社群「Lite v1.1」重打包版(`AG.EXE` 2,167,611 bytes),完成 EXE 字串、資料檔、**烤在點陣圖裡的 UI**、開頭畫面標題全面中文化,並修掉重打包者藏的簽名。
 
-**完整技術細節**(遊戲簡介、中文化開頭畫面、完成項目、點陣圖 UI 中文化工作流、陣營主題 bug 連鎖、踩雷紀錄)搬到 **[`docs/allied-general.md`](docs/allied-general.md)**。快速預覽:
+**完整技術細節**(遊戲簡介、中文化開頭畫面、完成項目、點陣圖 UI 中文化工作流、陣營主題 bug 連鎖、踩雷紀錄)搬到 **[`docs/allied-general.md`](docs/allied-general.md)**。
 
-- ![盟軍元帥 中文化開頭畫面](docs/screenshots/ag_splash_zh.png)
+### 實機截圖(中文化開頭畫面)
+
+| 畫面 | 內容 |
+|---|---|
+| ![盟軍元帥 中文化開頭畫面](docs/screenshots/ag_splash_zh.png) | **中文化開頭畫面** — 原版 `ALLIED GENERAL` 標誌下方新增「盟軍元帥」書法體字樣(垂直銀灰漸層 + 深色描邊),直接重繪進 `ART\SPLASH.DAT` 點陣圖;遊戲啟動即顯示,非合成示意圖。 |
+
+快速預覽:
+
 - 完成項目:EXE UI 字串 + 任務簡報 + PANZEQUP.EQP 裝備名 + MAPNAMES.STR 城市名 + **烤在點陣圖裡的 UI**(共用按鈕、購買面板、戰損統計表,盟/德/俄三主題各一套變體) + 移除重打包者簽名
 - 三大技術難點:RLEi 逐列 RLE 編解碼、陣營 theme classify bug、狀態列指標重導向 padding 洩漏
 - 兩個 skill:[`art-dat-bitmap-cht`](skills/art-dat-bitmap-cht/SKILL.md)(點陣圖 UI)、[`panzer-general-cht`](skills/panzer-general-cht/SKILL.md)(EXE 字串)
@@ -203,6 +210,12 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 ## 太平洋元帥 (Pacific General)
 
 *Pacific General* (SSI/Mindscape 1997,5D General 系列末代)的繁中化與現代環境跑通指南。歷代三大誌 1997 從沒為這款寫過中文專欄;本節是 29 年後的補完。
+
+### 實機截圖(wine,繁中版)
+
+| 畫面 | 內容 |
+|---|---|
+| ![太平洋元帥繁中版:劇本選擇畫面](pacgen/docs/screenshots/2byte-whitebg-FIXED-scenario.png) | **劇本選擇畫面(遊戲原生畫面)** — 左側劇本清單(舊金山 1944 / 印度 / 瓜達康納爾 / 中途島 / 塔拉瓦 / 菲律賓 1945 / 雷伊泰灣 / 夏威夷 1944)與左上假想情境簡報全部中文,右側地球儀為原版素材;自建 2-byte CJK 引擎(16×16 atlas)在原生 DirectDraw 畫面即時繪字,原版 8×8 點陣字塞不下中文的限制已解除。 |
 
 **完整內容都在 [`pacgen/`](pacgen/) 子目錄**:
 
@@ -221,13 +234,10 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 
 ### 實機截圖(wine,繁中版)
 
-![PG2 繁中版:自建 CJK 引擎渲染中文](pg2/evidence/pg2-briefing-wordwrap-cjk.png)
-
-*PG2 以自建 2-byte CJK 引擎在 DirectDraw 畫面渲染繁體中文(word-wrap 繪字路徑實測——一次渲染全部 UI 詞彙:國名 / 地形 / 兵種 / 指令,透明背景、正確斷行、無亂碼無白底)。*
-
-![PG2 繁中版:劇本選擇清單](pg2/evidence/pg2-cjk-scenario-list.png)
-
-*劇本選擇清單以中文顯示劇本名(「山地戰」),與原生英文名並列渲染。*
+| 畫面 | 內容 |
+|---|---|
+| ![PG2 繁中版:劇本選擇清單顯示中文](pg2/evidence/pg2-cjk-scenario-list.png) | **劇本選擇清單(遊戲原生畫面)** — 清單第 1 列劇本名已顯示中文「山地戰」,與其餘尚未套用翻譯的英文劇本名並列;證實 2-byte CJK 引擎能在原生清單元件即時繪字。逐字放大見 [`pg2-cjk-scenario-list-zoom.png`](pg2/evidence/pg2-cjk-scenario-list-zoom.png)。 |
+| ![PG2 繁中版:CJK 引擎渲染 UI 詞彙(word-wrap 實測)](pg2/evidence/pg2-briefing-wordwrap-cjk.png) | **CJK 引擎渲染實測(工程驗證畫面,非玩家會實際看到的單一遊戲畫面)** — 一次性餵入已完成翻譯的全部 UI 詞彙(國名 / 地形 / 兵種 / 指令)測試 word-wrap 繪字路徑,確認斷行正確、透明背景、無亂碼無白底。字形圖譜證明見 [`pg2-atlas-glyph-proof.png`](pg2/evidence/pg2-atlas-glyph-proof.png)。 |
 
 **現況**:PG2 是全新 Visual C++ / DirectDraw 引擎,與 PG1/AG 的 Borland Pascal 5D 引擎**不同源**,但畫面內點陣字與太平洋元帥同族。中文化走點陣字 **route C**(字高 8→16、2-byte 私有編碼 + 追加 `.cjk` 節 hook,已 wine PoC 綠);兩條繪字路徑(選單 / 清單的 drawStringCore、簡報多行的 word-wrap)的 2-byte hook **皆已完備**,全程 0 崩潰。採**英文(預設)槽注入中文**達成「開機即中文」(法語模式字型未載入會崩,故改走英文槽、免語言 patch)。資料檔(UI / 地形 / 裝備 / 劇本地名)已 100% 翻譯、指揮官姓名庫已考證、Windows 打包 DLL 已盤點(含 `dplayx.dll` 定案隨包)。**收尾中**:劇本清單標題截斷修復、戰役簡報散文補譯、ASCII/CJK 等高 polish、AppImage + Windows 打包。
 
