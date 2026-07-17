@@ -1,0 +1,401 @@
+line_no	original	zh_tw	類型	備註
+1	Ackenheil	阿肯海爾	音譯
+2	Adler	阿德勒	音譯
+3	Arndt	阿恩特	音譯
+4	Auerbacher	奧爾巴赫	音譯
+5	Bachmann	巴赫曼	音譯
+6	Balck	巴爾克	史實	Hermann Balck 裝甲兵上將
+7	Bauer	鮑爾	音譯
+8	Blucher	布呂歇爾	史實	拿破崙戰爭時代普魯士元帥,非二戰但極著名軍事姓氏,可能是刻意收錄的彩蛋
+9	Braun	布勞恩	音譯
+10	Brecht	布萊希特	音譯
+11	Brunner	布魯納	音譯
+12	Buchmann	布赫曼	音譯
+13	Campenhausen	坎彭豪森	音譯
+14	Carlburg	卡爾堡	音譯
+15	Christmann	克里斯特曼	音譯
+16	Cramer	克拉默	史實(存疑)	可能對應 Hans Cramer,北非軍團末代指揮官
+17	Creutz	克羅伊茨	音譯
+18	Dahrendorf	達倫多夫	音譯
+19	Danneberg	丹納貝格	音譯
+20	Daubler	多伊布勒	音譯
+21	Decker	德克爾	史實(存疑)	可能對應 Karl Decker,裝甲兵上將
+22	Dietzel	迪策爾	音譯
+23	Dorner	德爾納	音譯
+24	Eberhardt	埃伯哈特	音譯
+25	Eigermann	艾格曼	音譯
+26	Entemann	恩特曼	音譯
+27	Erdmann	埃德曼	音譯
+28	Fassbender	法斯賓達	音譯
+29	Feuermann	費爾曼	音譯
+30	Fischer	費雪	音譯
+31	Fleischmann	弗萊施曼	音譯
+32	Frieling	弗里林	音譯
+33	Gabel	加貝爾	音譯
+34	Gehrmann	蓋爾曼	音譯
+35	Geissler	蓋斯勒	音譯
+36	Goetz	戈茨	音譯
+37	Gruber	格魯伯	音譯
+38	Gruener	格律納	音譯
+39	Hauser	豪瑟	音譯
+40	Hausmann	豪斯曼	音譯
+41	Herrmann	赫爾曼	音譯
+42	Hilger	希爾格	音譯
+43	Inmann	因曼	音譯
+44	Jaeger	耶格爾	音譯
+45	Jungen	永根	音譯
+46	Kampfer	坎普費爾	音譯
+47	Kepplers	凱普勒斯	音譯
+48	Koch	柯霍	音譯
+49	Kroegel	克羅格爾	音譯
+50	Krueger	克魯格	音譯	姓氏常見,可能與多位真實軍官同名
+51	Kurtz	庫爾茲	音譯
+52	Liebermann	利伯曼	音譯
+53	Lindner	林德納	音譯
+54	Losch	勒施	音譯
+55	Mahler	馬勒	音譯
+56	Mauers	毛爾斯	音譯
+57	Messer	梅瑟	音譯
+58	Mittermann	米特曼	音譯
+59	Model	莫德爾	史實	Walter Model 陸軍元帥
+60	Mueller	穆勒	音譯
+61	Nagel	納格爾	音譯
+62	Neumann	諾伊曼	音譯
+63	Niederberger	尼德貝格爾	音譯
+64	Niemeyer	尼邁耶	音譯
+65	Obermann	奧伯曼	音譯
+66	Oldenburg	奧爾登堡	音譯
+67	Osterwald	奧斯特瓦爾德	音譯
+68	Oststein	奧斯特施泰因	音譯
+69	Ottweiler	奧特魏勒	音譯
+70	Pahner	帕納爾	音譯
+71	Pausch	保施	音譯
+72	Pfeiffer	菲佛	音譯
+73	Pfitzner	普菲茨納	音譯
+74	Rasch	拉施	音譯
+75	Reuter	羅伊特	音譯
+76	Richter	里希特	音譯
+77	Rieger	里格爾	音譯
+78	Rossbach	羅斯巴赫	音譯
+79	Rutger	魯特格	音譯
+80	Schatzheimer	沙茨海默	音譯
+81	Schmidt	施密特	音譯
+82	Schneider	施耐德	音譯
+83	Schuler	舒勒	音譯
+84	Schultz	舒爾茨	音譯
+85	Spielmann	施皮爾曼	音譯
+86	Steinbach	施泰因巴赫	音譯
+87	Strauss	史特勞斯	音譯
+88	Tanneberger	坦內貝格爾	音譯
+89	Thaler	塔勒	音譯
+90	Theissen	泰森	音譯
+91	Trautmann	特勞特曼	音譯
+92	Ulrich	烏爾里希	音譯
+93	Volz	沃爾茨	音譯
+94	Waldhausen	瓦爾德豪森	音譯
+95	Weiler	魏勒	音譯
+96	Weiss	魏斯	音譯
+97	Wesse	韋瑟	音譯
+98	Wiedermann	維德曼	音譯
+99	Zesner	策斯納	音譯
+100	Zimmer	季默	音譯
+101	Alekseyeva	阿列克謝耶娃	音譯	陰性姓氏
+102	Astakhova	阿斯塔霍娃	音譯	陰性姓氏
+103	Balandin	巴蘭金	音譯	
+104	Baranova	巴拉諾娃	音譯	陰性姓氏
+105	Belanov	貝拉諾夫	音譯	
+106	Bogdanova	波格丹諾娃	音譯	陰性姓氏
+107	Breshkovsky	布列什科夫斯基	史實(存疑)	疑為葉卡捷琳娜·布列什科夫斯卡婭,社會革命黨創始人之一,人稱「俄國革命的祖母」,非二戰時代人物,原文為陽性拼法
+108	Brodsky	布羅茨基	史實(存疑)	姓氏常見,可能對應詩人約瑟夫·布羅茨基(1987年諾貝爾文學獎),信心中等偏低
+109	Bukharin	布哈林	史實	尼古拉·布哈林,蘇聯早期布爾什維克領導人,1938年大清洗處決,非軍人
+110	Chekov	契訶夫	史實(存疑)	拼法 Chekov 較標準拼法 Chekhov 少一字母,疑指劇作家契訶夫
+111	Chermakov	切爾馬科夫	音譯	
+112	Chernetsky	切爾涅茨基	音譯	
+113	Chilova	奇洛娃	音譯	陰性姓氏
+114	Danilov	達尼洛夫	音譯	
+115	Demtchenko	德姆琴科	音譯	
+116	Dmitriev	德米特里耶夫	音譯	
+117	Donskaya	頓斯卡婭	史實(存疑)	疑對應中世紀莫斯科大公「頓河的德米特里」封號 Donskoy 之陰性形式,邏輯同表列163 Nevsky,陰性姓氏
+118	Egorova	葉戈羅娃	音譯	陰性姓氏
+119	Emirzyan	埃米爾贊	音譯	
+120	Ermakov	葉爾馬科夫	音譯	
+121	Fedorchev	費多爾切夫	音譯	
+122	Federov	費多羅夫	音譯	
+123	Fetisova	費季索娃	音譯	陰性姓氏
+124	Filatov	菲拉托夫	音譯	
+125	Filipov	菲利波夫	音譯	
+126	Fomichev	福米契夫	音譯	
+127	Frolov	弗羅洛夫	音譯	
+128	Gagarin	加加林	音譯	非二戰人物,太空人尤里·加加林同姓,音譯結果恰好相同
+129	Galitsky	加利茨基	史實(存疑)	可能對應蘇聯二戰上將 Kuzma Galitsky
+130	Gavrilenko	加夫里連科	音譯	
+131	Gavriluk	加夫里盧克	音譯	
+132	Glushko	格盧什科	史實(存疑)	疑為火箭發動機設計師瓦倫丁·格盧什科,蘇聯太空計畫要角,非二戰人物
+133	Golovko	戈洛夫科	史實(存疑)	可能對應蘇聯北方艦隊司令 Arseniy Golovko
+134	Grigoriev	格里戈里耶夫	音譯	
+135	Gryzlov	格雷茲洛夫	音譯	
+136	Guzev	古澤夫	音譯	
+137	Ilchenko	伊利琴科	音譯	
+138	Ivanov	伊凡諾夫	音譯	
+139	Ivanskaya	伊凡斯卡婭	音譯	陰性姓氏
+140	Kalina	卡利娜	音譯	
+141	Karasev	卡拉謝夫	音譯	
+142	Kirov	基洛夫	史實	謝爾蓋·基洛夫,蘇聯政治人物,1934年遇刺,非軍人
+143	Korolev	科羅廖夫	史實(存疑)	疑為蘇聯太空計畫總設計師謝爾蓋·科羅廖夫,非二戰人物
+144	Krakovsky	克拉科夫斯基	音譯	
+145	Krupskaya	克魯普斯卡婭	史實	娜傑日達·克魯普斯卡婭,列寧夫人,非軍人,陰性姓氏
+146	Kuibishev	古比雪夫	史實	瓦列里安·古比雪夫,蘇聯政治人物,城市古比雪夫(今薩馬拉)以其命名,非軍人,原拼法與標準 Kuibyshev 略有出入
+147	Kvitinsky	克維京斯基	音譯	
+148	Larionov	拉里奧諾夫	音譯	
+149	Lelyushenko	列柳申科	史實	德米特里·列柳申科,蘇聯戰車兵上將,二戰名將,兩度蘇聯英雄
+150	Lisitsky	利西茨基	史實(存疑)	疑為前衛藝術/平面設計家 El Lissitzky(拉扎爾·利西茨基)
+151	Luchinsky	盧欽斯基	史實(存疑)	可能對應蘇聯二戰上將 Alexander Luchinsky
+152	Lyakhovich	利亞霍維奇	音譯	
+153	Lysenko	李森科	史實(存疑)	疑為生物學家特羅菲姆·李森科(李森科主義),史達林時期政治科學史人物
+154	Maechich	馬耶奇奇	音譯	拼法不典型於俄語姓氏構詞
+155	Malenkhov	馬林科夫	史實(存疑)	拼法 Malenkhov 較標準拼法 Malenkov 多一字母,疑指蘇聯部長會議主席格奧爾基·馬林科夫,譯名採標準譯法
+156	Masaryk	馬薩里克	音譯	疑似捷克姓氏 Masaryk 之拼字巧合,非蘇聯人物
+157	Mayakovsky	馬雅可夫斯基	史實	弗拉基米爾·馬雅可夫斯基,蘇聯詩人,非軍人
+158	Mikhoels	米霍埃爾斯	史實(存疑)	疑為演員/劇場導演所羅門·米霍埃爾斯,1948年遭史達林政權暗殺
+159	Mironov	米羅諾夫	音譯	
+160	Mishchenko	米先科	音譯	
+161	Morozov	莫羅佐夫	音譯	
+162	Nemchinov	涅姆奇諾夫	音譯	
+163	Nevsky	涅夫斯基	史實	亞歷山大·涅夫斯基,中世紀羅斯統帥/諾夫哥羅德大公,非二戰但為著名俄國軍事史人物
+164	Nikitin	尼基京	音譯	
+165	Nikolaev	尼古拉耶夫	音譯	
+166	Orenkhova	奧倫科娃	音譯	陰性姓氏
+167	Pavelic	帕維利奇	音譯	疑似拼字巧合,非蘇聯陣營人物
+168	Petrenko	彼得連科	音譯	
+169	Petrova	彼得羅娃	音譯	陰性姓氏
+170	Piatakov	皮亞塔科夫	史實(存疑)	疑為老布爾什維克格里戈里·皮亞塔科夫,1937年莫斯科審判受害者,與同表 Bukharin/Rykov/Tomsky 同屬清黨受害者脈絡
+171	Plotnikov	普洛特尼科夫	音譯	
+172	Popov	波波夫	史實(存疑)	可能對應蘇聯二戰上將 Markian Popov,惟姓氏本身極常見
+173	Prokhazka	普羅哈茲卡	音譯	拼法為捷克姓氏 Procházka,非典型俄語姓氏,國籍與蘇聯陣營不符,可能為拼字巧合
+174	Radziyevsky	拉濟耶夫斯基	史實(存疑)	可能對應蘇聯戰車兵上將 Alexei Radzievsky
+175	Rodos	羅多斯	音譯	
+176	Rossovich	羅索維奇	音譯	
+177	Rostovich	羅斯托維奇	音譯	
+178	Rutskoi	魯茨科伊	史實(存疑)	疑為俄羅斯副總統亞歷山大·魯茨科伊(1991-93),1993年憲政危機要角,時代貼近本作製作年代
+179	Rykov	李可夫	史實	阿列克謝·李可夫,蘇聯政治人物,曾任人民委員會主席,非軍人
+180	Savin	薩溫	音譯	
+181	Semenov	謝苗諾夫	音譯	
+182	Shcherbakov	謝爾巴科夫	史實(存疑)	疑為蘇聯政治將領亞歷山大·謝爾巴科夫,二戰期間任蘇聯新聞局局長
+183	Sikorsky	西科爾斯基	音譯	拼法/國籍與波蘭流亡總理 Sikorski 或美籍工程師 Igor Sikorsky 均不完全吻合
+184	Smirnov	斯米爾諾夫	音譯	
+185	Stakhanov	斯達漢諾夫	史實	阿列克謝·斯達漢諾夫,「斯達漢諾夫運動」礦工代表,非軍人
+186	Stanislavsky	史坦尼斯拉夫斯基	史實	康斯坦丁·史坦尼斯拉夫斯基,戲劇家/演技體系創始人,非軍人
+187	Svetlov	斯維特洛夫	音譯	
+188	Tereshkova	捷列什科娃	音譯	首位女性太空人瓦倫蒂娜·捷列什科娃同姓,邏輯同128 Gagarin,非二戰人物,陰性姓氏
+189	Tomsky	托姆斯基	史實(存疑)	疑為工會領袖米哈伊爾·托姆斯基,與 Bukharin/Rykov 同屬「右翼反對派」三人組,信心較高
+190	Turgenev	屠格涅夫	史實	伊凡·屠格涅夫,19世紀小說家,非軍人,非蘇聯時代
+191	Ulanov	烏拉諾夫	音譯	
+192	Vasilevsky	華西列夫斯基	史實	亞歷山大·華西列夫斯基,蘇聯元帥,二戰紅軍總參謀長
+193	Vayaslava	瓦亞斯拉娃	音譯	拼法不典型於標準俄語姓氏構詞,陰性姓氏
+194	Vladisov	弗拉迪索夫	音譯	拼法疑似簡化或虛構
+195	Vlasov	弗拉索夫	史實	安德烈·弗拉索夫,蘇聯中將,二戰被俘後投靠納粹德國,戰後處決
+196	Voslensky	沃斯連斯基	史實(存疑)	疑為蘇聯史學家米哈伊爾·沃斯連斯基(以研究蘇聯官僚特權階層著稱),信心中等偏低
+197	Vyshinsky	維辛斯基	史實	安德烈·維辛斯基,蘇聯檢察官/外交部長,大清洗主控官,非軍人
+198	Yazov	亞佐夫	史實(存疑)	疑為蘇聯末代國防部長德米特里·亞佐夫,1991年八月政變要角
+199	Zhikov	日科夫	音譯	
+200	Zorin	佐林	音譯	
+201	Abbot	艾伯特	音譯
+202	Alcock	奧爾科克	音譯
+203	Ashton	艾希頓	音譯
+204	Atkinson	艾金森	音譯
+205	Ballantine	巴倫泰	音譯
+206	Berry	貝里	音譯
+207	Billings	比林斯	音譯
+208	Blackmore	布萊克摩爾	音譯
+209	Blake	布萊克	音譯
+210	Brightwell	布萊特威爾	音譯
+211	Byrne	拜恩	音譯
+212	Campbell	坎貝爾	音譯
+213	Cartwright	卡特賴特	音譯
+214	Chamberlain	張伯倫	史實	極可能對應 Neville Chamberlain 內維爾·張伯倫,英國二戰前首相(綏靖政策),非軍人但著名二戰前夕人物
+215	Chesterfield	徹斯特菲爾德	音譯
+216	Collins	柯林斯	音譯
+217	Conroe	康羅	音譯
+218	Cooke	庫克	音譯
+219	Crawford	克勞福德	音譯
+220	Davies	戴維斯	音譯
+221	Dempsey	鄧普西	史實	Miles Dempsey 邁爾斯·鄧普西,英國陸軍上將,二戰指揮英國第二軍團,諾曼第戰役重要指揮官
+222	Devlin	德夫林	音譯
+223	Donaldson	唐納森	音譯
+224	Douglas	道格拉斯	音譯	極常見蘇格蘭姓氏,可能聯想二戰皇家空軍上將 Sholto Douglas,優先度低未特別查證
+225	Dunbar	鄧巴	音譯
+226	Edgeworth	艾奇沃斯	音譯
+227	Emerson	愛默生	音譯
+228	Evans	埃文斯	音譯
+229	Fairfax	費爾法克斯	音譯
+230	Ferguson	弗格森	音譯
+231	Fielding	費爾丁	音譯
+232	Finch	芬奇	音譯
+233	Finlay	芬利	音譯
+234	Forster	佛斯特	音譯
+235	Gallagher	蓋勒格	音譯
+236	Gordon	戈登	音譯	可能聯想 19 世紀「喀土穆的戈登」Charles George Gordon,非二戰人物,優先度低
+237	Graham	葛拉漢	音譯
+238	Gray	格雷	音譯
+239	Greene	格林	音譯
+240	Hardy	哈迪	音譯
+241	Harribey	哈里貝	音譯
+242	Harris	哈里斯	史實	Arthur "Bomber" Harris 亞瑟·哈里斯,英國皇家空軍轟炸機司令部司令,二戰知名將領,綽號「轟炸機哈里斯」
+243	Hawkins	霍金斯	音譯
+244	Hayes	海斯	音譯
+245	Higgins	希金斯	音譯
+246	Jenkins	詹金斯	音譯
+247	Kelley	凱利	音譯
+248	Kendall	肯達爾	音譯
+249	Kirke	柯克	音譯
+250	Knox	諾克斯	音譯
+251	Lane	萊恩	音譯
+252	Lawford	勞福德	音譯
+253	Lindsay	林賽	音譯
+254	Locke	洛克	音譯
+255	Lovejoy	洛夫喬伊	音譯
+256	MacLean	麥克連	音譯	可能聯想二戰特種作戰/南斯拉夫游擊隊聯絡官 Fitzroy Maclean,優先度低未特別查證
+257	Manchester	曼徹斯特	音譯
+258	Matheson	馬西森	音譯
+259	McAllister	麥卡利斯特	音譯
+260	McCloud	麥克勞德	音譯
+261	Mills	米爾斯	音譯
+262	Nash	納許	音譯
+263	Newman	紐曼	音譯
+264	Norman	諾曼	音譯
+265	Norris	諾里斯	音譯
+266	Oakes	奧克斯	音譯
+267	Oglethorpe	奧格爾索普	音譯
+268	O'Neill	歐尼爾	音譯
+269	Owen	歐文	音譯
+270	Parker	帕克	音譯
+271	Pearse	皮爾斯	音譯
+272	Poole	普爾	音譯
+273	Powell	鮑威爾	音譯
+274	Preston	普雷斯頓	音譯
+275	Quinn	奎恩	音譯
+276	Rainford	雷恩福德	音譯
+277	Ramsey	拉姆齊	音譯	拼法與 D-Day 海軍指揮官 Bertram Ramsay 的姓氏 Ramsay 不同(-ey 對 -ay),應屬巧合,按一般音譯處理
+278	Roberts	羅伯茲	音譯
+279	Robinson	羅賓森	音譯
+280	Ross	羅斯	音譯
+281	Rutlege	拉特利奇	音譯
+282	Sedgwick	塞奇威克	音譯
+283	Sharpe	夏普	音譯
+284	Smythe	史麥斯	音譯
+285	Stewart	史都華	音譯
+286	Stone	史東	音譯
+287	Sullivan	蘇利文	音譯
+288	Sutherland	蘇德蘭	音譯
+289	Thackeray	薩克萊	音譯
+290	Thornton	桑頓	音譯
+291	Townsend	湯森	音譯
+292	Trevor	特雷弗	音譯
+293	Turner	透納	音譯
+294	Waite	韋特	音譯
+295	Walker	沃克	音譯
+296	Watson	華生	音譯
+297	Wickingham	威金漢	音譯
+298	White	懷特	音譯
+299	Wolfe	沃爾夫	音譯
+300	Young	楊	音譯
+301	Adams	亞當斯	音譯	
+302	Allen	艾倫	音譯	
+303	Andratti	安德烈蒂	音譯	原文拼法 Andratti 近似義大利裔賽車手 Mario Andretti(標準譯名安德烈蒂),推測為變體拼法,音譯採相近讀音
+304	Andrews	安德魯斯	史實	法蘭克·安德魯斯 Frank M. Andrews,美國陸軍航空隊中將,安德魯斯空軍基地即以他命名,1943年殉職於冰島空難;信心度中高
+305	Armstrong	阿姆斯壯	音譯	
+306	Bell	貝爾	音譯	
+307	Black	布萊克	音譯	
+308	Boyd	博伊德	音譯	
+309	Bridges	布里吉斯	音譯	
+310	Brown	布朗	音譯	
+311	Butler	巴特勒	史實(存疑)	可能聯想史邁德利·巴特勒 Smedley Butler,美國海軍陸戰隊少將,但1940年(珍珠港事變前)已過世,非嚴格二戰將領,優先度中等,標記存疑
+312	Carson	卡森	音譯	
+313	Carter	卡特	音譯	
+314	Charles	查爾斯	音譯	
+315	Chase	切斯	音譯	
+316	Clark	克拉克	史實	馬克·韋恩·克拉克 Mark W. Clark,美國陸軍四星上將,二戰指揮美軍第五軍團,義大利戰役
+317	Cooper	庫柏	音譯	
+318	Cosby	寇斯比	音譯	英語常見姓氏,台灣慣用「寇斯比」(如已故藝人比爾·寇斯比),未採義大利語發音
+319	Curtis	寇蒂斯	音譯	
+320	Daniels	丹尼爾斯	音譯	
+321	Davis	戴維斯	音譯	
+322	Dickinson	狄金森	音譯	
+323	Doherty	多爾蒂	音譯	
+324	Doyle	道爾	音譯	
+325	Dunn	鄧恩	音譯	
+326	Eaton	伊頓	音譯	
+327	Edwards	愛德華茲	音譯	
+328	Elliot	艾略特	音譯	
+329	Farris	法里斯	音譯	
+330	Fenton	芬頓	音譯	
+331	Ford	福特	音譯	
+332	Fowler	佛勒	音譯	與334行Fuller(富勒)區隔用字
+333	Franklin	富蘭克林	音譯	
+334	Fuller	富勒	音譯	與332行Fowler(佛勒)區隔用字
+335	Garcia	賈西亞	音譯	西班牙語姓氏,採台灣慣用西語音譯
+336	Gold	戈德	音譯	
+337	Gomez	戈梅茲	音譯	西班牙語姓氏,採台灣慣用西語音譯
+338	Grant	格蘭特	音譯	可能聯想尤利西斯·格蘭特 Ulysses S. Grant,南北戰爭名將/總統,非二戰人物,優先度低,視為巧合,按一般音譯處理
+339	Hart	哈特	音譯	
+340	Hatch	哈奇	音譯	
+341	Howard	霍華德	音譯	
+342	Hunter	杭特	音譯	
+343	Irwin	厄文	音譯	
+344	Jackson	傑克森	音譯	
+345	Jensen	詹森	音譯	與346行Johnson(強森)區隔用字
+346	Johnson	強森	音譯	
+347	Jones	瓊斯	音譯	
+348	Kimble	金博爾	音譯	
+349	King	金	史實	歐尼斯特·金 Ernest J. King,美國海軍五星上將,二戰美國艦隊總司令暨海軍作戰部長;姓氏單獨音譯用「金」,與金恩博士(Martin Luther King)慣用譯法「金恩」區隔,本清單脈絡為海軍將領
+350	Kowalski	科瓦爾斯基	音譯	波蘭語姓氏,依波蘭語發音音譯
+351	Lang	朗	音譯	與354行Long(隆)區隔用字
+352	Lee	李	音譯	
+353	Lewis	路易斯	音譯	
+354	Long	隆	音譯	與351行Lang(朗)區隔用字
+355	Malone	馬龍	音譯	
+356	Marconi	馬可尼	音譯	與發明家馬可尼(Guglielmo Marconi)同姓,義大利語發音,直接借用標準譯名
+357	Martin	馬丁	音譯	
+358	Martinez	馬丁尼茲	音譯	西班牙語姓氏,採台灣慣用西語音譯
+359	McBride	麥克布萊德	音譯	
+360	Meyer	邁爾	音譯	
+361	Miller	米勒	音譯	
+362	Mills	米爾斯	音譯	與英式姓氏段261行同名,音譯一致,均採「米爾斯」
+363	Murphy	墨菲	音譯	可能聯想奧迪·墨菲 Audie Murphy,美國二戰最高獲勳戰爭英雄,但為士兵非將領,優先度低,按一般音譯處理
+364	Nelson	尼爾森	音譯	
+365	Nichols	尼可斯	音譯	
+366	Olson	奧爾森	音譯	
+367	O'Malley	歐馬利	音譯	
+368	Osborn	奧斯本	音譯	
+369	Palmer	帕瑪	音譯	
+370	Patterson	派特森	音譯	
+371	Perry	派瑞	音譯	
+372	Peterson	彼得森	音譯	
+373	Porter	波特	音譯	
+374	Pullman	普曼	音譯	
+375	Quick	奎克	音譯	
+376	Reed	里德	音譯	
+377	Reynolds	雷諾斯	音譯	
+378	Reilly	萊利	音譯	
+379	Richards	理查茲	音譯	
+380	Ritter	里特	音譯	
+381	Rogers	羅傑斯	音譯	
+382	Sanders	桑德斯	音譯	
+383	Scardino	斯卡迪諾	音譯	義大利語姓氏,依義大利語發音音譯
+384	Shaw	蕭	音譯	
+385	Simpson	辛普森	史實	威廉·胡德·辛普森 William Hood Simpson,美國陸軍上將,二戰指揮美軍第九軍團
+386	Smith	史密斯	音譯	
+387	Stearns	斯特恩斯	音譯	
+388	Taylor	泰勒	史實	馬克士威·泰勒 Maxwell D. Taylor,美國陸軍中將,二戰指揮101空降師,D-Day首位登陸法國的盟軍將官
+389	Thomas	湯瑪斯	音譯	
+390	Thompson	湯普森	音譯	
+391	Tucker	塔克	音譯	
+392	Updike	厄普代克	音譯	
+393	Vernon	弗農	音譯	
+394	Wallace	華勒斯	音譯	
+395	Washington	華盛頓	史實	喬治·華盛頓,美國開國元勳,非二戰人物;此姓氏收錄應屬愛國感取名而非影射特定二戰將領,仍採通行譯名「華盛頓」
+396	West	威斯特	音譯	
+397	Wilcox	威爾考克斯	音譯	
+398	Williams	威廉斯	音譯	
+399	Woods	伍茲	音譯	
+400	Youngblood	楊布拉德	音譯	

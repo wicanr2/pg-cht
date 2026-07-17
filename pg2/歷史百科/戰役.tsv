@@ -1,0 +1,54 @@
+scn	campaign	order	title_en	title_zh	date	category	brief_zh
+MADRID	CAMP1	1	Madrid Offensive	馬德里攻勢	1938-12-23	real	瓜達拉哈拉方向試探性攻勢,西班牙內戰場景,德國兀鷹軍團參戰
+CIECHAN	CAMP1	2	Ciechanow	切哈努夫	1939-09-05	real	入侵波蘭開戰第一週,德軍向切哈努夫、姆瓦瓦推進
+SUOMUSS	CAMP1	3	Suomussalmi	蘇奧穆薩爾米	1939-12-24	real	冬季戰爭,德軍以「志願軍」身分参戰(史實上德國未參戰,屬遊戲虛構安排)
+LILLEHAM	CAMP1	4	Lillehammer	利勒哈默爾	1940-04-20	real	德軍入侵挪威,向中部利勒哈默爾峽谷推進
+SEDAN	CAMP1	5	Sedan	色當	1940-05-13	real	曼施坦因計畫核心一擊,古德里安裝甲軍團突破阿登森林強渡默茲河
+RTD	CAMP1	6	Race To Dunkirk	搶攻敦克爾克	1940-05-21	real	德軍裝甲兵團競速搶占敦克爾克港,企圖切斷英法聯軍退路
+THERMOPY	CAMP1	7	Thermopylae	溫泉關	1941-04-17	real	巴爾幹戰役,德軍在溫泉關隘口對陣紐澳軍團
+WINDSOR	CAMP1	8	Windsor	溫莎	1940-09-01	alt-history	架空:假設德軍成功搶灘英國本土後,向溫莎推進切斷倫敦對外聯繫
+PTT	CAMP1	9	Pursuit to Tobruk	托布魯克追擊戰	1941-04-01	real	北非戰場,德義聯軍將英軍逐退至托布魯克
+TOBRUK	CAMP1	10	Tobruk	托布魯克	1941-04-08	real	隆美爾部隊圍攻托布魯克要塞
+MALTA	CAMP1	11	Malta	馬爾他	1941-05-24	alt-history	架空:對應史實中規劃卻從未執行的「大力神作戰」德義空降奪島計畫
+KISHINEV	CAMP1	12	Kishinev	基希涅夫	1941-07-09	real	巴巴羅薩開戰南翼,德軍協助羅馬尼亞盟軍收復比薩拉比亞基希涅夫
+NOVGOROD	CAMP1	13	Novgorod	諾夫哥羅德	1941-08-15	real	諾夫哥羅德以南斯塔拉亞魯薩方向,列寧格勒與莫斯科間的交通樞紐爭奪
+VOLOKOL	CAMP1	14	Volokolamsk	沃洛科拉姆斯克公路	1941-10-25	real	莫斯科會戰,德軍沿沃洛科拉姆斯克公路突進
+KLIN	CAMP1	15	Klin	克林	1941-11-15	real	莫斯科會戰尾聲,德軍試圖從克林合圍莫斯科
+WINDSOR1	CAMP1	16	Windsor	溫莎(續戰)	1943-04-01	alt-history	架空:溫莎戰役的高難度重演版本,循更高勝利等級分支抵達
+SAVANNAH	CAMP1	17	Savannah	薩凡納	1944-06-06	alt-history	架空:假設德軍登陸美國東岸,進逼薩凡納企圖攔腰切斷美國東部
+OAKRIDGE	CAMP1	18	Oak Ridge	橡樹嶺	1944-09-07	alt-history	架空:德軍深入美國本土,直指橡樹嶺原子彈研發設施(曼哈頓計畫影射)
+WINTER	CAMP1/CAMP2	19/1	Winter Storm	冬季風暴作戰	1942-12-12	real	德軍嘗試打通通往被圍第六軍團的補給線,呼應史實「冬季風暴作戰」
+PROK1	CAMP1/CAMP2	20/2	Zitadelle	堡壘作戰	1943-07-05	real	庫斯克會戰北鉗,德軍第9軍團向普羅霍羅夫卡方向鉗擊
+ANTISAL	CAMP1/CAMP2	21/3	Invasion Salerno	薩雷諾防禦戰(德方視角)	1943-09-11	real	德軍嘗試將薩雷諾灘頭盟軍逐回海裡
+GCAEN	CAMP1/CAMP2	22/4	Drive to the Sea	逐退入海	1944-06-06	real	諾曼第登陸當日,德軍嘗試在卡昂方向重創盟軍灘頭
+NORDWIND	CAMP1/CAMP2	23/5	Nordwind	北風作戰	1944-12-30	real	突出部之役尾聲,德軍在史特拉斯堡以北發動最後攻勢
+KONRAD	CAMP1/CAMP2	24/6	Operation Konrad	康拉德作戰	1945-01-14	real	德軍嘗試解圍被蘇軍包圍的布達佩斯
+SALERNO1	CAMP3	1	Salerno - Return To Europe	薩雷諾-重返歐陸	1943-09-27	real	美軍鞏固薩雷諾灘頭後向那不勒斯方向推進
+STLO	CAMP3	2	St. Lo - Advance on St. Lo	聖洛推進戰	1944-06-30	real	美軍在諾曼第樹籬鄉間向聖洛突擊,為突破作準備
+CAENUS	CAMP3	3	Caen - Operation Charnwood	卡昂-查恩伍德作戰	1944-07-07	real	盟軍第一階段奪取卡昂古城的攻勢(遊戲中安排為美軍分支)
+ARRACT	CAMP3	4	Arracourt	阿拉庫爾	1944-09-08	real	巴頓第三軍團與德軍新銳裝甲旅在南錫近郊阿拉庫爾爆發大規模戰車戰
+METZ	CAMP3	5	Metz	梅斯	1944-11-17	real	美軍圍攻德軍固守的要塞城市梅斯,準備突破齊格菲防線
+DESSAU	CAMP3	6	Dessau	德紹	1945-04-11	real	美軍搶在蘇軍之前奪取德紹實驗機場
+SALERNO2	CAMP4	1	Salerno - Return To Europe	薩雷諾-重返歐陸	1943-09-27	real	英軍角度的薩雷諾攻勢(與 SALERNO1 同一史實戰役)
+STLOUK	CAMP4	2	St. Lo - Advance on St. Lo	聖洛推進戰	1944-06-30	real	英軍角度的聖洛戰役分支
+CAENUK	CAMP4	3	Caen - Operation Goodwood	卡昂-古德伍德作戰	1944-07-17	real	蒙哥馬利部隊奪取卡昂後,發動古德伍德裝甲攻勢突破諾曼第
+ARRACTUK	CAMP4	4	Arracourt	阿拉庫爾	1944-09-08	real	英軍角度的阿拉庫爾戰役分支(與 ARRACT 同一史實戰役)
+METZUK	CAMP4	5	Metz	梅斯	1944-11-17	real	英軍角度的梅斯戰役分支
+DESSAUUK	CAMP4	6	Dessau	德紹	1945-04-11	real	英軍角度的德紹戰役分支
+SATURN	CAMP5	1	Saturn on the Chir	契爾河畔的土星作戰	1942-11-18	real	蘇軍嘗試切斷通往史達林格勒的軸心軍補給線(呼應史實小土星作戰)
+PROK2	CAMP5	2	Prokhorovka	普羅霍羅夫卡	1943-07-12	real	庫斯克會戰蘇軍角度,普羅霍羅夫卡裝甲會戰
+KANEV	CAMP5	3	Kanev	卡涅夫	1943-09-23	real	蘇軍強渡第聶伯河,卡涅夫方向突破
+LENIN	CAMP5	4	Leningrad	列寧格勒	1944-01-14	real	蘇軍打破德軍對列寧格勒近九百天的圍城
+VIIPURI	CAMP5	5	Viipuri	維堡	1944-06-15	real	蘇軍夏季攻勢逼迫芬蘭求和,兵鋒直指維堡(維普里)
+SEELOW	CAMP5	6	Seelow Heights	澤洛高地	1945-04-14	real	柏林戰役開幕戰,朱可夫部隊強攻澤洛高地
+TUTORIAL	standalone	-	Tutorial - Madrid Offensive	教學關-馬德里攻勢	-	tutorial	新手教學關,沿用馬德里攻勢地圖與部分兵力
+4PLAYER	standalone	-	Four Player Madness	四人混戰	1945-08-08	multiplayer	架空:虛擬時間點的四人對戰地圖,沿用波蘭切哈努夫地圖
+GIBRALT	standalone	-	Gibraltar or Bust	直布羅陀或死	1940-09-20	alt-history	架空:法國淪陷後軸心軍要求西班牙借道進攻直布羅陀遭拒,轉為進攻西班牙
+FINF	standalone	-	Finnish Finished?	芬蘭完蛋?	1945-06-15	alt-history	架空:延續性設定,芬蘭在德國協助下嘗試奪回一年前割讓給蘇聯的土地
+FINF4	standalone	-	Finnish Vacation	芬蘭假期	1945-08-01	multiplayer	FINF 的四人對戰版本
+CAULDRON	standalone	-	Cauldron	大鍋	1942-06-05	real	加查拉戰役著名階段,隆美爾裝甲部隊在「大鍋」地帶重創英軍反擊
+SAL3	standalone	-	Avalanche	雪崩作戰	1943-08-09	real	薩雷諾登陸戰史實代號「雪崩作戰」的獨立劇本版本
+STLO2	standalone	-	St. Lo - Operation Cobra	聖洛-眼鏡蛇作戰	1944-07-25	real	盟軍諾曼第大突破,眼鏡蛇作戰獨立劇本版本
+RED	standalone	-	Red Tide Rising	赤潮湧現	1945-06-01	alt-history	架空:戰後盟蘇互不信任演變為衝突,蘇軍在德紹近郊攻擊美英部隊(雙人版)
+MULTIRED	standalone	-	Red Tide Rising (3 Player)	赤潮湧現(三人版)	1945-06-01	multiplayer	RED 的三人對戰版本
+MULTIBEA	standalone	-	Caging the Bear (Multi)	困熊記(多人)	-	multiplayer	柏林近郊澤洛地圖的多人對戰劇本
