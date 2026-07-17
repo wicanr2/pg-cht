@@ -29,8 +29,10 @@
 | AG | 原始裝備 | 原始 SSI | Windows | `AlliedGeneral-原始裝備-windows.zip` | 12M | `5ebe60c1e9888668a05bc7a477f7d1b7` |
 | AG | 修改數值 | 重新平衡 | AppImage | `AlliedGeneral-修改數值-x86_64.AppImage` | 392M | `e9655b5cf265c3d263f1e44d22f28ac0` |
 | AG | 修改數值 | 重新平衡 | Windows | `AlliedGeneral-修改數值-windows.zip` | 12M | `04efdfbe4e81a6e784e8eba5ef5feda6` |
+| PG 完整版 | 含影片 | 原始 | AppImage | `PanzerGeneral-完整版-x86_64.AppImage` | 469M | `960f6d2fc0592a61efecca4a7189db2c` |
+| PG 完整版 | 含影片 | 原始 | Windows | `PanzerGeneral-完整版-windows.zip` | 89M | `ff3e9983136a7ee490e0360aa9cbfa69` |
 
-> **進行中(POC)**:PG 含過場影片完整版(PG95 CD 39 段 FMV,燒中文字幕)——影片播放已驗證可行;字幕 POC 與最終打包完成後會新增 PG 影片版 edition。啟動採全螢幕/borderless(不顯示 wine 虛擬桌面)。
+> **PG 含過場影片完整版(2026-07-17,已完成)**:PG95 CD 版的 39 段過場 FMV(`Movies/*.MOV`,AVI/msvideo1)包進中文化 PG,與基本版並存。**不加字幕**——POC 實測 39 段全為無聲二戰紀錄片 B-roll(無旁白/無畫面英文字),無可翻譯素材;依使用者「有英文語音才字幕」的條件不加。wine 實測全綠:影片經 MCI avivideo + 內建 `msvidc32.dll` 正常播放、啟動**不顯示 wine 虛擬桌面**(遊戲以原生視窗執行,AppRun 直接 `wine PG-cht.exe`)、中文戰役選單可玩。Windows 端影片未上真機驗證(理論可行,MS Video 1 解碼器內建於 Windows)。字幕管線已驗證(原生 292×216 + 不透明黑底粗體,不可放大),日後要加說明字幕可快速補。
 
 ## 內部裝備檔校驗(PANZEQUP.EQP,統一名)
 
