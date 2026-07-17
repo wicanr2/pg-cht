@@ -46,7 +46,53 @@ LEAD0, TRAIL0, TRAILW = 0x81, 0xA1, 94
 # function then DRAWS via drawStringCore (my hook). Flipping these to movzx de-crashes CJK.
 MEASURE_FIX_VAS = [0x43eb6d, 0x43eca4, 0x43fd1d, 0x43ff3c, 0x44001e]
 
+# --- word-wrap (drawWrappedText @0x43e752, the briefing/multi-line path) 2-byte hook ---
+# The render loop processes str[i] one byte at a time (i = word[ebp-0x1c]); it draws via
+# drawGlyph(dest,x,y,[0x4d74c4],ch,color) at 0x43e9e1 and advances x by glyphWidth.  We hook
+# the per-char classify/render entry 0x43e955 (`cmp dword[0x4ba744],1`, 7 bytes, a clean
+# branch target): a CJK lead byte -> draw the dense atlas glyph, advance x by the fixed 16px
+# atlas width, wrap at the rect edge, and skip the trail byte; anything else replays the
+# overwritten cmp and rejoins the native ASCII path at 0x43e95c.  Frame (ebp-relative):
+#   i=[ebp-0x1c]  str=[ebp+0x10]  penX=[ebp-0x14]  penY=[ebp-0x18]  line=[ebp-0x20]
+#   rectWidth=[ebp-0x28]  lineHeight=[ebp-0xc]  dest=[ebp+0x14]  color=[ebp+0xc]
+VA_WW_HOOK        = 0x43e955   # overwrite 7 bytes (83 3d 44 a7 4b 00 01)
+VA_WW_ASCII       = 0x43e95c   # rejoin (jle 0x43e983) after replaying the cmp
+VA_WW_BACKEDGE    = 0x43e804   # inc word[ebp-0x1c]; loop test
+WW_G_0x4ba744     = 0x4ba744   # DBCS-mode flag read by the replayed cmp
+
+# --- scenario-list TITLE truncation fix (readScenarioTitle @0x43dd0c) ---
+# Its per-byte classifier at 0x43dde0..0x43de39 (both the DBCS _isctype path and the direct
+# _pctype-table path) terminates the title's first line at the first byte whose ctype class
+# (& 0x157) is 0.  A high byte gets a nonsense class via a signed-char table underflow, so many
+# dense 2-byte CJK codes read as "class 0" and cut the title to 1-3 chars.  Fix: overwrite the
+# classifier with one that yields class 0 ONLY for the real line terminators \0 / \r / \n, so no
+# high byte ever truncates.  Stop test kept at 0x43de3a: `cmp [ebp-0x118],0 ; je end`.
+# Frame: i=word[ebp-0x10c], title buffer base=[ebp-8], class out dword[ebp-0x118].
+VA_TITLECLASS  = 0x43dde0
+TITLECLASS_LEN = 0x43de3a - VA_TITLECLASS   # 90 bytes (up to, not incl, the stop test)
+TITLECLASS_ORIG_HEAD = bytes.fromhex("833d44a74b00010f")  # cmp [0x4ba744],1 ; jle ...
+
 def va2file(va): return va - TEXT_VA_BASE + TEXT_RAW
+
+def assemble_titleclass(scratch):
+    asm = f"""bits 32
+org {VA_TITLECLASS:#x}
+    movsx eax, word [ebp-0x10c]     ; eax = i
+    mov   ecx, [ebp-8]              ; ecx = title buffer base
+    movzx eax, byte [ecx+eax]       ; al = str[i] (unsigned)
+    mov   dword [ebp-0x118], 1      ; class = 1 (keep) by default
+    test  al, al                    ; NUL?
+    jz    .stop
+    cmp   al, 0x0d                  ; CR?
+    jz    .stop
+    cmp   al, 0x0a                  ; LF?
+    jz    .stop
+    jmp   .done
+.stop:
+    mov   dword [ebp-0x118], 0      ; class = 0 -> terminate the line
+.done:
+"""
+    return nasm(asm, scratch, "titleclass_pg2")
 
 def nasm(asm, scratch, tag):
     src = os.path.join(scratch, f"{tag}.asm"); binf = os.path.join(scratch, f"{tag}.bin")
@@ -133,7 +179,64 @@ org {GWCLAMP_VA:#x}
 """
     return nasm(asm, scratch, "gwclamp")
 
-def build(exe_in, atlas_path, exe_out, scratch, lang_patch=True, ww_safe=False, measure_fix=False, gw_clamp=False):
+def assemble_wwstub(scratch, va, maxlead, count):
+    # va = absolute VA where this stub is placed (after the atlas). All atlas glyphs are 16px
+    # wide, so advance is a fixed +16 (no glyphWidth call -> immune to the gw-clamp byte-mask).
+    asm = f"""bits 32
+org {va:#x}
+    movsx eax, word [ebp-0x1c]        ; i
+    mov ecx, [ebp+0x10]               ; str base
+    movzx edx, byte [ecx+eax]         ; lead = str[i]
+    cmp dl, {LEAD0:#x}
+    jb .ascii
+    cmp dl, {maxlead:#x}
+    ja .ascii
+    movzx eax, byte [ecx+eax+1]       ; trail = str[i+1]
+    cmp al, {TRAIL0:#x}
+    jb .ascii
+    cmp al, 0xfe
+    ja .ascii
+    sub edx, {LEAD0:#x}
+    imul edx, edx, {TRAILW}
+    sub eax, {TRAIL0:#x}
+    add edx, eax                      ; edx = dense
+    cmp edx, {count}
+    jae .ascii
+    ; wrap: if penX + 16 > rectWidth -> new line (penX=0, penY+=lineHeight, line++)
+    movsx eax, word [ebp-0x14]
+    add eax, 16
+    movsx ecx, word [ebp-0x28]
+    cmp eax, ecx
+    jle .nowrap
+    mov word [ebp-0x14], 0
+    movsx eax, word [ebp-0x18]
+    add eax, 18                       ; CJK line height (16px glyph + 2px lead); the native
+    mov [ebp-0x18], ax                ; lineHeight [ebp-0xc]=~10 is for the 8px game font
+    inc word [ebp-0x20]
+.nowrap:
+    push dword [ebp+0xc]              ; color
+    push edx                          ; ch = dense
+    push {ATLAS_VA:#x}                ; font = atlas
+    movsx eax, word [ebp-0x18]
+    push eax                          ; y = penY
+    movsx eax, word [ebp-0x14]
+    push eax                          ; x = penX
+    push dword [ebp+0x14]             ; dest
+    call {VA_DRAWGLYPH:#x}
+    add esp, 0x18
+    mov ax, [ebp-0x14]
+    add ax, 16                        ; penX += 16 (fixed atlas advance)
+    mov [ebp-0x14], ax
+    inc word [ebp-0x1c]              ; consume trail; back-edge consumes lead
+    jmp {VA_WW_BACKEDGE:#x}
+.ascii:
+    cmp dword [{WW_G_0x4ba744:#x}], 1 ; replay the overwritten instruction
+    jmp {VA_WW_ASCII:#x}
+"""
+    return nasm(asm, scratch, "wwstub_pg2")
+
+
+def build(exe_in, atlas_path, exe_out, scratch, lang_patch=True, ww_safe=False, measure_fix=False, gw_clamp=False, ww_hook=False, title_fix=True):
     d = bytearray(open(exe_in, "rb").read())
     atlas = open(atlas_path, "rb").read()
     atlas_count = struct.unpack('<I', atlas[4:8])[0]
@@ -158,6 +261,14 @@ def build(exe_in, atlas_path, exe_out, scratch, lang_patch=True, ww_safe=False, 
         assert GWCLAMP_OFF + len(gwclamp) <= ATLAS_OFF and GWCLAMP_OFF >= STUB1_OFF + len(stub1)
         sect[GWCLAMP_OFF:GWCLAMP_OFF+len(gwclamp)] = gwclamp
     sect += atlas
+    wwstub = b""
+    if ww_hook:
+        ww_off = (len(sect) + 15) & ~15          # 16-align after the atlas
+        sect += bytes(ww_off - len(sect))
+        WWSTUB_VA = IMAGE_BASE + CJK_RVA + ww_off
+        wwstub = assemble_wwstub(scratch, WWSTUB_VA, maxlead, atlas_count)
+        sect += wwstub
+        print(f"[ww-hook] WWSTUB {len(wwstub)}B @{WWSTUB_VA:#x} (off {ww_off:#x})")
     vsize = len(sect)
     raw_off = len(d)
     assert raw_off % FILE_ALIGN == 0, f"raw_off {raw_off:#x} not file-aligned"
@@ -217,6 +328,26 @@ def build(exe_in, atlas_path, exe_out, scratch, lang_patch=True, ww_safe=False, 
         print(f"[measure-fix] {len(MEASURE_FIX_VAS)} glyphWidth-measure movsx->movzx: "
               + ",".join(hex(v) for v in MEASURE_FIX_VAS))
 
+    # patch WW-HOOK: overwrite the per-char classify/render entry with jmp WWSTUB (5 bytes)
+    # + 2 nop (original `cmp dword[0x4ba744],1` is 7 bytes). Coexists with ww-safe: CJK is
+    # handled by WWSTUB, ASCII replays the cmp and continues on the (movzx-safe) native path.
+    if ww_hook:
+        wf = va2file(VA_WW_HOOK)
+        assert bytes(d[wf:wf+7]) == bytes.fromhex("833d44a74b0001"), bytes(d[wf:wf+7]).hex()
+        d[wf:wf+5] = b"\xe9" + struct.pack('<i', WWSTUB_VA - (VA_WW_HOOK + 5))
+        d[wf+5:wf+7] = b"\x90\x90"
+        print(f"[ww-hook] drawWrappedText render hook @{VA_WW_HOOK:#x} -> WWSTUB @{WWSTUB_VA:#x}")
+
+    # patch TITLE-FIX: kill readScenarioTitle's byte-value truncation (scenario list names)
+    if title_fix:
+        tf = va2file(VA_TITLECLASS)
+        assert bytes(d[tf:tf+8]) == TITLECLASS_ORIG_HEAD, bytes(d[tf:tf+8]).hex()
+        code = assemble_titleclass(scratch)
+        assert len(code) <= TITLECLASS_LEN, f"titleclass {len(code)}B exceeds {TITLECLASS_LEN}B"
+        d[tf:tf+TITLECLASS_LEN] = code + b"\x90" * (TITLECLASS_LEN - len(code))
+        print(f"[title-fix] readScenarioTitle classifier @{VA_TITLECLASS:#x} -> \\0/\\r/\\n-only stop "
+              f"({len(code)}B +{TITLECLASS_LEN-len(code)} nop)")
+
     # patch 2: language default byte 0x09 -> 0x0C (French slot) — optional
     if lang_patch:
         assert d[LANG_FILE_OFF] == 0x09, hex(d[LANG_FILE_OFF])
@@ -236,4 +367,6 @@ if __name__ == "__main__":
     wws = "--ww-safe" in sys.argv
     mf = "--measure-fix" in sys.argv
     gwc = "--gw-clamp" in sys.argv
-    build(exe_in, atlas, exe_out, scratch, lang_patch=lang, ww_safe=wws, measure_fix=mf, gw_clamp=gwc)
+    wwh = "--ww-hook" in sys.argv
+    tfx = "--no-title-fix" not in sys.argv
+    build(exe_in, atlas, exe_out, scratch, lang_patch=lang, ww_safe=wws, measure_fix=mf, gw_clamp=gwc, ww_hook=wwh, title_fix=tfx)

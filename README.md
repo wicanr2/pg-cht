@@ -236,10 +236,10 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 
 | 畫面 | 內容 |
 |---|---|
-| ![PG2 繁中版:劇本選擇清單顯示中文](pg2/evidence/pg2-cjk-scenario-list.png) | **劇本選擇清單(遊戲原生畫面)** — 清單第 1 列劇本名已顯示中文「山地戰」,與其餘尚未套用翻譯的英文劇本名並列;證實 2-byte CJK 引擎能在原生清單元件即時繪字。逐字放大見 [`pg2-cjk-scenario-list-zoom.png`](pg2/evidence/pg2-cjk-scenario-list-zoom.png)。 |
+| ![PG2 繁中版:劇本選擇清單(全中文)](pg2/evidence/pg2-scenario-list-full-cht.png) | **劇本選擇清單(遊戲原生畫面)** — 劇本名全部以繁體中文完整顯示(克林 / 冬季風暴作戰 / 切哈努夫 / 列寧格勒 / 利勒哈默爾 / 北風作戰 / 卡昂-古德伍德作戰 / 卡昂-查恩伍德作戰 奧登河谷);2-byte CJK 引擎在原生 DirectDraw 清單元件即時繪字,標題截斷 bug(`readScenarioTitle` 的 ctype 分類器對高位元組誤判)已修。 |
 | ![PG2 繁中版:CJK 引擎渲染 UI 詞彙(word-wrap 實測)](pg2/evidence/pg2-briefing-wordwrap-cjk.png) | **CJK 引擎渲染實測(工程驗證畫面,非玩家會實際看到的單一遊戲畫面)** — 一次性餵入已完成翻譯的全部 UI 詞彙(國名 / 地形 / 兵種 / 指令)測試 word-wrap 繪字路徑,確認斷行正確、透明背景、無亂碼無白底。字形圖譜證明見 [`pg2-atlas-glyph-proof.png`](pg2/evidence/pg2-atlas-glyph-proof.png)。 |
 
-**現況**:PG2 是全新 Visual C++ / DirectDraw 引擎,與 PG1/AG 的 Borland Pascal 5D 引擎**不同源**,但畫面內點陣字與太平洋元帥同族。中文化走點陣字 **route C**(字高 8→16、2-byte 私有編碼 + 追加 `.cjk` 節 hook,已 wine PoC 綠);兩條繪字路徑(選單 / 清單的 drawStringCore、簡報多行的 word-wrap)的 2-byte hook **皆已完備**,全程 0 崩潰。採**英文(預設)槽注入中文**達成「開機即中文」(法語模式字型未載入會崩,故改走英文槽、免語言 patch)。資料檔(UI / 地形 / 裝備 / 劇本地名)已 100% 翻譯、指揮官姓名庫已考證、Windows 打包 DLL 已盤點(含 `dplayx.dll` 定案隨包)。**收尾中**:劇本清單標題截斷修復、戰役簡報散文補譯、ASCII/CJK 等高 polish、AppImage + Windows 打包。
+**現況**:PG2 是全新 Visual C++ / DirectDraw 引擎,與 PG1/AG 的 Borland Pascal 5D 引擎**不同源**,但畫面內點陣字與太平洋元帥同族。中文化走點陣字 **route C**(字高 8→16、2-byte 私有編碼 + 追加 `.cjk` 節 hook,已 wine PoC 綠);兩條繪字路徑(選單 / 清單的 drawStringCore、簡報多行的 word-wrap)的 2-byte hook **皆已完備**,全程 0 崩潰。採**英文(預設)槽注入中文**達成「開機即中文」(法語模式字型未載入會崩,故改走英文槽、免語言 patch)。資料檔(UI / 地形 / 裝備 / 劇本地名)與**戰役簡報散文已 100% 翻譯**(完整字集 1,579 字)、指揮官姓名庫已考證、**劇本清單標題截斷已修**(`readScenarioTitle` ctype 分類器 patch)、Windows 打包 DLL 已盤點(含 `dplayx.dll` 定案隨包)。**收尾中**:合併完整字集重建 atlas + 套全部翻譯的完整 build、ASCII/CJK 等高 polish、AppImage + Windows 打包。
 
 ### 文件索引
 
