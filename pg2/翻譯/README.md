@@ -36,6 +36,16 @@ PG2 可翻譯純文字資料檔(UI / 地形 / 裝備 / 指揮官 / 劇本地名)
 3. **SCENARIO 341 筆待複核**:東線/匈牙利冷僻村莊機械音譯,備註欄逐筆標可疑點(如 `Abostag`疑 Apostag)。
 4. **術語統一**:StuG 家族「三號自走砲 / 三號突擊砲」混用待統一;雪曼/謝爾曼擇一。「炮→砲」已訂正 7 筆;GUI97「Air Defense」雙義已按行 override。
 
+## 第二輪:戰役簡報散文([`briefings/`](briefings/))
+
+第一輪只譯 53 個「地名清單」檔;第二輪補完 `SCENARIO/` 其餘 **249 個未譯散文檔**——45 個 `*I.TXT` / `DTR*` / `GE*` / `RU*` / `UK*` / `US*` 的戰役簡報與勝敗分支文字(落敗 / 小勝 / 大勝 / 輝煌勝利各分支)+ 各獨立劇本開場白 + 6 條戰役總入口。
+
+- **軍事簡報語氣**:德軍「Herr General」→將軍閣下、「Herr Feldmarschall」→元帥閣下(隨劇情升遷)、蘇軍「Comrade」→同志、英美「Commander」→指揮官。
+- **結構 byte-exact 保留**(CRLF/LF、DOS 0x1A EOF、行數、縮排),自動化結構 diff 對 249 檔 0 誤差。
+- **249/249 完成**、471 行實質內容全譯;人名 / 地名對齊 [`../歷史百科/戰役.tsv`](../歷史百科/戰役.tsv) 與第一輪 glossary。
+- 檔案:[`briefings/briefings_glossary.tsv`](briefings/briefings_glossary.tsv)(382 行原↔譯)、`charset_full.txt`(**合併完整字集 1,579 唯一漢字**,供 atlas 重建)、`size_report_briefings.tsv`(無超限,最大 393 bytes vs 32KB)、pipeline 腳本。
+- 待複核:`Fedoroloka`(GE62I,近克林某地,暫音譯費多羅洛卡)、`Red Octobrists`(RU60L,蘇聯風味玩笑,暫譯紅色十月支隊)。
+
 ## 後續(建置階段)
 
 最終 **dense 2-byte 編碼** + 輸出 `*.fra` 由字型/EXE 建置階段做(見 [`../中文化規劃.md`](../中文化規劃.md) §7):收集 glossary 全 zh 字集 → 建 CJK atlas + dense 映射 → 重編碼各 master → 輸出 `GUI97.fra` / `EQUIP97.fra` / `MISC.fra` / `NAMES.fra` / `SCENARIO/*.fra`。
