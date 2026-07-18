@@ -14,10 +14,14 @@ byte to stop the page fault; it still double-counts CJK.  This patch REPLACES th
 stub in place so it is 2-byte aware:
 
   glyphWidth(font, ch):
-     if (signed)ch < 0:   -> a high byte read by a movsx measure loop -> return 8
-                             (half of the uniform 16px atlas glyph; lead+trail = 16)
+     if (signed)ch < 0:   -> a high byte read by a movsx measure loop -> return round(H/2)
+                             (half of the uniform HxH atlas glyph; lead+trail = H)
      else:                -> ASCII (0..0x7f) or atlas dense (STUB1 pushes a POSITIVE
                              dense) -> mask to byte + fall through to real glyphWidth.
+
+`H` (the atlas cell height) is a parameter (`build(exe_in, exe_out, font_h=16)` /
+CLI `[font_h]`, default 16 for backward compatibility with existing callers). Every font
+size this recipe has built (16/14/12px) uses this same half-width formula.
 
 Why the sign test is a reliable discriminator: EVERY measure loop reads the char with
 `movsx` (0f be ...), so a high CJK byte arrives sign-extended (negative).  The ONLY caller
@@ -46,11 +50,13 @@ def nasm(asm, tag):
     subprocess.run(["nasm", "-f", "bin", "-o", binf, src], check=True)
     return open(binf, "rb").read()
 
-NEW_GWCLAMP = f"""bits 32
+def gwclamp_asm(font_h):
+    half = round(font_h / 2)
+    return f"""bits 32
 org {GWCLAMP_VA:#x}
     cmp dword [esp+8], 0          ; ch arg (esp+0=ret, +4=font, +8=ch)
     jge .norm                    ; ch >= 0 -> ASCII (0..7f) or atlas dense (positive)
-    mov eax, 8                   ; high byte via movsx -> negative -> half of 16px atlas
+    mov eax, {half}               ; high byte via movsx -> negative -> half of {font_h}px atlas
     ret                          ; cdecl: caller cleans font+ch
 .norm:
     and dword [esp+8], 0xff       ; mask (harmless for ASCII; safety for dense>0xff)
@@ -61,7 +67,10 @@ org {GWCLAMP_VA:#x}
     jmp {GLYPHWIDTH_ENTRY+5:#x}
 """
 
-def build(exe_in, exe_out):
+# kept for any external code that imports the literal H=16 stub text
+NEW_GWCLAMP = gwclamp_asm(16)
+
+def build(exe_in, exe_out, font_h=16):
     d = bytearray(open(exe_in, "rb").read())
     # sanity: entry hook already redirects glyphWidth -> GWCLAMP
     assert d[va2file(GLYPHWIDTH_ENTRY)] == 0xE9, "glyphWidth entry not hooked"
@@ -71,12 +80,12 @@ def build(exe_in, exe_out):
     # sanity: existing stub begins with the old `and dword[esp+8],0xff`
     assert bytes(d[GWCLAMP_FILE:GWCLAMP_FILE+5]) == bytes.fromhex("8164240 8ff".replace(" ","")), \
         bytes(d[GWCLAMP_FILE:GWCLAMP_FILE+5]).hex()
-    stub = nasm(NEW_GWCLAMP, "gwclamp2b")
+    stub = nasm(gwclamp_asm(font_h), "gwclamp2b")
     assert len(stub) <= SLOT, f"new stub {len(stub)}B exceeds slot {SLOT:#x}"
     # clear the whole slot then write (keeps any trailing bytes zero, no atlas overrun)
     d[GWCLAMP_FILE:ATLAS_FILE] = stub + bytes(SLOT - len(stub))
     open(exe_out, "wb").write(d)
-    print(f"[gwclamp-2byte] new stub {len(stub)}B @ {GWCLAMP_VA:#x} (file {GWCLAMP_FILE:#x}); slot {SLOT:#x}")
+    print(f"[gwclamp-2byte] font_h={font_h} half={round(font_h/2)}; new stub {len(stub)}B @ {GWCLAMP_VA:#x} (file {GWCLAMP_FILE:#x}); slot {SLOT:#x}")
     print(f"[gwclamp-2byte] disasm:\n" + subprocess.run(
         ["objdump","-D","-b","binary","-m","i386","-M","intel",
          f"--adjust-vma={GWCLAMP_VA:#x}","/tmp/gwclamp2b.bin"],
@@ -84,4 +93,5 @@ def build(exe_in, exe_out):
     print(f"[gwclamp-2byte] wrote {exe_out} ({len(d)} bytes)")
 
 if __name__ == "__main__":
-    build(sys.argv[1], sys.argv[2])
+    fh = int(sys.argv[3]) if len(sys.argv) > 3 else 16
+    build(sys.argv[1], sys.argv[2], font_h=fh)

@@ -14,6 +14,14 @@ Hook site 0x43e699 (`0f bf 45 f0 8b 4d 14`): overwrite first 5 bytes with jmp ST
 drawGlyph(dest,x,y,font,ch,xlat) @0x41b033 ; glyphWidth(font,ch) @0x41b013.
 Stub uses only eax/ecx/edx (ebx/esi/edi hold the caller's saved regs, restored at
 the function epilogue, so they must NOT be clobbered).
+
+Font size: STUB1 (drawStringCore, the main-menu/list/status-bar draw path) advances penX
+by a real glyphWidth(atlas, dense) call, so it auto-follows whatever height H the atlas
+was baked at -- no patch needed there for a font-size change. WWSTUB (word-wrap, the
+briefing-prose path) instead uses a FIXED advance (all atlas glyphs are H px square, so a
+measure call would be redundant) -- that fixed advance and the wrapped line height (H+2)
+are parametrized via build(..., font_h=H) / --font-h H (CLI), default 16 for backward
+compatibility with existing callers that don't pass it.
 """
 import struct, subprocess, os, sys
 
@@ -179,9 +187,12 @@ org {GWCLAMP_VA:#x}
 """
     return nasm(asm, scratch, "gwclamp")
 
-def assemble_wwstub(scratch, va, maxlead, count):
-    # va = absolute VA where this stub is placed (after the atlas). All atlas glyphs are 16px
-    # wide, so advance is a fixed +16 (no glyphWidth call -> immune to the gw-clamp byte-mask).
+def assemble_wwstub(scratch, va, maxlead, count, font_h=16):
+    # va = absolute VA where this stub is placed (after the atlas). All atlas glyphs are
+    # font_h px wide, so advance is a fixed +font_h (no glyphWidth call -> immune to the
+    # gw-clamp byte-mask). Line height is font_h+2 (glyph + 2px lead), parametrized so the
+    # same stub works for any atlas cell size (16/14/12px have all been built with this).
+    lineh = font_h + 2
     asm = f"""bits 32
 org {va:#x}
     movsx eax, word [ebp-0x1c]        ; i
@@ -202,15 +213,15 @@ org {va:#x}
     add edx, eax                      ; edx = dense
     cmp edx, {count}
     jae .ascii
-    ; wrap: if penX + 16 > rectWidth -> new line (penX=0, penY+=lineHeight, line++)
+    ; wrap: if penX + font_h > rectWidth -> new line (penX=0, penY+=lineHeight, line++)
     movsx eax, word [ebp-0x14]
-    add eax, 16
+    add eax, {font_h}
     movsx ecx, word [ebp-0x28]
     cmp eax, ecx
     jle .nowrap
     mov word [ebp-0x14], 0
     movsx eax, word [ebp-0x18]
-    add eax, 18                       ; CJK line height (16px glyph + 2px lead); the native
+    add eax, {lineh}                  ; CJK line height (font_h glyph + 2px lead); the native
     mov [ebp-0x18], ax                ; lineHeight [ebp-0xc]=~10 is for the 8px game font
     inc word [ebp-0x20]
 .nowrap:
@@ -225,7 +236,7 @@ org {va:#x}
     call {VA_DRAWGLYPH:#x}
     add esp, 0x18
     mov ax, [ebp-0x14]
-    add ax, 16                        ; penX += 16 (fixed atlas advance)
+    add ax, {font_h}                  ; penX += font_h (fixed atlas advance)
     mov [ebp-0x14], ax
     inc word [ebp-0x1c]              ; consume trail; back-edge consumes lead
     jmp {VA_WW_BACKEDGE:#x}
@@ -236,7 +247,7 @@ org {va:#x}
     return nasm(asm, scratch, "wwstub_pg2")
 
 
-def build(exe_in, atlas_path, exe_out, scratch, lang_patch=True, ww_safe=False, measure_fix=False, gw_clamp=False, ww_hook=False, title_fix=True):
+def build(exe_in, atlas_path, exe_out, scratch, lang_patch=True, ww_safe=False, measure_fix=False, gw_clamp=False, ww_hook=False, title_fix=True, font_h=16):
     d = bytearray(open(exe_in, "rb").read())
     atlas = open(atlas_path, "rb").read()
     atlas_count = struct.unpack('<I', atlas[4:8])[0]
@@ -266,9 +277,9 @@ def build(exe_in, atlas_path, exe_out, scratch, lang_patch=True, ww_safe=False, 
         ww_off = (len(sect) + 15) & ~15          # 16-align after the atlas
         sect += bytes(ww_off - len(sect))
         WWSTUB_VA = IMAGE_BASE + CJK_RVA + ww_off
-        wwstub = assemble_wwstub(scratch, WWSTUB_VA, maxlead, atlas_count)
+        wwstub = assemble_wwstub(scratch, WWSTUB_VA, maxlead, atlas_count, font_h=font_h)
         sect += wwstub
-        print(f"[ww-hook] WWSTUB {len(wwstub)}B @{WWSTUB_VA:#x} (off {ww_off:#x})")
+        print(f"[ww-hook] WWSTUB {len(wwstub)}B @{WWSTUB_VA:#x} (off {ww_off:#x}) font_h={font_h} lineh={font_h+2}")
     vsize = len(sect)
     raw_off = len(d)
     assert raw_off % FILE_ALIGN == 0, f"raw_off {raw_off:#x} not file-aligned"
@@ -369,4 +380,7 @@ if __name__ == "__main__":
     gwc = "--gw-clamp" in sys.argv
     wwh = "--ww-hook" in sys.argv
     tfx = "--no-title-fix" not in sys.argv
-    build(exe_in, atlas, exe_out, scratch, lang_patch=lang, ww_safe=wws, measure_fix=mf, gw_clamp=gwc, ww_hook=wwh, title_fix=tfx)
+    fh = 16
+    if "--font-h" in sys.argv:
+        fh = int(sys.argv[sys.argv.index("--font-h") + 1])
+    build(exe_in, atlas, exe_out, scratch, lang_patch=lang, ww_safe=wws, measure_fix=mf, gw_clamp=gwc, ww_hook=wwh, title_fix=tfx, font_h=fh)
