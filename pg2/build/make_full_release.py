@@ -30,7 +30,26 @@ erase RECT).
     -> patch_null_guard.build                                  [_output NULL guard]
     -> patch_gwclamp_2byte.build(font_h=H)                     [2-byte-aware width measure]
     -> patch_status_clear.build(fontH=H)                       [status-bar clear-box residue fix]
+    -> patch_briefing_wrapcount_clone.build                    [briefing wrap/line-count clone -> orig ctype]
   => <out>/PANZER2.EXE
+
+--- Why the 7th patch (briefing wrap/line-count clone) ---
+The step-3 _pctype repoint fixes scenario/campaign list truncation + status bar + the
+requisition family at their root, but its blast radius reaches the on-map campaign/advisor
+briefing panel, collapsing its tall full-text window (repo hero shot
+evidence/pg2-campaign-briefing-cht.png) into a short box that spills onto the map. Wine A/B
+localized the true cause to countLines @0x43fdd5 -- the wrap/line-count routine that sizes
+the box HEIGHT -- NOT measureWidthMultiline @0x43eba0 (whose line count is '\n'-based and
+ctype-independent; a clone of it was proven a no-op, and suppressing briefing_open @0x460f17
+left the box intact). countLines classifies each byte via [0x4ba538] (0x43ff02/0x43ffc5);
+post-repoint a CJK byte reads the 0x0100 (_ALPHA) shadow -> "unbreakable" -> the wrapper can
+not break the CJK run -> few lines -> collapse. A global revert is wrong: countLines has 19
+callers (the repoint doc's "requisition family" reads ARE these). So step 7 clones countLines
+into a fresh .brm section, changes ONLY its two ctype-table bases back to the original
+0x4ba542, and redirects ONLY the two on-map briefing box drawers (0x456e01 in fn 0x456d32,
+0x457000 in fn 0x456efb). The shared routine and its other 17 callers are byte-untouched ->
+zero blast radius. Proven in wine: tall full-text box restored, 0 page faults. See
+patch_briefing_wrapcount_clone.py.
 
 NOTE on title_fix / the "5 ctype classifier" patches: build_hooked_exe_pg2.py can patch
 the readScenarioTitle classifier (title_fix=True) and extend_titlefix.py can patch its 4
@@ -199,11 +218,20 @@ def main():
                     guard, gwclamped, str(FONT_H)], check=True)
 
     # 6. status-bar clear-box residue fix (bottom = top + FONT_H + 1)
-    hooked_final = os.path.join(BUILD, "PANZER2.EXE")
+    statusclear = os.path.join(BUILD, "statusclear.exe")
     subprocess.run([sys.executable, os.path.join(TOOLS, "patch_status_clear.py"),
-                    gwclamped, hooked_final, str(FONT_H)], check=True)
+                    gwclamped, statusclear, str(FONT_H)], check=True)
 
-    # 7. game dir: fresh hardlink copy of the pristine extract, swap in hooked EXE
+    # 7. briefing-only countLines (@0x43fdd5) clone that reads the ORIGINAL _pctype table
+    #    (0x4ba542), undoing the step-3 repoint blast-radius on the on-map campaign/advisor
+    #    briefing panel ONLY. The shared routine 0x43fdd5 and its 17 other callers stay
+    #    byte-identical (only the 2 box-drawer callers 0x456e01/0x457000 are redirected).
+    #    Only ordering requirement: after the repoint (step 3).
+    hooked_final = os.path.join(BUILD, "PANZER2.EXE")
+    subprocess.run([sys.executable, os.path.join(TOOLS, "patch_briefing_wrapcount_clone.py"),
+                    statusclear, hooked_final], check=True)
+
+    # 8. game dir: fresh hardlink copy of the pristine extract, swap in hooked EXE
     if os.path.exists(GAME):
         shutil.rmtree(GAME)
     subprocess.run(["cp", "-al", SRC_GAME, GAME], check=True)
@@ -211,7 +239,7 @@ def main():
     os.remove(ge)
     shutil.copy(hooked_final, ge)
 
-    # 8. encode ALL English-slot loose data files
+    # 9. encode ALL English-slot loose data files
     print("=== encoding loose data files ===")
     warnings = []
     for f in TOP_FILES:
@@ -235,7 +263,7 @@ def main():
             warnings.append(f"SCENARIO/{gfn} {sz}B > 32KB")
     print(f"  SCENARIO: {n_enc} files encoded, {scen_over} over 32KB")
 
-    # 9. sanity
+    # 10. sanity
     d = open(ge, "rb").read()
     hf = 0x43e699 - 0x401000 + 0x400
     gf = 0x41b013 - 0x401000 + 0x400
@@ -245,6 +273,15 @@ def main():
     print(f"  main hook @0x43e699 = 0x{d[hf]:02x} (want e9)")
     print(f"  gwclamp   @0x41b013 = 0x{d[gf]:02x} (want e9)")
     print(f"  ww-hook   @0x43e955 = 0x{d[wf]:02x} (want e9)")
+    # briefing clone: the 2 box-drawer callers must now target the .brm countLines clone
+    for cva in (0x456e01, 0x457000):
+        cf = cva - 0x401000 + 0x400
+        ctgt = cva + 5 + struct.unpack_from('<i', d, cf+1)[0]
+        print(f"  briefing drawer @0x{cva:x} -> 0x{ctgt:x} (want a .brm clone VA, NOT 0x43fdd5)")
+        assert ctgt != 0x43fdd5 and ctgt >= 0x5c0000, f"caller 0x{cva:x} not redirected: 0x{ctgt:x}"
+    # shared countLines @0x43fdd5 must be byte-identical to stock (still reads [0x4ba538])
+    mf = 0x43fdd5 - 0x401000 + 0x400
+    assert d[mf+0x12d:mf+0x12d+6] == bytes.fromhex("8b0d38a54b00"), "shared 0x43fdd5 was modified!"
     print(f"  size = {len(d)} bytes  md5={__import__('hashlib').md5(d).hexdigest()}")
     n_scen_game = len(glob.glob(os.path.join(GAME, "SCENARIO", "*.TXT"))) + \
                   len(glob.glob(os.path.join(GAME, "SCENARIO", "*.txt")))
