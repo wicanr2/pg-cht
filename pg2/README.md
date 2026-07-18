@@ -13,6 +13,7 @@ PG2 是**全新 VC++/DirectDraw 引擎**(與 PG1/AG 的 Borland Pascal 5D 引擎
 ## 檔案
 
 - **[中文化規劃.md](中文化規劃.md)** —— 完整技術盤點、雙管線文字機制實測、字型 / 編碼 / 解析度方案、wine 可跑性實測、里程碑 / 風險 / 參考。全篇標 `[已實測]`/`[推定]`/`[未探索]`。
+- **[中文化經驗-方法論.md](中文化經驗-方法論.md)** —— 從本輪實作萃取的可重用方法論,面向日後其他閉源 DirectDraw 老遊戲 CJK 中文化。
 - `evidence/` —— wine 實測截圖證據:
   - `wine-titlescreen-640x480x8.png` —— 原生 640×480×8 下抵達 **PANZER GENERAL II 標題畫面**(顏色錯亂為 8-bit 調色盤擷取假影,非故障)
   - `wine-ddraw-init-failed.png` —— 桌面尺寸不符時的「DirectDraw Init FAILED」全螢幕切模式障礙
