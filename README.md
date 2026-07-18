@@ -1,5 +1,7 @@
 # SSI 5D General 系列繁體中文化 — 裝甲元帥 / 盟軍元帥 / 太平洋元帥 / 裝甲元帥2
 
+1994 年,《裝甲元帥》讓一整代玩家第一次體會到「這支部隊是我的」——同一個裝甲師從波蘭戰役一路打到北非、打到莫斯科城下,士兵越打經驗值越高,手上攢的聲望點數決定下一步要換裝虎式戰車還是多買一個空降營,而戰役的勝負甚至會把你送去不同的下一場仗。SSI 把二戰歐陸戰場濃縮進六角格地圖與一套薪水般直白的「聲望」系統,卻留住了「養一支子弟兵」的牽掛——這支部隊你捨不得讓它送死,因為它是跟你打過整場大戰的老兵。這份感情,加上四款作品各自的戰場(裝甲元帥的西線閃擊、盟軍元帥的盟軍視角反攻、太平洋元帥的跳島血戰、裝甲元帥2 更立體精緻的戰場美術),是這個系列 30 年後還有人願意花時間中文化的理由。這套「部隊跨戰役成長」的設計哲學是怎麼來的,並非 SSI 憑空想出來——詳見下方〈[電玩簡史:六角格戰棋的系譜,與《大戰略》的影子](#電玩簡史六角格戰棋的系譜與大戰略的影子)〉一節。
+
 這個 repo 收錄 SSI「5D General」六角格戰棋系列四款作品的繁體中文化:《裝甲元帥》(Panzer General, 1994)、《盟軍元帥》(Allied General, 1995)、《太平洋元帥》(Pacific General, 1997)、《裝甲元帥2》(Panzer General II, 1997)。每款都在現代環境(Ubuntu Wine / Windows 10-11)跑通,並打包成 Linux AppImage 與 Windows 單檔分發格式。
 
 本 repo 不含遊戲本體(版權所有)、已配置的 WINEPREFIX、最終 AppImage / SFX / zip 二進位,只放可重做的腳本、構建材料、技術文件、截圖。
@@ -17,6 +19,43 @@
 
 ---
 
+## 電玩簡史:六角格戰棋的系譜,與《大戰略》的影子
+
+上面這張表列的是四款遊戲的「現在」。要理解《裝甲元帥》為何長成這個樣子——為什麼是聲望點數而不是精算後勤的補給噸位、為什麼一支部隊可以帶著經驗打完整場戰爭——得先往回推十年,推到 SSI 原本在做的另一種戰棋,以及太平洋對岸的一套日本作品。
+
+1980 年代的 SSI 是 Gary Grigsby 那一掛硬派戰棋的大本營:《War in Russia》《Kampfgruppe》《Battles of Napoleon》這類作品把後勤、彈藥、指揮鏈算到接近兵推規則書的細緻程度,受眾是願意啃厚手冊的資深戰棋玩家。《裝甲元帥》的企劃在 SSI 內部起初並不順利——負責劇本設計的 Chuck Kroegel 後來形容這款遊戲的結構「與 SSI 過去做慣的 Gary Grigsby 式遊戲截然相反」,創辦人 Joel Billings 起初也對這個方向有所遲疑。
+
+讓 SSI 團隊轉向的,是另一條六角格戰棋系譜。日本 System Soft 從 1985 年的《現代大戦略》(PC-98)開始發展《大戦略》(Daisenryaku)系列——同樣是六角格、同樣是戰爭題材,初代賣出約 2 萬套,1987 年的《大戦略 II》賣到 5 萬套,並陸續移植到 Famicom(1988)、Mega Drive(《Super 大戦略》,1989)等主機。1991 年,Sega 與 System Soft 合作,為 Mega Drive 推出《Advanced 大戦略 〜ドイツ電撃作戦〜》(*Advanced Daisenryaku: Deutsch Dengeki Sakusen*,直譯「德國閃擊作戰」)——一款讓玩家操作納粹德國一方打二戰的六角格戰棋,罕見支援 Sega Mega Modem 數據機連線對戰(當年家用主機上並不常見的規格)。此作只在日本發行,西方玩家多半是透過灰色進口卡帶接觸到。
+
+根據 Wikipedia 引用《Computer Gaming World》1994 年 9 月號(Alan Emrich,〈Rock 'n Roll Panzer Pushing〉)的說法,SSI 團隊當年正是靠這張日文版 Mega Drive 卡帶,反覆研究《Advanced 大戦略》的簡化設計,才走出跟 Gary Grigsby 系列完全不同的方向。SSI 的 Graeme Bayless 後來寫道,《大戦略》「厲害的地方在於,它把一個高度複雜的主題(二戰陸戰)濃縮到只剩下最關鍵的部分」。這個轉向份量有多重,劇本設計者 Chuck Kroegel 說得更直接——這句話輾轉見於 *Retro Gamer* 第 43 期(2007 年 11 月,Craig Ritchie 所寫的 SSI 開發回顧專文)的轉述,本文未能直接取得該期原始掃描比對,語氣上保留:「老實說,如果我們沒玩過《大戦略》,《裝甲元帥》根本不會誕生。」
+
+《Advanced 大戦略》本身在西方懷舊評測裡評價並不算高——戰鬥步驟繁瑣、地形修正不明顯、不能就地生產新單位或徵召增援,今日回頭玩會覺得步調偏慢。但 SSI 拿走的不是這款遊戲的細部規則,而是它背後更根本的設計骨架:把二戰簡化成「一支部隊,一路升級,一路打完整場戰爭」。下表把兩者對照,查得到的部分照列,查無實據的部分保留語氣、不下斷言:
+
+| 面向 | Advanced 大戦略〜ドイツ電撃作戦〜(Sega MD,1991) | 裝甲元帥 Panzer General(SSI,1994) |
+|---|---|---|
+| 地圖 | 六角格,二戰戰場 | 六角格,操作層級(operational level)戰場 |
+| 兵種顆粒度 | 師級單位:步兵、騎兵、戰車、砲兵幾大類 | 上百款具體歷史編制的單位(虎式、豹式、Ju-87、U 艇⋯⋯),兵科分得更細 |
+| 地形效果 | 有,但西方評測認為效果不明顯(森林等修正命中率但感受不強) | 地形明確修正移動力消耗與戰鬥修正值(森林 / 丘陵 / 河流等) |
+| 補給 / 整補 | 需開回基地整補彈藥,查證資料顯示無法就地生產新單位或徵兵 | 未移動單位每回合依鄰近敵軍 / 地形 / 天氣自動回補彈藥燃料,城市內滿補;新單位靠聲望在戰役間購買 |
+| 資源 / 購兵系統 | 查證資料未詳述本作明確的資金購兵機制,保留不下斷言 | 聲望點數(prestige):攻佔城市、消滅敵軍、快速取勝賺得,用於購買新單位、補充損耗、升級裝備 |
+| 部隊經驗值 | 評測提及單位「可升級」,但是否跨戰役保留、保留到什麼程度,查證資料未載明細節 | 明確:單位戰鬥後獲得經驗值,升級並可能獲得王牌指揮官加成;核心部隊帶著經驗打過整條戰役線 |
+| 戰役結構 | 有戰役模式與單一劇本模式 | 分支戰役:依戰果(如速勝 / 傷亡程度)決定下一場打哪個劇本,例如巴巴羅薩大勝可直取莫斯科 |
+| ZOC(控制區) | 查證資料未提及是否採用同等規則,存疑不下斷言 | 官方手冊明載:單位對周圍六格施加控制區,敵方地面單位進入即被迫停止移動、須攻擊或結束回合;地面 / 空中控制區互不影響 |
+| 視角與規格 | 罕見讓玩家操作納粹德國視角打二戰,支援 Mega Modem 連線對戰 | 同樣以德軍視角開局(續作《盟軍元帥》才切換盟軍視角),隨戰役推進橫跨整個歐陸戰場 |
+
+整體來看,兩者的親緣關係更多在「設計哲學」而非「規則移植」——《大戦略》示範了「簡化 + 部隊養成」這條路走得通,《裝甲元帥》則把它包進更精細的兵科表,與明確成文的聲望、ZOC 規則,變成西方玩家熟悉的樣子。這也是為什麼有些老玩家會說《裝甲元帥》像「西方版的大戰略」——這個講法在系譜上站得住腳,但兩者實際玩起來,終究是各自走了不同的細節路線。歷史證明這條路線是對的:《裝甲元帥》全價賣出逾 25 萬套,長年被 SSI 內部視為公司全類型最暢銷的作品,《Retro Gamer》2007 年的回顧報導稱它是「史上最暢銷的真正戰棋遊戲」。1997 年的續作《裝甲元帥2》延續同一套核心設計,並正式定名為「Living Battlefield」系列首作——這套「部隊會活過整場戰爭」的骨架,從一張日文 Mega Drive 卡帶開始,一路撐到了本 repo 收錄的四款作品。
+
+**查證來源**:
+- [Panzer General - Wikipedia](https://en.wikipedia.org/wiki/Panzer_General) — Development / Reception 段,引用 Fullerton《Game Design Workshop, 3rd Edition》(2014, p.477)、Alan Emrich〈Rock 'n Roll Panzer Pushing〉(*Computer Gaming World* No.122, 1994 年 9 月, pp.97–99)、Terry Coleman(*Computer Gaming World*, 1996)、T. Liam McDonald(GameSpot, 1997)
+- [Daisenryaku - Wikipedia](https://en.wikipedia.org/wiki/Daisenryaku) — 系列年表、《現代大戦略》1985 年起源、歷代主機移植
+- [Panzer General II - Wikipedia](https://en.wikipedia.org/wiki/Panzer_General_II) — 「Living Battlefield」系列定名、發售日期
+- [Advanced Daisenryaku(Mega Drive, 1991)— Enjoy Game Japan Museum](https://museum.enjoygamejapan.online/en/games/advanced-daisenryaku/)
+- [Advanced Daisenryaku(Mega Drive, 1991)— Sega Does](https://segadoes.com/2023/06/09/advanced-daisenryaku-mega-drive-1991/) — 兵科 / 地形 / 補給機制實測評論
+- [Panzer General 官方手冊(DOS 版,PDF)](https://www.gamesdatabase.org/Media/SYSTEM/Microsoft_DOS/manual/Formated/Panzer_General.pdf) — ZOC / 補給 / 聲望規則原文
+- Chuck Kroegel 引句轉引自 Craig Ritchie,〈Developer Lookback: Strategic Simulations Inc (Part 2 of 2)〉,*Retro Gamer* 第 43 期(2007 年 11 月),pp.82–87——本文透過次級摘引取得,未直接核對原始掃描,引用語氣保留
+
+---
+
 ## 共用資源
 
 - **[dist-manifest.md](pacgen/docs/knowledge-base/dist-manifest.md)** — 三部曲(PG/AG/PacGen)最終發佈套件(4 版本 × 2 平台,另加 PG 含過場影片完整版)的檔名、大小、md5 校驗清單;二進位本身不進 repo,集中於建置機本地 `dist-all/`。
@@ -28,6 +67,8 @@
 ---
 
 ## 裝甲元帥 (Panzer General)
+
+系列的起點,也是四款裡唯一從頭到尾只打德軍視角的一款——波蘭閃擊戰開場,一路打到北非與東線,〈電玩簡史〉一節講的那套「部隊帶著經驗跨戰役成長」設計,第一次包裝成完整商品就是這裡。
 
 把 SSI 1994 Win95 老遊戲 *Panzer General*(繁中化 patch 版,`PG-cht.exe`)在現代環境(Ubuntu 24.04 Wine 9 / Windows 10/11)跑通,並分別打包成兩種 self-contained 單檔分發格式:
 
@@ -191,6 +232,8 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 
 *Allied General*(SSI 1995,與 Panzer General **同引擎**)的繁體中文化。針對社群「Lite v1.1」重打包版(`AG.EXE` 2,167,611 bytes),完成 EXE 字串、資料檔、**烤在點陣圖裡的 UI**、開頭畫面標題全面中文化,並修掉重打包者藏的簽名。
 
+同一套引擎、同一套核心部隊成長機制,這次換你站到對面——從法國淪陷後的絕地反攻,一路打到諾曼第登陸與德國本土,體驗《裝甲元帥》裡「被打的那一方」如何逆轉成勝方視角。
+
 **完整技術細節**(遊戲簡介、中文化開頭畫面、完成項目、點陣圖 UI 中文化工作流、陣營主題 bug 連鎖、踩雷紀錄)搬到 **[`docs/allied-general.md`](docs/allied-general.md)**。
 
 ### 實機截圖(中文化開頭畫面)
@@ -211,6 +254,8 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 
 *Pacific General* (SSI/Mindscape 1997,5D General 系列末代)的繁中化與現代環境跑通指南。歷代三大誌 1997 從沒為這款寫過中文專欄;本節是 29 年後的補完。
 
+戰場換到太平洋,兵科也跟著換了一套邏輯:陸戰主力讓位給航空母艦、戰列艦、驅逐艦與艦載機,島嶼與補給線取代歐陸的城鎮與鐵路,核心部隊成長與聲望購兵的骨架不變,但「搶灘還是先取得制空權」的抉擇感是全新的。
+
 ### 實機截圖(wine,繁中版)
 
 | 畫面 | 內容 |
@@ -230,7 +275,7 @@ powershell -ExecutionPolicy Bypass -File windows-sfx\build_sfx.ps1 `
 
 ## 裝甲元帥2 (Panzer General II)
 
-《裝甲元帥2》(Panzer General II,SSI 1997)是 5D General 家族第四款,全新 VC++/DirectDraw 引擎。繁中化**已完成並打包**:全部 UI / 地形 / 裝備 / 指揮官 / 302 個劇本地名 + 戰役簡報散文中文化,自建 2-byte CJK 引擎(atlas 烤進 EXE)在原生 DirectDraw 畫面即時繪字,**開機即中文**。Linux **AppImage 已實測全綠**(主選單 / 清單 / 簡報 / 可玩地圖皆中文);Windows **zip 已打包**(含 `dplayx.dll` 等必要 DLL,wine smoke 過,真機 Windows 待驗)。散布檔見 [共用資源](#共用資源) 的 dist-manifest。
+《裝甲元帥2》(Panzer General II,SSI 1997)是 5D General 家族第四款,官方正式定名為「Living Battlefield」系列首作,全新 VC++/DirectDraw 引擎、地圖與單位圖像明顯比前作更立體精緻,戰役分支也拉得更深(5 條戰役線、53 個劇本,詳見[歷史百科/戰役.md](pg2/歷史百科/戰役.md))。繁中化**已完成並打包**:全部 UI / 地形 / 裝備 / 指揮官 / 302 個劇本地名 + 戰役簡報散文中文化,自建 2-byte CJK 引擎(atlas 烤進 EXE)在原生 DirectDraw 畫面即時繪字,**開機即中文**。Linux **AppImage 已實測全綠**(主選單 / 清單 / 簡報 / 可玩地圖皆中文);Windows **zip 已打包**(含 `dplayx.dll` 等必要 DLL,wine smoke 過,真機 Windows 待驗)。散布檔見 [共用資源](#共用資源) 的 dist-manifest。
 
 ### 實機截圖(wine,繁中版)
 
