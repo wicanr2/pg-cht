@@ -23,7 +23,7 @@ the clear-box residue fix (independent of font size choice, but needs fontH to s
 erase RECT).
 
 --- Patch chain (validated end-to-end at H=14 before being folded into this script) ---
-  atlas(H, font, face_index)
+  atlas(H, font, face_index)  [+ atlas12(BRIEF_FONT_H) for step 8, same char set/dense map]
     -> hooked EXE: build_hooked_exe_pg2.build(--no-lang --gw-clamp --ww-safe --ww-hook,
        font_h=H, title_fix=False)                              [WWSTUB advance=H, lineheight=H+2]
     -> add_ctype_repoint.build                                 [global _pctype fix]
@@ -31,7 +31,21 @@ erase RECT).
     -> patch_gwclamp_2byte.build(font_h=H)                     [2-byte-aware width measure]
     -> patch_status_clear.build(fontH=H)                       [status-bar clear-box residue fix]
     -> patch_briefing_wrapcount_clone.build                    [briefing wrap/line-count clone -> orig ctype]
+    -> patch_briefing_font12.build(BRIEF_FONT_H)               [briefing-only smaller font + full box]
   => <out>/PANZER2.EXE
+
+--- Why the 8th patch (briefing-only smaller font, default 12px) ---
+User (2026-07-19): the on-map campaign briefing prose is too big at 14px AND its box clips
+the paragraph (only ~7 of ~11 lines shown). Two briefing-only defects, fixed together with
+zero blast radius: (a) FONT TOO BIG -- the prose goes through the SHARED drawWrappedText
+@0x43e752 (11 callers, verified by xref), so it can't be shrunk by swapping the atlas; step 8
+appends a 2nd BRIEF_FONT_H atlas + a flag-dispatched WWSTUB and wraps ONLY the two on-map
+briefing box-drawers so only the briefing is smaller. (b) BOX CLIPPED -- the drawer sizes the
+box as countLines * 10 (native 8px-font pitch), but the CJK render pitch is FONT_H+2, so the
+box was ~10/16 of the needed height; step 8 rescales the two box-height sites (0x456e1d/
+0x45701c) to countLines * (BRIEF_FONT_H+2). countLines still measures at the (wider) FONT_H
+width, so its line count >= the BRIEF_FONT_H render's -> the box is always tall enough. See
+patch_briefing_font12.py.
 
 --- Why the 7th patch (briefing wrap/line-count clone) ---
 The step-3 _pctype repoint fixes scenario/campaign list truncation + status bar + the
@@ -97,9 +111,34 @@ FONT_H     = int(os.environ.get("PG2_FONT_H", "14"))
 FONT_TTF   = os.environ.get("PG2_FONT_TTF", "/usr/share/fonts/opentype/noto/NotoSansCJK-Medium.ttc")
 FONT_INDEX = int(os.environ.get("PG2_FONT_INDEX", "3"))    # 3 = Traditional Chinese face
 
+# Briefing prose font size (smaller than the 14px UI, per user request 2026-07-19). The
+# on-map campaign/scenario briefing goes through a SHARED word-wrap routine (drawWrappedText
+# @0x43e752, 11 callers), so it can NOT be shrunk by simply swapping the atlas. Step 8
+# (patch_briefing_font12) appends a 2nd 12px atlas + a flag-dispatched WWSTUB and wraps ONLY
+# the 2 on-map briefing box-drawers (0x456d32 / 0x456efb) so the briefing prose renders at
+# BRIEF_FONT_H while every other drawWrappedText caller (advisor tips, help/message boxes)
+# and all drawStringCore UI (menus/lists/status bar/purchase/unit-info) stay at FONT_H. It
+# also fixes the briefing box HEIGHT (the drawer sizes it as countLines * native-10px-pitch,
+# far too short for the CJK render pitch -> the paragraph clipped; step 8 rescales it to
+# countLines * (BRIEF_FONT_H+2) so the whole paragraph fits). Set PG2_BRIEFING12=0 to skip
+# (reproduces the pre-2026-07-19 all-14px build). The 12px atlas is built from the SAME
+# char set as the main atlas, so its dense mapping is identical -> the dense-encoded *.TXT
+# data files are reused verbatim; only the glyph pixels differ.
+BRIEF_FONT12    = os.environ.get("PG2_BRIEFING12", "1") != "0"
+BRIEF_FONT_H    = int(os.environ.get("PG2_BRIEF_FONT_H", "12"))
+BRIEF_FONT_TTF  = os.environ.get("PG2_BRIEF_FONT_TTF", "/usr/share/fonts/opentype/noto/NotoSansCJK-Regular.ttc")
+BRIEF_FONT_INDEX= int(os.environ.get("PG2_BRIEF_FONT_INDEX", "3"))  # 3 = Traditional Chinese face
+# Briefing box HEIGHT per-line pitch (box = countLines * BRIEF_BOX_PITCH). DECOUPLED from the
+# render line pitch (BRIEF_FONT_H+2) because countLines under-counts vs the atlas render for CJK
+# -> a pitch == render pitch still clips the last line(s). Calibrated in wine (2026-07-19) so
+# the longest opening briefing shows in full; extra slack just leaves empty box below (matches
+# the original tall-box look, evidence/pg2-campaign-briefing-cht.png). See §7.13.
+BRIEF_BOX_PITCH = int(os.environ.get("PG2_BRIEF_BOX_PITCH", "24"))
+
 GAME      = os.path.join(OUT_DIR, "game")
 BUILD     = os.path.join(OUT_DIR, "build")
 ATLAS_DIR = os.path.join(BUILD, "atlas")
+ATLAS12_DIR = os.path.join(BUILD, "atlas12")   # briefing-only smaller atlas (step 8)
 
 TOP_FILES = ["GUI97.TXT", "MISC.TXT", "EQUIP97.TXT", "NAMES.TXT"]
 SIZE_LIMITS = {"GUI97.TXT": 64*1024, "EQUIP97.TXT": 64*1024,
@@ -192,6 +231,19 @@ def main():
     ai = json.load(open(os.path.join(ATLAS_DIR, "atlas_index.json")))
     print(f"[atlas] {ai['count']} glyphs, maxlead 0x{ai['maxlead']:02x}, size {ai['atlas_size']}B")
 
+    # 1b. briefing-only smaller atlas from the SAME strings.json -> identical dense mapping
+    #     (dense depends only on the sorted char set, not H/font), so the encoded *.TXT reuse
+    #     unchanged and patch_briefing_font12 can share the main atlas's dense codes.
+    if BRIEF_FONT12:
+        subprocess.run([sys.executable, os.path.join(TOOLS, "build_atlas_pg2.py"),
+                        strings_path, ATLAS12_DIR, str(BRIEF_FONT_H), BRIEF_FONT_TTF,
+                        str(BRIEF_FONT_INDEX)], check=True)
+        a12 = json.load(open(os.path.join(ATLAS12_DIR, "atlas_index.json")))
+        assert a12["count"] == ai["count"], \
+            f"briefing atlas count {a12['count']} != main atlas count {ai['count']} (dense map would diverge)"
+        print(f"[atlas12] {a12['count']} glyphs @H={BRIEF_FONT_H} "
+              f"({os.path.basename(BRIEF_FONT_TTF)}#{BRIEF_FONT_INDEX}) for briefing prose")
+
     # 2. hooked EXE: main hook + gw-clamp(placeholder) + ww-safe + word-wrap 2-byte hook,
     #    WWSTUB advance/lineheight = FONT_H/FONT_H+2, NO lang flip, NO per-site title_fix
     #    (superseded by the global ctype repoint applied in step 4 -- see module docstring).
@@ -228,8 +280,22 @@ def main():
     #    byte-identical (only the 2 box-drawer callers 0x456e01/0x457000 are redirected).
     #    Only ordering requirement: after the repoint (step 3).
     hooked_final = os.path.join(BUILD, "PANZER2.EXE")
+    clone_out = os.path.join(BUILD, "clone.exe") if BRIEF_FONT12 else hooked_final
     subprocess.run([sys.executable, os.path.join(TOOLS, "patch_briefing_wrapcount_clone.py"),
-                    statusclear, hooked_final], check=True)
+                    statusclear, clone_out], check=True)
+
+    # 8. briefing-only smaller font (default 12px). Appends a .b12 section holding a 2nd
+    #    (BRIEF_FONT_H) atlas + a flag-dispatched WWSTUB, repoints the word-wrap hook to a
+    #    dispatch, and wraps ONLY the two on-map briefing box-drawer render calls (0x456e8d/
+    #    0x45706b) with a flag trampoline -> only the briefing prose is smaller; the other 9
+    #    drawWrappedText callers and all drawStringCore UI keep FONT_H. Also rescales the
+    #    briefing box HEIGHT (native x10 -> x(BRIEF_FONT_H+2)) so the whole paragraph is shown.
+    #    Must run last (after the clone), on the fully-hooked EXE. Zero blast radius: one new
+    #    appended section + repointed ww-hook rel32 + 2 render-call rel32 + 2 box-height sites.
+    if BRIEF_FONT12:
+        subprocess.run([sys.executable, os.path.join(TOOLS, "patch_briefing_font12.py"),
+                        clone_out, os.path.join(ATLAS12_DIR, "atlas_font.dat"),
+                        hooked_final, BUILD, str(BRIEF_FONT_H), str(BRIEF_BOX_PITCH)], check=True)
 
     # 8. game dir: fresh hardlink copy of the pristine extract, swap in hooked EXE
     if os.path.exists(GAME):
@@ -282,6 +348,26 @@ def main():
     # shared countLines @0x43fdd5 must be byte-identical to stock (still reads [0x4ba538])
     mf = 0x43fdd5 - 0x401000 + 0x400
     assert d[mf+0x12d:mf+0x12d+6] == bytes.fromhex("8b0d38a54b00"), "shared 0x43fdd5 was modified!"
+    # briefing font12 (step 8): box-height sites rescaled + render calls -> .b12 trampoline
+    if BRIEF_FONT12:
+        for bva in (0x456e1d, 0x45701c):          # imul eax,eax,BRIEF_BOX_PITCH ; nop ; nop
+            bf = bva - 0x401000 + 0x400
+            assert d[bf] == 0x6b and d[bf+2] == BRIEF_BOX_PITCH and d[bf+3:bf+5] == b"\x90\x90", \
+                f"box-height @0x{bva:x} not rescaled to x{BRIEF_BOX_PITCH}: {d[bf:bf+5].hex()}"
+            print(f"  briefing box-h @0x{bva:x} = imul eax,eax,{BRIEF_BOX_PITCH} "
+                  f"(was x10; render pitch {BRIEF_FONT_H+2})")
+        for rva in (0x456e8d, 0x45706b):          # call briefing render -> .b12 trampoline
+            rf = rva - 0x401000 + 0x400
+            rtgt = rva + 5 + struct.unpack_from('<i', d, rf+1)[0]
+            assert rtgt >= 0x5c0000 and rtgt != 0x460193, f"render call @0x{rva:x} not wrapped: 0x{rtgt:x}"
+            print(f"  briefing render @0x{rva:x} -> 0x{rtgt:x} (flag trampoline, not 0x460193)")
+        # a .b12 section must be present, and the ww-hook must point into it
+        e = struct.unpack_from('<I', d, 0x3c)[0]; coff2 = e+4
+        nsec2 = struct.unpack_from('<H', d, coff2+2)[0]; osz2 = struct.unpack_from('<H', d, coff2+16)[0]
+        st2 = coff2+20+osz2
+        names = [d[st2+i*40:st2+i*40+8].rstrip(b"\0") for i in range(nsec2)]
+        assert b".b12" in names, f"no .b12 section: {names}"
+        print(f"  sections = {[n.decode(errors='replace') for n in names]}")
     print(f"  size = {len(d)} bytes  md5={__import__('hashlib').md5(d).hexdigest()}")
     n_scen_game = len(glob.glob(os.path.join(GAME, "SCENARIO", "*.TXT"))) + \
                   len(glob.glob(os.path.join(GAME, "SCENARIO", "*.txt")))
