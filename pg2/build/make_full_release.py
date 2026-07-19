@@ -29,10 +29,24 @@ erase RECT).
     -> add_ctype_repoint.build                                 [global _pctype fix]
     -> patch_null_guard.build                                  [_output NULL guard]
     -> patch_gwclamp_2byte.build(font_h=H)                     [2-byte-aware width measure]
-    -> patch_status_clear.build(fontH=H)                       [status-bar clear-box residue fix]
+    -> patch_status_clear.build(fontH=H)                       [status-bar clear-box + field-9 TITLE residue fix]
     -> patch_briefing_wrapcount_clone.build                    [briefing wrap/line-count clone -> orig ctype]
     -> patch_briefing_font12.build(BRIEF_FONT_H)               [briefing-only smaller font + full box]
+    -> patch_purchase_cell_clip.build(font_h=H)                [procurement unit-name cell-label clip fix]
   => <out>/PANZER2.EXE
+
+--- Why the 9th patch + field-9 in status-clear (procurement screen fixes, 2026-07-19) ---
+Two confirmed procurement-screen CJK-clip defects, both dynamic-trace localized (hook
+glyph-blit @0x41b033 / drawTextField @0x43eda9) and wine-verified:
+  (A) TITLE residue on unit-class switch -- field 9 (the centered title) is redrawn each
+      class switch via drawTextField(9); its erase covers the full field width but only 7px
+      tall (B-T), so a shorter new title leaves the previous longer title's lower half behind.
+      Fixed by adding field 9 to patch_status_clear (bottom = T+FONT_H+1), matching sibling
+      field 2. NOT a separate "draw-only" path (the hand-off diagnosis was corrected here).
+  (B) unit-name cell LABELS clipped to ~9px -- the procurement control-paint method @0x42c302
+      draws each label into a per-cell clip view sized to the native 8px font; 14px CJK is cut.
+      Fixed by patch_purchase_cell_clip (widen that one call site's clip to 2+FONT_H). Scoped
+      to control array 0x4a1e08; the shared glyph-blit/initView are byte-untouched.
 
 --- Why the 8th patch (briefing-only smaller font, default 12px) ---
 User (2026-07-19): the on-map campaign briefing prose is too big at 14px AND its box clips
@@ -297,6 +311,18 @@ def main():
                         clone_out, os.path.join(ATLAS12_DIR, "atlas_font.dat"),
                         hooked_final, BUILD, str(BRIEF_FONT_H), str(BRIEF_BOX_PITCH)], check=True)
 
+    # 9. procurement-screen unit-name cell-label vertical-clip fix (2026-07-19). The
+    #    procurement control-paint method @0x42c302 draws each cell label into a per-cell clip
+    #    view whose height was the native 8px (desc[+8]+2 .. desc[+8]+10), cutting 14px CJK to
+    #    ~9px. Widen ONLY that one call site's y1 offset to 2+FONT_H (dynamic-trace confirmed;
+    #    scoped to the procurement control array 0x4a1e08's render method -- shared glyph-blit
+    #    @0x41b033 and initView @0x45ecdc are byte-untouched). Fixed .text offset, so this runs
+    #    last, in place, on the fully-hooked EXE. See patch_purchase_cell_clip.py. NB: the
+    #    matching procurement TITLE residue on class-switch is fixed by step 6 (status-clear now
+    #    also covers field 9 = the screen title -- see patch_status_clear.py).
+    subprocess.run([sys.executable, os.path.join(TOOLS, "patch_purchase_cell_clip.py"),
+                    hooked_final, hooked_final, str(FONT_H)], check=True)
+
     # 8. game dir: fresh hardlink copy of the pristine extract, swap in hooked EXE
     if os.path.exists(GAME):
         shutil.rmtree(GAME)
@@ -368,6 +394,13 @@ def main():
         names = [d[st2+i*40:st2+i*40+8].rstrip(b"\0") for i in range(nsec2)]
         assert b".b12" in names, f"no .b12 section: {names}"
         print(f"  sections = {[n.decode(errors='replace') for n in names]}")
+    # procurement fixes (step 9 + field-9 in step 6)
+    cf = 0x42c728 - 0x401000 + 0x400
+    assert d[cf] == 2 + FONT_H, f"cell-clip @0x42c728 = {d[cf]:#x}, want {2+FONT_H:#x} (2+FONT_H)"
+    print(f"  cell-clip @0x42c726 = add eax,{d[cf]} (procurement label clip = cellTop+{d[cf]}; was 10)")
+    b9 = struct.unpack_from('<h', d, 0xabbf5)[0]
+    assert b9 == 11 + FONT_H + 1, f"field9 title erase bottom = {b9}, want {11+FONT_H+1} (T+FONT_H+1)"
+    print(f"  field9 title erase B = {b9} (was 18; T+FONT_H+1 -> full CJK title erase)")
     print(f"  size = {len(d)} bytes  md5={__import__('hashlib').md5(d).hexdigest()}")
     n_scen_game = len(glob.glob(os.path.join(GAME, "SCENARIO", "*.TXT"))) + \
                   len(glob.glob(os.path.join(GAME, "SCENARIO", "*.txt")))

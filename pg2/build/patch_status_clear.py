@@ -19,10 +19,24 @@ unchanged. Because the erase is a Blt from mainbutn.shp (source-Y anchored to to
 extending `bottom` re-blits additional atlas rows just below the field -> MUST be verified
 in-game (fields 4/5/6 share one bar-background strip so it is expected clean).
 
-Fields patched: 1,2,3,8 (top bar, T=11) + 4,5,6 (bottom bar, T=457). Field 7 (T=360,
-h=23) is already tall and untouched; field 0 is unused. File offsets of the patched
-`bottom` word (BASE_FILE + fid*STRIDE + 6): field1=0xabb7d field2=0xabb8c field3=0xabb9b
-field8=0xabbe6 field4=0xabbaa field5=0xabbb9 field6=0xabbc8.
+Fields patched: 1,2,3,8 (top bar, T=11) + 4,5,6 (bottom bar, T=457) + 9 (screen TITLE,
+T=11 -- added 2026-07-19, see below). Field 7 (T=360, h=23) is already tall and untouched;
+field 0 is unused. File offsets of the patched `bottom` word (BASE_FILE + fid*STRIDE + 6):
+field1=0xabb7d field2=0xabb8c field3=0xabb9b field8=0xabbe6 field4=0xabbaa field5=0xabbb9
+field6=0xabbc8 field9=0xabbf5.
+
+=== Field 9 = the screen TITLE (fixes the procurement title residue, 2026-07-19) ===
+Field 9 [L=86,T=11,R=552,B=18, eraseBg=92, align=1] is the centered screen title drawn by
+drawTextField @0x43eda9. Its erase blits the panel background over the FULL field RECT (L..R)
+but only B-T = 7px tall -- too short for the 14px CJK title. On the procurement screen the
+title is redrawn each time the unit CLASS is switched; the first (fresh, empty-band) draw is
+clean, but a shorter new title (e.g. "徵用" over "選擇戰車單位") only erases the top 7px, so
+the previous longer title's lower half stays behind -> the overlapping-garble residue.
+Dynamic trace (hook drawTextField @0x43eda9) proved the title always goes through
+drawTextField(field=9) -- there is NO separate "draw-only" path -- so raising field 9's
+`bottom` to T+FONT_H+1 (=26 at FONT_H=14, exactly matching the already-patched sibling field 2
+[86,11,552,26]) makes the erase cover the full CJK title height and the residue is gone
+(wine-verified: clean title on every class switch). Pure data patch, only field 9's erase RECT.
 
 This is a pure data patch at a FIXED file offset inside the original (unmoved) .data
 section, so it is safe to run as the LAST step of the build chain regardless of how many
@@ -35,7 +49,7 @@ import struct, sys
 
 BASE_FILE = 0xabb68        # descriptor table file offset (VA 0x4acd68); unchanged by appended sections
 STRIDE = 15
-DEFAULT_FIELDS = [1, 2, 3, 4, 5, 6, 8]
+DEFAULT_FIELDS = [1, 2, 3, 4, 5, 6, 8, 9]   # 9 = screen title (procurement title residue fix)
 
 def build(exe_in, exe_out, fontH, fields):
     d = bytearray(open(exe_in, "rb").read())
